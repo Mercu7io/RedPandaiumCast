@@ -1,0 +1,1060 @@
+
+[INFO] 2026-05-06T20:00:46.345Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-06T20:00:46.347Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-06T20:00:51.841Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-06T20:00:57.228Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-06T20:01:53.901Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-06T20:01:54.089Z - [pub-jwb-137_1_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-06T20:01:54.089Z - [pub-jwb-137_1_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-06T20:01:54.572Z - [Docker] Started libretranslate
+[INFO] 2026-05-06T20:01:59.575Z - [pub-jwb-137_1_VIDEO] Translating VTT from en to fr via LibreTranslate...
+[INFO] 2026-05-06T20:01:59.591Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:02:02.597Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:02:05.603Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:02:08.611Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:02:11.619Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:02:14.628Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-06T20:02:14.632Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:02:17.639Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:02:20.647Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:02:23.655Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:02:26.664Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:02:29.675Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-06T20:02:29.680Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:02:32.688Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:02:35.695Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:02:38.702Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:02:41.707Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:02:44.717Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-06T20:02:44.725Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:03:27.859Z - [Retry] Request failed (ECONNRESET). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:03:30.898Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:03:33.940Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:03:36.980Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:03:40.018Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:03:40.054Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:03:43.090Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:03:46.131Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:03:49.169Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:03:52.210Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:03:55.251Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:03:55.287Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:03:58.328Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:04:01.368Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:04:04.408Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:04:07.449Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:04:10.488Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:04:10.527Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:04:13.568Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:04:16.606Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:04:19.645Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:04:22.682Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:04:25.721Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:04:25.757Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:04:28.797Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:04:31.838Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:04:34.877Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:04:37.915Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:04:40.953Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:04:40.990Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:04:44.034Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:04:47.074Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:04:50.113Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:04:53.151Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:04:56.190Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:04:56.226Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:04:59.266Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:05:02.320Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:05:05.359Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:05:08.398Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:05:11.436Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:05:11.473Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:05:14.510Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:05:17.568Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:05:20.606Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:05:23.646Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:05:26.685Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:05:26.723Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:05:29.762Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:05:32.801Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:05:35.841Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:05:38.879Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:05:41.919Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:05:41.956Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:05:44.995Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:05:48.034Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:05:51.073Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:05:54.109Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:05:57.149Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:05:57.185Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:06:00.225Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:06:03.265Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:06:06.303Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:06:09.344Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:06:12.385Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:06:12.420Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:06:15.461Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:06:18.501Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:06:21.540Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:06:24.581Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:06:27.623Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:06:27.660Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:06:30.700Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:06:33.741Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:06:36.780Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:06:39.824Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:06:42.862Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:06:42.899Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:06:45.944Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:06:48.985Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:06:52.024Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:06:55.067Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:06:58.105Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:06:58.138Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:07:01.180Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:07:04.219Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:07:07.259Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:07:10.300Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:07:13.338Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:07:13.374Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:07:16.417Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:07:19.455Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:07:22.494Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:07:25.533Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:07:28.572Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:07:28.607Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:07:31.646Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:07:34.691Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:07:37.733Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:07:40.773Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:07:43.812Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:07:43.847Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:07:46.883Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:07:49.925Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:07:52.966Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:07:56.010Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:07:59.050Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:07:59.086Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:08:02.132Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:08:05.173Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:08:08.209Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:08:11.249Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:08:14.288Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:08:14.290Z - [pub-jwb-137_1_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-06T20:08:14.290Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-06T20:09:54.071Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-06T20:09:54.172Z - [pub-jwb-137_1_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-06T20:09:54.173Z - [pub-jwb-137_1_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-06T20:09:54.651Z - [Docker] Started libretranslate
+[INFO] 2026-05-06T20:09:59.657Z - [pub-jwb-137_1_VIDEO] Translating VTT from en to fr via LibreTranslate...
+[INFO] 2026-05-06T20:09:59.669Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:10:02.675Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:10:05.683Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:10:08.690Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:10:11.698Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:10:14.709Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-06T20:10:14.713Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:10:17.718Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:10:20.723Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:10:23.731Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:10:26.736Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:10:29.745Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-06T20:10:29.750Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:10:32.753Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:10:35.757Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:10:38.765Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:10:41.772Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:10:44.777Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-06T20:10:44.781Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:11:26.397Z - [Retry] Request failed (ECONNRESET). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:11:29.437Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:11:32.476Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:11:35.515Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:11:38.556Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:11:38.592Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:11:41.633Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:11:44.672Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:11:47.708Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:11:50.747Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:11:53.785Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:11:53.821Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:11:56.862Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:11:59.902Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:12:02.940Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:12:05.979Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:12:09.018Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:12:09.056Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:12:12.094Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:12:15.131Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:12:18.171Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:12:21.210Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:12:24.251Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:12:24.287Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:12:27.326Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:12:30.367Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:12:33.408Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:12:36.451Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:12:39.492Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:12:39.528Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:12:42.569Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:12:45.627Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:12:48.667Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:12:51.708Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:12:54.749Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:12:54.785Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:12:57.822Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:13:00.860Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:13:03.899Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:13:06.940Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:13:09.982Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:13:10.017Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:13:13.058Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:13:16.096Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:13:19.136Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:13:22.176Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:13:25.215Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:13:25.248Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:13:28.290Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:13:31.329Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:13:34.368Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:13:37.408Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:13:40.449Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:13:40.484Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:13:43.525Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:13:46.566Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:13:49.605Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:13:52.645Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:13:55.683Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:13:55.718Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:13:58.756Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:14:01.794Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:14:04.833Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:14:07.874Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:14:10.914Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:14:10.949Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:14:13.989Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:14:17.027Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:14:20.065Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:14:23.105Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:14:26.144Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:14:26.178Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:14:29.218Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:14:32.263Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:14:35.302Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:14:38.344Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:14:41.383Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:14:41.418Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:14:44.453Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:14:47.491Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:14:50.532Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:14:53.573Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:14:56.613Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:14:56.647Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:14:59.686Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:15:02.726Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:15:05.766Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:15:08.805Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:15:11.849Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:15:11.887Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:15:14.934Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:15:17.974Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:15:21.016Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:15:24.057Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:15:27.093Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:15:27.132Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:15:30.173Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:15:33.212Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:15:36.251Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:15:39.289Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:15:42.325Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:15:42.361Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:15:45.400Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:15:48.442Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:15:51.479Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:15:54.520Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:15:57.560Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:15:57.595Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:16:00.637Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:16:03.680Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:16:06.720Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:16:09.762Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:16:12.801Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:16:12.802Z - [pub-jwb-137_1_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-06T20:16:12.802Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-06T20:19:08.933Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-06T20:19:08.935Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-06T20:19:14.463Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-06T20:19:20.006Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-06T20:19:44.533Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-06T20:19:44.691Z - [pub-jwb-137_1_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-06T20:19:44.691Z - [pub-jwb-137_1_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-06T20:19:45.213Z - [Docker] Started libretranslate
+[INFO] 2026-05-06T20:19:50.216Z - [pub-jwb-137_1_VIDEO] Translating VTT from en to fr via LibreTranslate...
+[INFO] 2026-05-06T20:19:50.263Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:19:53.302Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:19:56.343Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:19:59.383Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:20:02.424Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:20:05.465Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:20:05.511Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:20:08.551Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:20:11.590Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:20:14.630Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:20:17.671Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:20:20.709Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:20:20.746Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:20:23.790Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:20:26.831Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:20:29.871Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:20:32.912Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:20:35.952Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:20:35.989Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:20:39.028Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:20:42.069Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:20:45.104Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:20:48.142Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:20:51.182Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:20:51.219Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:20:54.259Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:20:57.299Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:21:00.341Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:21:03.381Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:21:06.419Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:21:06.457Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:21:09.496Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:21:12.537Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:21:15.576Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:21:18.619Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:21:21.660Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:21:21.698Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:21:24.735Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:21:27.776Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:21:30.814Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:21:33.854Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:21:36.894Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:21:36.930Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:21:39.972Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:21:43.012Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:21:46.050Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:21:49.089Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:21:52.128Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:21:52.164Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:21:55.202Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:21:58.244Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:22:01.285Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:22:04.324Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:22:07.363Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:22:07.399Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:22:10.436Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:22:13.476Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:22:16.517Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:22:19.557Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:22:22.598Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:22:22.636Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:22:25.675Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:22:28.717Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:22:31.758Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:22:34.798Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:22:37.842Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:22:37.880Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:22:40.920Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:22:43.960Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:22:46.998Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:22:50.038Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:22:53.078Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:22:53.113Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:22:56.153Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:22:59.192Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:23:02.230Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:23:05.266Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:23:08.306Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:23:08.343Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:23:11.381Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:23:14.422Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:23:17.461Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:23:20.501Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:23:23.540Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:23:23.577Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:23:26.618Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:23:29.659Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:23:32.700Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:23:35.739Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:23:38.775Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:23:38.810Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:23:41.853Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:23:44.893Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:23:47.932Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:23:50.970Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:23:54.011Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:23:54.047Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:23:57.086Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:24:00.124Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:24:03.164Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:24:06.198Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:24:09.235Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:24:09.271Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:24:12.312Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:24:15.351Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:24:18.390Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:24:21.429Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:24:24.474Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:24:24.513Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:24:27.554Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:24:30.597Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:24:33.636Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:24:36.676Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:24:39.714Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:24:39.750Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:24:42.790Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:24:45.830Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:24:48.868Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:24:51.910Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:24:54.952Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:24:54.988Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:24:58.025Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:25:01.067Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:25:04.107Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:25:07.144Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:25:10.185Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:25:10.219Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-06T20:25:13.260Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-06T20:25:16.300Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-06T20:25:19.344Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-06T20:25:22.383Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-06T20:25:25.424Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-06T20:25:25.425Z - [pub-jwb-137_1_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-06T20:25:25.425Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-06T20:35:25.441Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-06T20:35:30.914Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T13:14:19.016Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T13:14:19.017Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T13:14:24.471Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T13:14:29.946Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T13:18:50.078Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T13:18:50.079Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T13:18:55.682Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T13:19:01.155Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T13:28:11.987Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T13:28:11.988Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T13:28:17.447Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T13:28:22.893Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T13:44:11.795Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T13:44:11.796Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T13:44:17.230Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T13:44:22.692Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T13:53:11.105Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T13:53:11.106Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T13:53:16.639Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T13:53:22.140Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T14:55:55.947Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T14:55:55.948Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T14:56:01.461Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T14:56:06.918Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T14:56:19.516Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T14:56:19.724Z - [pub-jwb-100_2_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-12T14:56:19.724Z - [pub-jwb-100_2_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-12T14:56:20.247Z - [Docker] Started libretranslate
+[INFO] 2026-05-12T14:56:25.253Z - [pub-jwb-100_2_VIDEO] Translating VTT from en to fr via LibreTranslate...
+[INFO] 2026-05-12T14:56:25.295Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:56:28.338Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:56:31.380Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:56:34.421Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:56:37.462Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:56:40.503Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:56:40.539Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:56:43.578Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:56:46.618Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:56:49.675Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:56:52.716Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:56:55.754Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:56:55.789Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:56:58.826Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:57:01.864Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:57:04.904Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:57:07.947Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:57:11.003Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:57:11.040Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:57:14.081Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:57:17.119Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:57:20.163Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:57:23.200Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:57:26.238Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:57:26.273Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:57:29.314Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:57:32.355Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:57:35.394Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:57:38.430Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:57:41.472Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:57:41.511Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:57:44.553Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:57:47.591Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:57:50.630Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:57:53.669Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:57:56.710Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:57:56.744Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:57:59.784Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:58:02.824Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T14:58:05.865Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T14:58:08.904Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T14:58:11.945Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T14:58:11.981Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T14:58:15.021Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T14:58:18.063Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T15:03:00.675Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T15:03:00.675Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T15:03:06.145Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T15:03:11.569Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T15:06:50.496Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T15:06:50.497Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T15:06:56.082Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T15:07:02.036Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T15:20:30.042Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T15:20:30.241Z - [pub-ebtv_13_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-12T15:20:30.241Z - [pub-ebtv_13_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-12T15:20:30.353Z - [Docker] libretranslate is already running
+[INFO] 2026-05-12T15:20:35.359Z - [pub-ebtv_13_VIDEO] Translating VTT from en to tl via LibreTranslate...
+[INFO] 2026-05-12T15:20:35.521Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T15:20:38.537Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T15:20:41.550Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T15:20:44.568Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T15:20:47.584Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T15:20:50.596Z - [Translation] Chunk translation failed: Request failed with status code 400
+[INFO] 2026-05-12T15:20:50.605Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T15:20:53.622Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T15:20:56.635Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T15:20:59.644Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T15:21:02.655Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T15:21:05.665Z - [Translation] Chunk translation failed: Request failed with status code 400
+[INFO] 2026-05-12T15:21:05.667Z - [pub-ebtv_13_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-12T15:21:05.667Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T15:22:07.574Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T15:22:07.576Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T15:22:13.046Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T15:22:18.442Z - [Docker] Stopped libretranslate
+[INFO] 2026-05-12T15:28:31.216Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T15:28:31.401Z - [pub-ebtv_13_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-12T15:28:31.402Z - [pub-ebtv_13_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-12T15:28:31.871Z - [Docker] Started libretranslate
+[INFO] 2026-05-12T15:28:36.877Z - [pub-ebtv_13_VIDEO] Translating VTT from en to tl via LibreTranslate...
+[INFO] 2026-05-12T15:28:36.887Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T15:28:39.895Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T15:28:42.903Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T15:28:45.913Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T15:28:48.922Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T15:28:51.927Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-12T15:28:51.932Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T15:28:54.940Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T15:28:57.947Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T15:29:00.957Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T15:29:03.964Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T15:29:06.976Z - [Translation] Chunk translation failed: connect ECONNREFUSED 172.23.0.2:5000
+[INFO] 2026-05-12T15:29:06.976Z - [pub-ebtv_13_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-12T15:29:06.976Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T15:39:07.003Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T16:05:36.867Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T16:05:36.988Z - [pub-jwbvod26_14_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-12T16:05:36.988Z - [pub-jwbvod26_14_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-12T16:05:37.084Z - [Docker] libretranslate is already running
+[INFO] 2026-05-12T16:05:42.087Z - [pub-jwbvod26_14_VIDEO] Translating VTT from en to tl via LibreTranslate...
+[INFO] 2026-05-12T16:05:42.095Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T16:05:45.103Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T16:05:48.110Z - [Retry] Request failed (ECONNREFUSED). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T16:06:34.846Z - [Retry] Request failed (ECONNRESET). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T16:06:37.885Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T16:06:40.925Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T16:06:40.962Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T16:06:44.004Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T16:06:47.049Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T16:06:50.087Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T16:06:53.126Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T16:06:56.166Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T16:06:56.202Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T16:06:59.244Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T16:07:02.283Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T16:07:05.323Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T16:07:08.364Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T16:07:11.404Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T16:07:11.439Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 1/6)
+[INFO] 2026-05-12T16:07:14.480Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 2/6)
+[INFO] 2026-05-12T16:07:17.524Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 3/6)
+[INFO] 2026-05-12T16:07:20.562Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 4/6)
+[INFO] 2026-05-12T16:07:23.601Z - [Retry] Request failed (ENOTFOUND). Retrying in 3000ms... (Attempt 5/6)
+[ERROR] 2026-05-12T16:07:26.641Z - [Translation] Chunk translation failed: getaddrinfo ENOTFOUND libretranslate
+[INFO] 2026-05-12T16:07:26.641Z - [pub-jwbvod26_14_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-12T16:07:26.641Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T16:17:26.658Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:05:37.752Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T17:05:37.753Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:05:43.165Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T17:08:58.794Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:08:58.986Z - [pub-jwbvod26_14_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-12T17:08:58.986Z - [pub-jwbvod26_14_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-12T17:08:59.083Z - [pub-jwbvod26_14_VIDEO] Translating VTT from en to tl via Google Translate API...
+[INFO] 2026-05-12T17:09:00.524Z - [Translation] Line mismatch in chunk 1. Falling back to 1-by-1.
+[INFO] 2026-05-12T17:09:08.124Z - [Translation] Line mismatch in chunk 2. Falling back to 1-by-1.
+[INFO] 2026-05-12T17:09:14.755Z - [Translation] Line mismatch in chunk 3. Falling back to 1-by-1.
+[INFO] 2026-05-12T17:09:19.804Z - [Translation] Line mismatch in chunk 4. Falling back to 1-by-1.
+[INFO] 2026-05-12T17:14:45.384Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T17:14:45.384Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:19:16.974Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:19:17.270Z - [pub-mwbv_202605_1_VIDEO] Found native subtitle match in EN!
+[INFO] 2026-05-12T17:19:17.271Z - [pub-mwbv_202605_1_VIDEO] Downloading native en VTT...
+[INFO] 2026-05-12T17:19:17.371Z - [pub-mwbv_202605_1_VIDEO] Translating VTT from en to fr via Google Translate API...
+[INFO] 2026-05-12T17:19:18.360Z - 
+--- TRANSLATION BATCH 1/8 LOG ---
+[INFO] 2026-05-12T17:19:18.361Z - [SENT 12 LINES]:
+Disasters often strike when least expected.
+But Jehovah’s people
+have done well in preparing.
+Their obedient preparation has saved lives.
+Let’s hear from a few who lived through the unexpected.
+We’ll start in the Democratic Republic of the Congo,
+where our brothers have endured decades
+of political unrest and violence.
+We had spent three and a half years in the refugee camp.
+Then the authorities told people
+to leave the area.
+War was coming.
+[INFO] 2026-05-12T17:19:18.361Z - [RECEIVED 12 LINES]:
+Les catastrophes surviennent souvent au moment où on s’y attend le moins.
+Mais le peuple de Jéhovah
+ont bien fait dans leur préparation.
+Leur préparation obéissante a sauvé des vies.
+Écoutons quelques-uns qui ont vécu l’inattendu.
+Nous commencerons par la République démocratique du Congo,
+où nos frères ont enduré des décennies
+de troubles politiques et de violence.
+Nous avions passé trois ans et demi dans le camp de réfugiés.
+Ensuite, les autorités ont dit aux gens
+de quitter la zone.
+La guerre arrivait.
+[INFO] 2026-05-12T17:19:18.361Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:20.631Z - 
+--- TRANSLATION BATCH 2/8 LOG ---
+[INFO] 2026-05-12T17:19:20.631Z - [SENT 13 LINES]:
+We were very worried about it.
+We wondered what life would be like
+in the new place we would be going to.
+The counsel from the elders
+helped me to realize the seriousness
+of what was happening.
+I gave it a lot of thought,
+especially what I should do for my family.
+After much prayer,
+we decided as a family to leave the refugee camp.
+Our parents had instructed us
+to prepare go bags.
+They had told us to pack important things.
+[INFO] 2026-05-12T17:19:20.631Z - [RECEIVED 13 LINES]:
+Nous en étions très inquiets.
+Nous nous demandions à quoi ressemblerait la vie
+dans le nouvel endroit où nous allions.
+Les conseils des anciens
+m'a aidé à réaliser le sérieux
+de ce qui se passait.
+J'y ai beaucoup réfléchi,
+surtout ce que je devrais faire pour ma famille.
+Après beaucoup de prière,
+nous avons décidé en famille de quitter le camp de réfugiés.
+Nos parents nous avaient dit
+pour préparer les sacs de voyage.
+Ils nous avaient dit d'emballer les choses importantes.
+[INFO] 2026-05-12T17:19:20.631Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:23.116Z - 
+--- TRANSLATION BATCH 3/8 LOG ---
+[INFO] 2026-05-12T17:19:23.116Z - [SENT 12 LINES]:
+One of the benefits of this was that when we left, our phones
+had enough battery power,
+and we had other people’s phone numbers.
+This helped us to call and inform them
+about the progress of our journey.
+A short time after we left,
+things got much worse.
+Many people died.
+Disasters can be war,
+fire, or any other distress.
+But if we apply the advice given by Jehovah’s organization,
+we will preserve our lives.
+[INFO] 2026-05-12T17:19:23.116Z - [RECEIVED 12 LINES]:
+L'un des avantages de cette solution était que lorsque nous partions, nos téléphones
+avait assez de batterie,
+et nous avions les numéros de téléphone d’autres personnes.
+Cela nous a aidé à les appeler et à les informer
+sur l'avancement de notre voyage.
+Peu de temps après notre départ,
+les choses ont empiré.
+Beaucoup de gens sont morts.
+Les catastrophes peuvent être des guerres,
+un incendie ou toute autre détresse.
+Mais si nous appliquons les conseils donnés par l’organisation de Jéhovah,
+nous préserverons nos vies.
+[INFO] 2026-05-12T17:19:23.116Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:25.601Z - 
+--- TRANSLATION BATCH 4/8 LOG ---
+[INFO] 2026-05-12T17:19:25.603Z - [SENT 10 LINES]:
+In other parts of the world, it wasn’t violent conflict,
+but natural disasters that tested our brothers’ preparedness.
+Notice how our brothers in the United States
+were affected by Hurricane Helene in 2024.
+It lulls you into a false sense of security
+when you live in an area that doesn’t typically get
+certain types of natural disasters.
+So I didn’t expect a hurricane
+to really be that much of a threat
+in the mountains where we live.
+[INFO] 2026-05-12T17:19:25.603Z - [RECEIVED 10 LINES]:
+Dans d’autres parties du monde, il n’y avait pas de conflit violent,
+mais des catastrophes naturelles qui ont mis à l’épreuve la préparation de nos frères.
+Remarquez comment nos frères aux États-Unis
+ont été touchées par l'ouragan Hélène en 2024.
+Cela vous berce dans un faux sentiment de sécurité
+lorsque vous vivez dans une région qui n’est généralement pas
+certains types de catastrophes naturelles.
+Donc je ne m'attendais pas à un ouragan
+être vraiment une menace à ce point
+dans les montagnes où nous vivons.
+[INFO] 2026-05-12T17:19:25.603Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:28.085Z - 
+--- TRANSLATION BATCH 5/8 LOG ---
+[INFO] 2026-05-12T17:19:28.085Z - [SENT 11 LINES]:
+But it was a very different reality, obviously.
+It was so widespread, and the devastation was like nothing
+that I’ve ever even experienced.
+And so at that point, we did
+start to feel desperate because
+it wasn’t just us but also it was our moms.
+Jehovah has reminded us
+so often through the organization and the meeting parts
+and different experiences.
+So even though we had just moved
+and we still had things in boxes and things in storage,
+[INFO] 2026-05-12T17:19:28.085Z - [RECEIVED 11 LINES]:
+Mais c’était évidemment une réalité très différente.
+C'était si répandu et la dévastation ne ressemblait à rien
+que j’ai jamais vécu.
+Et donc à ce moment-là, nous l'avons fait
+je commence à me sentir désespéré parce que
+ce n'était pas seulement nous mais aussi nos mères.
+Jéhovah nous a rappelé
+si souvent à travers l'organisation et les parties de réunion
+et des expériences différentes.
+Alors même si nous venions de déménager
+et nous avions encore des choses dans des cartons et des choses en stock,
+[INFO] 2026-05-12T17:19:28.086Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:30.385Z - 
+--- TRANSLATION BATCH 6/8 LOG ---
+[INFO] 2026-05-12T17:19:30.386Z - [SENT 10 LINES]:
+what wasn’t in storage were our go bags.
+When we tried to venture out,
+and we saw that it wasn’t going to be safe,
+we were able to return because we had what we needed.
+In hindsight, there were a couple of things
+that we could have shored up a little bit.
+For example, I had plenty of flashlights,
+but I hadn’t checked my batteries in a while.
+All of them had corroded or expired, so they weren’t working.
+I knew there was something off
+[INFO] 2026-05-12T17:19:30.386Z - [RECEIVED 10 LINES]:
+ce qui n’était pas entreposé, c’était nos sacs de voyage.
+Quand nous avons essayé de nous aventurer dehors,
+et nous avons vu que ce ne serait pas sûr,
+nous avons pu revenir car nous avions ce dont nous avions besoin.
+Avec le recul, il y avait plusieurs choses
+que nous aurions pu consolider un peu.
+Par exemple, j'avais plein de lampes de poche,
+mais je n'avais pas vérifié mes piles depuis un moment.
+Tous étaient corrodés ou périmés, donc ils ne fonctionnaient pas.
+Je savais qu'il y avait quelque chose qui n'allait pas
+[INFO] 2026-05-12T17:19:30.386Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:32.546Z - 
+--- TRANSLATION BATCH 7/8 LOG ---
+[INFO] 2026-05-12T17:19:32.546Z - [SENT 11 LINES]:
+when he started to open the go bags to get our flashlights,
+and he just got really quiet,
+and I was, like: “What happened?”
+So that is definitely a lesson learned.
+Jehovah continues to remind us
+to prepare for these disasters.
+Then the loving thing to do is to be obedient to that
+and take care of our families by doing just the practical things
+that we can control, that we can prepare for.
+At Matthew 11:19,
+Jesus said:
+[INFO] 2026-05-12T17:19:32.546Z - [RECEIVED 11 LINES]:
+quand il a commencé à ouvrir les sacs pour récupérer nos lampes de poche,
+et il est devenu vraiment silencieux,
+et je me disais : « Que s'est-il passé ?
+C’est donc définitivement une leçon apprise.
+Jéhovah continue de nous rappeler
+pour se préparer à ces catastrophes.
+Alors la chose à faire avec amour est d'obéir à cela
+et prendre soin de nos familles en faisant uniquement les choses pratiques
+que nous pouvons contrôler, auquel nous pouvons nous préparer.
+En Matthieu 11:19,
+Jésus a dit :
+[INFO] 2026-05-12T17:19:32.546Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:34.826Z - 
+--- TRANSLATION BATCH 8/8 LOG ---
+[INFO] 2026-05-12T17:19:34.826Z - [SENT 8 LINES]:
+“Wisdom is proved righteous by its results.”
+Like our brothers and sisters, how can we prove to be wise?
+(1) Prepare go bags in advance,
+(2) have evacuation plans and keep contact information up-to-date,
+(3) pay attention to warnings,
+and (4) trust in Jehovah and follow organizational direction.
+May Jehovah continue to bless your preparations
+as you expect the unexpected.
+[INFO] 2026-05-12T17:19:34.826Z - [RECEIVED 8 LINES]:
+« La sagesse se révèle juste par ses résultats. »
+Comme nos frères et sœurs, comment pouvons-nous nous montrer sages ?
+(1) Préparez les sacs de voyage à l'avance,
+(2) avoir des plans d’évacuation et tenir à jour les coordonnées,
+(3) faites attention aux avertissements,
+et (4) faire confiance à Jéhovah et suivre les directives de l’organisation.
+Que Jéhovah continue de bénir vos préparatifs
+comme vous vous attendez à l'inattendu.
+[INFO] 2026-05-12T17:19:34.826Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:19:35.827Z - [pub-mwbv_202605_1_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-12T17:19:35.828Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:21:57.377Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:21:57.632Z - [pub-mwbv_202105_4_VIDEO] Found native subtitle match in FR!
+[INFO] 2026-05-12T17:21:57.632Z - [pub-mwbv_202105_4_VIDEO] Downloading native fr VTT...
+[INFO] 2026-05-12T17:21:57.822Z - [pub-mwbv_202105_4_VIDEO] Translating VTT from fr to en via Google Translate API...
+[INFO] 2026-05-12T17:21:58.425Z - 
+--- TRANSLATION BATCH 1/4 LOG ---
+[INFO] 2026-05-12T17:21:58.425Z - [SENT 12 LINES]:
+-Allez, c’est parti.
+-J’ai mes petites manies.
+-Non, sérieux.
+-Donc, tu te souviens, la dernière fois,
+on a vu que Dieu nous a créés  pour vivre éternellement,
+mais alors on peut  se demander pourquoi on meurt.
+-Ouais, grave.
+-Qu’est-ce qui est grave ?
+-Je veux dire que  c’est une bonne question,
+et que j’aimerais  bien avoir la réponse.
+-OK.
+Si tu veux, on va prendre  ensemble Romains 5:12.
+[INFO] 2026-05-12T17:21:58.425Z - [RECEIVED 12 LINES]:
+-Come on, here we go.
+-I have my little quirks.
+-No, seriously.
+-So, you remember, last time,
+we saw that God created us to live forever,
+but then we can ask ourselves why we die.
+-Yeah, serious.
+-What’s the big deal?
+-I mean that's a good question,
+and I would love to have the answer.
+-Okay.
+If you want, we will take Romans 5:12 together.
+[INFO] 2026-05-12T17:21:58.425Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:21:59.967Z - 
+--- TRANSLATION BATCH 2/4 LOG ---
+[INFO] 2026-05-12T17:21:59.967Z - [SENT 9 LINES]:
+-Et si je le lisais à voix haute,  j’ai l’impression que ça serait
+plus encourageant,  qu’est-ce que tu en dis ?
+“C’est ainsi que par un seul homme  le péché est entré dans le monde
+et par le péché la mort,  et la mort s’est donc étendue
+à tous les hommes parce que  tous avaient péché.”
+Attends un peu, cet homme,  est-ce que c’est Adam ?
+-Tout à fait.
+-Mais c’est pas logique.
+Tu as dit qu’Adam était parfait  et qu’il devait pas mourir.
+[INFO] 2026-05-12T17:21:59.967Z - [RECEIVED 9 LINES]:
+-And if I read it out loud, I feel like it would be
+more encouraging, what do you say?
+“Thus through one man sin entered into the world
+and through sin death, and death therefore spread
+to all men because all had sinned.”
+Wait a minute, is this man Adam?
+-Quite.
+-But that’s not logical.
+You said that Adam was perfect and that he should not die.
+[INFO] 2026-05-12T17:21:59.967Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:22:01.657Z - 
+--- TRANSLATION BATCH 3/4 LOG ---
+[INFO] 2026-05-12T17:22:01.657Z - [SENT 11 LINES]:
+-C’est vrai.
+-Mais finalement,  il a péché, et il a tout perdu.
+Moi je me fais  avoir dans tout ça.
+Je meurs à cause  d’un type stupide ?
+-Eh bien, je le dirais  peut-être pas tout à fait comme ça.
+Réfléchissons à l’exemple suivant.
+Si un couple porteur  d’une anomalie génétique
+a des enfants,  qu’est-ce qui se passe ?
+-En général,  les enfants en héritent.
+-Exactement.
+Adam a péché, son péché  est comme une anomalie génétique
+[INFO] 2026-05-12T17:22:01.657Z - [RECEIVED 11 LINES]:
+-It's true.
+-But in the end, he sinned, and he lost everything.
+I'm getting caught in all this.
+Am I dying because of a stupid guy?
+-Well, maybe I wouldn't put it quite like that.
+Let’s think about the following example.
+If a couple carrying a genetic anomaly
+has kids, what’s going on?
+-In general, children inherit it.
+-Exactly.
+Adam sinned, his sin is like a genetic abnormality
+[INFO] 2026-05-12T17:22:01.657Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:22:03.248Z - 
+--- TRANSLATION BATCH 4/4 LOG ---
+[INFO] 2026-05-12T17:22:03.248Z - [SENT 5 LINES]:
+en quelque sorte,  il cause des maladies,
+la vieillesse et la mort ;
+étant donné qu’on est  tous ses enfants...
+-Oh, je comprends, génial.
+-Ça te dirait de regarder une petite  vidéo qui résume tout ça ?
+[INFO] 2026-05-12T17:22:03.248Z - [RECEIVED 5 LINES]:
+somehow it causes diseases,
+old age and death;
+since we are all his children...
+-Oh, I understand, great.
+-Would you like to watch a short video that sums it all up?
+[INFO] 2026-05-12T17:22:03.248Z - ---------------------------------------
+
+[INFO] 2026-05-12T17:22:04.250Z - [pub-mwbv_202105_4_VIDEO] Successfully generated AI subtitles.
+[INFO] 2026-05-12T17:22:04.250Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:27:01.757Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T17:27:01.758Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:32:52.301Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:32:52.459Z - [pub-mwbv_202105_4_VIDEO] No native English subtitles found. Triggering Whisper AI Transcription...
+[ERROR] 2026-05-12T17:32:52.465Z - [Docker] Failed to start whisper-api Request failed with status code 404
+[INFO] 2026-05-12T17:32:57.570Z - [pub-mwbv_202105_4_VIDEO] Downloading optimized low-bandwidth media for Whisper API...
+[INFO] 2026-05-12T17:32:57.978Z - [pub-mwbv_202105_4_VIDEO] Transcribing audio with Whisper AI...
+[INFO] 2026-05-12T17:32:58.021Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 1/20)
+[INFO] 2026-05-12T17:33:03.061Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 2/20)
+[INFO] 2026-05-12T17:33:08.098Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 3/20)
+[INFO] 2026-05-12T17:33:13.141Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 4/20)
+[INFO] 2026-05-12T17:33:18.180Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 5/20)
+[INFO] 2026-05-12T17:33:23.227Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 6/20)
+[INFO] 2026-05-12T17:33:28.270Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 7/20)
+[INFO] 2026-05-12T17:33:33.308Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 8/20)
+[ERROR] 2026-05-12T17:33:38.323Z - (node:18) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[ERROR] 2026-05-12T17:33:38.323Z - (node:18) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+[INFO] 2026-05-12T17:33:38.354Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 9/20)
+[ERROR] 2026-05-12T17:33:43.362Z - (node:18) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+[INFO] 2026-05-12T17:33:43.399Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 10/20)
+[INFO] 2026-05-12T17:33:48.441Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 11/20)
+[INFO] 2026-05-12T17:33:53.486Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 12/20)
+[INFO] 2026-05-12T17:33:58.532Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 13/20)
+[INFO] 2026-05-12T17:34:03.571Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 14/20)
+[INFO] 2026-05-12T17:34:08.613Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 15/20)
+[INFO] 2026-05-12T17:34:11.424Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T17:34:11.425Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:34:16.934Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T17:36:25.415Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T17:36:25.416Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:36:30.909Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T17:37:32.209Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:37:32.377Z - [pub-mwbv_202105_4_VIDEO] No native English subtitles found. Triggering Whisper AI Transcription...
+[INFO] 2026-05-12T17:37:32.791Z - [Docker] Started whisper-api
+[INFO] 2026-05-12T17:37:37.897Z - [pub-mwbv_202105_4_VIDEO] Downloading optimized low-bandwidth media for Whisper API...
+[INFO] 2026-05-12T17:37:38.196Z - [pub-mwbv_202105_4_VIDEO] Transcribing audio with Whisper AI...
+[INFO] 2026-05-12T17:37:38.210Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 1/20)
+[INFO] 2026-05-12T17:37:43.221Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 2/20)
+[INFO] 2026-05-12T17:37:48.232Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 3/20)
+[INFO] 2026-05-12T17:37:53.243Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 4/20)
+[INFO] 2026-05-12T17:37:58.267Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 5/20)
+[INFO] 2026-05-12T17:38:03.282Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 6/20)
+[INFO] 2026-05-12T17:38:08.292Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 7/20)
+[INFO] 2026-05-12T17:38:13.333Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 8/20)
+[ERROR] 2026-05-12T17:38:18.344Z - (node:17) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[ERROR] 2026-05-12T17:38:18.344Z - (node:17) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+[INFO] 2026-05-12T17:38:18.373Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 9/20)
+[ERROR] 2026-05-12T17:38:23.378Z - (node:17) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+[INFO] 2026-05-12T17:38:23.416Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 10/20)
+[INFO] 2026-05-12T17:38:28.457Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 11/20)
+[INFO] 2026-05-12T17:38:33.501Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 12/20)
+[INFO] 2026-05-12T17:38:38.539Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 13/20)
+[INFO] 2026-05-12T17:38:43.580Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 14/20)
+[INFO] 2026-05-12T17:38:48.620Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 15/20)
+[INFO] 2026-05-12T17:38:53.660Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 16/20)
+[INFO] 2026-05-12T17:38:58.701Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 17/20)
+[INFO] 2026-05-12T17:39:03.741Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 18/20)
+[INFO] 2026-05-12T17:39:08.785Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 19/20)
+[ERROR] 2026-05-12T17:39:13.826Z - [pub-mwbv_202105_4_VIDEO] Subtitle generation failed: getaddrinfo ENOTFOUND whisper-api
+[INFO] 2026-05-12T17:41:37.296Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T17:41:37.297Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:41:42.827Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T17:45:53.321Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T17:45:53.488Z - [pub-mwbv_202105_4_VIDEO] No native English subtitles found. Triggering Whisper AI Transcription...
+[INFO] 2026-05-12T17:45:53.896Z - [Docker] Started whisper-api
+[INFO] 2026-05-12T17:45:59.002Z - [pub-mwbv_202105_4_VIDEO] Downloading optimized low-bandwidth media for Whisper API...
+[INFO] 2026-05-12T17:45:59.266Z - [pub-mwbv_202105_4_VIDEO] Transcribing audio with Whisper AI...
+[INFO] 2026-05-12T17:45:59.276Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 1/20)
+[INFO] 2026-05-12T17:46:04.284Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 2/20)
+[INFO] 2026-05-12T17:46:09.293Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 3/20)
+[INFO] 2026-05-12T17:46:14.299Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 4/20)
+[INFO] 2026-05-12T17:46:19.307Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 5/20)
+[INFO] 2026-05-12T17:46:24.319Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 6/20)
+[INFO] 2026-05-12T17:55:53.337Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T17:55:53.392Z - [Retry] Request failed (ECONNRESET). Retrying in 5000ms... (Attempt 7/20)
+[INFO] 2026-05-12T17:55:56.656Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T17:55:58.431Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 8/20)
+[ERROR] 2026-05-12T17:56:03.442Z - (node:18) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[ERROR] 2026-05-12T17:56:03.442Z - (node:18) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+[INFO] 2026-05-12T17:56:03.474Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 9/20)
+[ERROR] 2026-05-12T17:56:08.479Z - (node:18) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added to [FormData]. Use emitter.setMaxListeners() to increase limit
+[INFO] 2026-05-12T17:56:08.513Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 10/20)
+[INFO] 2026-05-12T17:56:13.554Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 11/20)
+[INFO] 2026-05-12T17:56:18.595Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 12/20)
+[INFO] 2026-05-12T17:56:23.637Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 13/20)
+[INFO] 2026-05-12T17:56:28.680Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 14/20)
+[INFO] 2026-05-12T17:56:33.718Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 15/20)
+[INFO] 2026-05-12T17:56:38.755Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 16/20)
+[INFO] 2026-05-12T17:56:43.799Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 17/20)
+[INFO] 2026-05-12T17:56:48.843Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 18/20)
+[INFO] 2026-05-12T17:56:53.885Z - [Retry] Request failed (ENOTFOUND). Retrying in 5000ms... (Attempt 19/20)
+[ERROR] 2026-05-12T17:56:58.930Z - [pub-mwbv_202105_4_VIDEO] Subtitle generation failed: getaddrinfo ENOTFOUND whisper-api
+[INFO] 2026-05-12T18:28:26.447Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T18:28:26.573Z - [pub-mwbv_202105_4_VIDEO] No native English subtitles found. Triggering Whisper AI Transcription...
+[INFO] 2026-05-12T18:28:27.192Z - [Docker] Started whisper-api
+[INFO] 2026-05-12T18:28:33.239Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T18:28:33.240Z - [Lifecycle] Idle for 10 minutes. Stopping AI containers to free resources...
+[INFO] 2026-05-12T18:28:38.762Z - [Docker] Stopped whisper-api
+[INFO] 2026-05-12T18:28:41.771Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T18:28:41.967Z - [pub-mwbv_202105_4_VIDEO] No native fallback subtitles found. Triggering Whisper AI Transcription...
+[INFO] 2026-05-12T18:28:42.382Z - [Docker] Started whisper-api
+[INFO] 2026-05-12T18:28:47.501Z - [pub-mwbv_202105_4_VIDEO] Starting download of optimized media for Whisper...
+[INFO] 2026-05-12T18:28:47.799Z - [pub-mwbv_202105_4_VIDEO] Download complete. Transcribing with Whisper AI (this can take several minutes)...
+[INFO] 2026-05-12T18:28:47.814Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 1/20)
+[INFO] 2026-05-12T18:28:52.824Z - [Retry] Request failed (ECONNREFUSED). Retrying in 5000ms... (Attempt 2/20)
+[INFO] 2026-05-12T18:38:06.589Z - [Lifecycle] Idle timer reset (10m)
+[INFO] 2026-05-12T18:38:06.713Z - [pub-mwbv_202105_4_VIDEO] No native fallback subtitles found. Triggering Whisper AI Transcription...
+[INFO] 2026-05-12T18:38:06.718Z - [Docker] whisper-api is already running
+[INFO] 2026-05-12T18:38:11.818Z - [pub-mwbv_202105_4_VIDEO] Starting download of optimized media for Whisper...
+[INFO] 2026-05-12T18:38:12.094Z - [pub-mwbv_202105_4_VIDEO] Download complete. Transcribing with Whisper AI (this can take several minutes)...
+[INFO] 2026-05-12T18:38:39.629Z - [pub-mwbv_202105_4_VIDEO] Whisper transcription successful.
+[INFO] 2026-05-12T18:38:39.631Z - [pub-mwbv_202105_4_VIDEO] Target language matches source. Bypassing translation.
+[INFO] 2026-05-12T18:38:57.847Z - [Retry] Request failed (ECONNABORTED). Retrying in 5000ms... (Attempt 3/20)
+[INFO] 2026-05-12T18:42:39.001Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T18:44:59.029Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T18:46:59.148Z - [pub-mwbv_202107_3_VIDEO] No native fallback subtitles found. Fetching media for Groq Cloud API...
+[INFO] 2026-05-12T18:46:59.615Z - [pub-mwbv_202107_3_VIDEO] Download complete. Transcribing with Groq Whisper API (whisper-large-v3)...
+[INFO] 2026-05-12T18:47:03.656Z - [Retry] Request failed (ERR_BAD_REQUEST). Retrying in 5000ms... (Attempt 1/3)
+[INFO] 2026-05-12T18:47:23.745Z - [Retry] Request failed (ECONNRESET). Retrying in 5000ms... (Attempt 2/3)
+[ERROR] 2026-05-12T18:47:43.828Z - [pub-mwbv_202107_3_VIDEO] Subtitle generation failed: socket hang up
+[INFO] 2026-05-12T18:51:04.600Z - Backend Orchestrator running on port 3000
+[INFO] 2026-05-12T18:51:37.639Z - [pub-mwbv_202107_3_VIDEO] No native fallback subtitles found. Fetching media for Groq Cloud API...
+[INFO] 2026-05-12T18:51:38.040Z - [pub-mwbv_202107_3_VIDEO] Extracting highly compressed audio for Groq...
+[INFO] 2026-05-12T18:51:39.681Z - [pub-mwbv_202107_3_VIDEO] Audio extraction complete (0.44MB). Transcribing with Groq...
+[INFO] 2026-05-12T18:51:41.281Z - [pub-mwbv_202107_3_VIDEO] Groq transcription successful.
+[INFO] 2026-05-12T18:51:41.285Z - [pub-mwbv_202107_3_VIDEO] Target language matches source. Bypassing translation.
+[INFO] 2026-05-12T18:55:55.725Z - Backend Orchestrator running on port 3000

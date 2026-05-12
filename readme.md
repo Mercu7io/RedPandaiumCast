@@ -45,11 +45,14 @@ RedPandaium Cast is a high-performance, lightweight media player designed to str
    ```bash
    ```git clone [https://github.com/your-username/redpandaium-cast.git](https://github.com/your-username/redpandaium-cast.git)
    ```cd redpandaium-cast
+   
 Configure Environment:
+
 Create a .env file in the root directory:
 
 Code snippet
 ```GROQ_API_KEY=gsk_your_api_key_here
+
 
 Deploy with Docker:
 

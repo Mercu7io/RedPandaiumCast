@@ -1,0 +1,99 @@
+{
+  "auth": {
+    "enterPin": "Voer PIN in",
+    "incorrectPin": "Onjuiste PIN"
+  },
+  "nav": {
+    "title": "RedPandaium Cast",
+    "search": "Zoeken",
+    "guide": "Handleiding",
+    "selectLanguage": "Selecteer taal",
+    "searchShortcut": "Ctrl+K"
+  },
+  "hero": {
+    "featuredTag": "UITGELICHT PROGRAMMA",
+    "castToTv": "Cast naar TV",
+    "aiSubtitles": "Genereer AI-ondertitels",
+    "playNow": "Afspelen"
+  },
+  "card": {
+    "quickCast": "Casten",
+    "subtitles": "Ondertitels",
+    "play": "Afspelen"
+  },
+  "categories": {
+    "all": "Alles",
+    "LatestVideos": "Nieuwste video's",
+    "StudioMonthlyPrograms": "Maandelijkse programma's",
+    "StudioTalks": "Studiolezingen",
+    "StudioNewsReports": "Nieuwsberichten",
+    "VODStudio": "JW Broadcasting",
+    "VODChildren": "Kinderen",
+    "VODTeenagers": "Tieners",
+    "VODFamily": "Gezin",
+    "VODBible": "De Bijbel",
+    "VODMovies": "Dramafilms",
+    "VODMusic": "Muziek"
+  },
+  "player": {
+    "audio": "Audio",
+    "quality": "Kwaliteit",
+    "speed": "Snelheid",
+    "subtitles": "Ondertitels",
+    "cc": "CC",
+    "theatreMode": "Theatermodus",
+    "exitTheatreMode": "Verlaat theatermodus",
+    "share": "Deel video",
+    "copied": "Gekopieerd!",
+    "chromecast": "Chromecast",
+    "downloadVideo": "Video",
+    "downloadSubtitles": "Ondertitels",
+    "downloadVtt": "Download VTT",
+    "viewTranscript": "Bekijk transcript (TXT)",
+    "close": "Sluiten",
+    "unavailable": "Video niet beschikbaar"
+  },
+  "ai": {
+    "title": "AI-ondertitels en vertaling",
+    "translateExisting": "Vertaal bestaande Engelse ondertitels via AI.",
+    "generateFromAudio": "Genereer ondertitels van audio en vertaal via AI.",
+    "translate": "Vertalen",
+    "generate": "Genereren",
+    "success": "Gelukt!",
+    "failed": "Generatie mislukt. Controleer logs.",
+    "serverUnreachable": "AI backendserver is onbereikbaar (poort 3000). Zorg ervoor dat de backend is gestart.",
+    "translating": "Engelse ondertitels vertalen...",
+    "preparing": "AI voorbereiden... (Media downloaden en verwerken)",
+    "disabledNotice": "AI-ondertitels en vertaling zijn uitgeschakeld omdat GROQ_API_KEY niet is geconfigureerd."
+  },
+  "styles": {
+    "title": "Ondertitelstijlen",
+    "fontFamily": "Lettertype",
+    "fontSize": "Lettergrootte ({size}%)",
+    "bgOpacity": "Achtergronddekking ({opacity})",
+    "textColor": "Tekstkleur",
+    "done": "Klaar"
+  },
+  "transcript": {
+    "title": "Transcript",
+    "downloadTxt": "Download TXT",
+    "copy": "Kopiëren"
+  },
+  "search": {
+    "placeholder": "Zoek of plak jw.org link..."
+  },
+  "help": {
+    "title": "Help & Handleiding",
+    "attribution": "Gebaseerd op en geïnspireerd door het originele werk van",
+    "featuresTitle": "Belangrijkste functies",
+    "featureCastTitle": "Chromecast Streaming",
+    "featureCastDesc": "Cast video's met gesynchroniseerde ondertitels rechtstreeks naar uw tv of Chromecast-apparaten.",
+    "featureSubtitlesTitle": "AI-ondertitels & Vertaling",
+    "featureSubtitlesDesc": "Genereer nauwkeurige ondertitels van audio via Groq Whisper of vertaal bestaande ondertitels naar uw gewenste taal.",
+    "featureShortcutsTitle": "Sneltoetsen",
+    "shortcutSearch": "Open direct video zoeken",
+    "shortcutClose": "Sluit actieve dialoog of video",
+    "featureSecurityTitle": "PIN-beveiliging",
+    "featureSecurityDesc": "Beveilig toegang tot de applicatie met een 4-cijferige pincode."
+  }
+}

@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import axios from 'axios';
+import { useI18n } from 'vue-i18n';
 import { useAppStore } from '@/store/app';
-import { Result, SearchResponse } from '@/types';
+import { SearchResponse } from '@/types';
+import { searchService } from '@/services/searchService';
+import { mediatorService, formatMediaNodeToVideo } from '@/services/mediatorService';
 
 const store = useAppStore();
+const { t } = useI18n();
+
 const dialog = computed({
   get: () => store.searchDialog,
   set: (val) => store.setSearchDialog(val)
@@ -18,17 +23,12 @@ const response = ref<SearchResponse | null>(null);
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 const placeholder = computed(() => {
-  if (store.siteLanguage === 'nl') return 'Zoek of plak jw.org link...';
-  if (store.siteLanguage === 'fr') return 'Rechercher ou coller un lien jw.org...';
-  return 'Search or paste jw.org link...';
+  return t('search.placeholder');
 });
 
-// Matches Original Vue 2: fetchToken()
 const fetchToken = async () => {
   try {
-    // Use exact JWT token endpoint from the Vue 2 dump instead of store.tokenUrl
-    const res = await axios.get('https://b.jw-cdn.org/tokens/jworg.jwt');
-    jwt.value = res.data;
+    jwt.value = await searchService.fetchToken();
   } catch (error) {
     console.error('Failed to fetch JW token:', error);
   }
@@ -36,27 +36,14 @@ const fetchToken = async () => {
 
 onMounted(fetchToken);
 
-// Matches Original Vue 2: fetchVideo()
 const fetchVideo = async (langCode: string | undefined, lank: string | undefined) => {
   if (langCode === undefined || lank === undefined) {
     return;
   }
   try {
-    const res = await axios.get(`${store.mediatorUrl}/media-items/${langCode}/${lank}?clientType=www`);
-    if (res.data.media && res.data.media.length > 0) {
-      const m = res.data.media[0];
-      
-      // BUGFIX: We must manually format the raw API media node to match our app's Video interface
-      // exactly like we do in VideoCategory.vue, otherwise VideoDialog crashes due to missing image mappings.
-      const imgUrl = m.images?.lsr?.xl || m.images?.lsr?.lg || m.images?.wss?.lg || m.images?.pnr?.lg || m.images?.sqr?.lg || '';
-      const formattedVideo = {
-        lank: m.languageAgnosticNaturalKey || m.naturalKey || m.lank || '',
-        title: m.title,
-        description: m.description,
-        images: { lsr: { lg: imgUrl } },
-        url: m.shareUrl
-      };
-
+    const rawMedia = await mediatorService.fetchMediaItem(lank, langCode, store.mediatorUrl);
+    if (rawMedia) {
+      const formattedVideo = formatMediaNodeToVideo(rawMedia);
       store.setSelectedVideo(formattedVideo);
       store.setVideoDialog(true);
       dialog.value = false;
@@ -66,63 +53,44 @@ const fetchVideo = async (langCode: string | undefined, lank: string | undefined
   }
 };
 
-// Matches Original Vue 2: fetchResponse() / onSearchQueryChange()
 const executeSearch = async (searchQuery: string) => {
-  if (searchQuery === null || searchQuery === '') {
+  if (searchQuery === null || searchQuery.trim() === '') {
     response.value = null;
     return;
   }
-  
-  const finderRegex = /jw\.org\/finder\?.+&.+/;
-  const wtLocaleRegex = /wtlocale=(?<code>[A-Za-z]+)/;
-  const localeRegex = /locale=(?<locale>[A-Za-z]+)/;
-  const lankRegex = /lank=(?<lank>[\w-]+)/;
-  const mediaItemsRegex = /jw\.org\/[\w-]+\/.+#(?<locale>[\w-]+)\/mediaitems\/(?<category>[\w-]+)\/(?<lank>[\w-]+)/;
 
-  if (finderRegex.test(searchQuery)) {
-    const lang = wtLocaleRegex.exec(searchQuery)?.groups?.code 
-      ?? store.findLanguageByLocale(localeRegex.exec(searchQuery)?.groups?.locale)?.code;
-    const lank = lankRegex.exec(searchQuery)?.groups?.lank;
-    await fetchVideo(lang, lank);
-    query.value = '';
-    return;
-  }
-
-  if (mediaItemsRegex.test(searchQuery)) {
-    const match = mediaItemsRegex.exec(searchQuery);
-    const lang = store.findLanguageByLocale(match?.groups?.locale)?.code;
-    const lank = match?.groups?.lank;
-    await fetchVideo(lang, lank);
-    query.value = '';
-    return;
+  // Check if query is a direct jw.org link
+  const parsedDirect = searchService.parseDirectJwUrl(searchQuery);
+  if (parsedDirect) {
+    let lang = parsedDirect.langCode;
+    if (!lang && parsedDirect.locale) {
+      lang = store.findLanguageByLocale(parsedDirect.locale)?.code;
+    }
+    if (parsedDirect.lank) {
+      await fetchVideo(lang, parsedDirect.lank);
+      query.value = '';
+      return;
+    }
   }
 
   isLoading.value = true;
-  
   const langCode = store.getSiteLanguageObj?.code || 'E';
-  
-  // Use the exact search endpoint from the Vue 2 dump instead of store.searchUrl
-  // Using `/search/api/v1` causes the strict 403 CORS rejection.
-  const searchApiBaseUrl = 'https://b.jw-cdn.org/apis/search/results';
-  const url = `${searchApiBaseUrl}/${langCode}/videos?sort=${sort.value}&q=${searchQuery}`;
-  
-  const config = {
-    headers: {
-      Authorization: `Bearer ${jwt.value}`
-    }
-  };
 
   try {
-    const res = await axios.get<SearchResponse>(url, config);
-    res.data.results = res.data.results.filter(r => r.subtype !== 'videoCategory');
-    response.value = res.data;
+    const searchData = await searchService.searchVideos(searchQuery, langCode, sort.value, jwt.value);
+    response.value = searchData;
   } catch (error: any) {
     if (!axios.isAxiosError(error)) {
       return;
     }
-    // 1:1 Match with original 401 handling
+    // 401 token refresh retry
     if (error.response?.status === 401) {
-      fetchToken();
+      await fetchToken();
+      try {
+        response.value = await searchService.searchVideos(searchQuery, langCode, sort.value, jwt.value);
+      } catch (retryError) {
+        console.error('Search retry failed after token refresh:', retryError);
+      }
     } else {
       console.error('Search query failed:', error);
     }
@@ -160,7 +128,7 @@ watch(() => store.siteLanguage, () => {
           autofocus
           class="mx-4 my-2"
         ></v-text-field>
-        <v-btn icon="mdi-close" variant="text" @click="dialog = false"></v-btn>
+        <v-btn icon="mdi-close" variant="text" @click="dialog = false" aria-label="Close"></v-btn>
       </v-toolbar>
       
       <v-card-text class="pa-4 bg-grey-lighten-4">

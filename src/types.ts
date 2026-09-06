@@ -20,6 +20,7 @@ export interface Video {
     lsr: { lg: string };
   };
   url?: string;
+  durationFormatted?: string;
 }
 
 export interface SearchResponse {

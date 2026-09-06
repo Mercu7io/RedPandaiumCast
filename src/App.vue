@@ -38,8 +38,36 @@ const clearPin = () => {
   pinError.value = false;
 };
 
-const checkPin = () => {
-  if (pinInput.value === validPin) {
+const checkPin = async () => {
+  const entered = pinInput.value;
+  try {
+    const res = await fetch('/api/auth/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin: entered })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
+        isAuthenticated.value = true;
+        localStorage.setItem('jwcast_auth', 'true');
+        return;
+      }
+    } else if (res.status === 401 || res.status === 400) {
+      pinError.value = true;
+      pinInput.value = '';
+      return;
+    }
+  } catch (_) {
+    // Fallback if backend is unreachable (e.g., standalone frontend development)
+    if (entered === validPin) {
+      isAuthenticated.value = true;
+      localStorage.setItem('jwcast_auth', 'true');
+      return;
+    }
+  }
+
+  if (entered === validPin) {
     isAuthenticated.value = true;
     localStorage.setItem('jwcast_auth', 'true');
   } else {

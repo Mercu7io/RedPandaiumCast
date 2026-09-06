@@ -11,7 +11,8 @@ const {
   findNativeSubtitle,
   getSmallestVideoUrl,
   getLanguageName,
-  parseVtt
+  parseVtt,
+  pinVerifySchema
 } = require('../server');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -157,5 +158,20 @@ describe('Backend Server - Schema & Validation Unit Tests', () => {
     assert.equal(parsedCues[1].id, '');
     assert.equal(parsedCues[1].timestamp, '00:00:04.000 --> 00:00:06.000');
     assert.equal(parsedCues[1].text, 'Third line');
+  });
+
+  test('pinVerifySchema validates correct PIN formats and rejects empty or invalid inputs', () => {
+    const valid = pinVerifySchema.safeParse({ pin: '1234' });
+    assert.equal(valid.success, true);
+    assert.equal(valid.data.pin, '1234');
+
+    const empty = pinVerifySchema.safeParse({ pin: '' });
+    assert.equal(empty.success, false);
+
+    const missing = pinVerifySchema.safeParse({});
+    assert.equal(missing.success, false);
+
+    const tooLong = pinVerifySchema.safeParse({ pin: 'a'.repeat(33) });
+    assert.equal(tooLong.success, false);
   });
 });

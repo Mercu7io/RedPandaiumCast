@@ -47,6 +47,8 @@ You don't need to clone the repository or build anything locally. Simply create 
 1. **Create `.env`:**
    ```env
    GROQ_API_KEY=gsk_your_api_key_here
+   # Optional: Custom 4-digit security PIN (defaults to 1234)
+   APP_PIN=1234
    ```
 
 2. **Create `docker-compose.yml`:**
@@ -60,6 +62,7 @@ You don't need to clone the repository or build anything locally. Simply create 
          - "3000:3000"
        environment:
          - GROQ_API_KEY=${GROQ_API_KEY}
+         - APP_PIN=${APP_PIN:-1234}
        volumes:
          - ./log:/app/log
    ```

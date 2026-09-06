@@ -143,6 +143,18 @@ const aiRateLimiter = rateLimit({
   message: { error: 'Security limit: Maximum requests reached. Please try again later.' }
 });
 
+const pinRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many PIN attempts. Please wait 15 minutes.' }
+});
+
+const pinVerifySchema = z.object({
+  pin: z.string().trim().min(1).max(32)
+});
+
 // --- INPUT VALIDATION SCHEMA ---
 const subtitleGenerateSchema = z.object({
   lank: z.string().trim().min(1).max(100).regex(/^[a-zA-Z0-9_-]+$/, 'Invalid lank identifier format'),
@@ -322,6 +334,21 @@ app.get('/api/config', (req, res) => {
   res.json({
     aiEnabled: Boolean(GROQ_API_KEY && GROQ_API_KEY.trim())
   });
+});
+
+app.post('/api/auth/verify', pinRateLimiter, (req, res) => {
+  const parseResult = pinVerifySchema.safeParse(req.body);
+  if (!parseResult.success) {
+    return res.status(400).json({
+      success: false,
+      error: 'Invalid PIN format.'
+    });
+  }
+  const currentPin = (process.env.APP_PIN || process.env.VITE_APP_PIN || '1234').toString();
+  if (parseResult.data.pin === currentPin) {
+    return res.json({ success: true });
+  }
+  return res.status(401).json({ success: false, error: 'Incorrect PIN.' });
 });
 
 app.post('/api/subtitles/generate', aiRateLimiter, async (req, res) => {
@@ -870,5 +897,6 @@ module.exports = {
   findNativeSubtitle,
   getSmallestVideoUrl,
   getLanguageName,
-  parseVtt
+  parseVtt,
+  pinVerifySchema
 };

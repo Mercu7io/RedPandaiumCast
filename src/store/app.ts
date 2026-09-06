@@ -13,9 +13,7 @@ export const useAppStore = defineStore('app', {
     subtitleLanguage: localStorage.getItem(LS_SUB_LANG) || 'fr',
     searchDialog: false,
     videoDialog: false,
-    getNotifiedDialog: false,
     selectedVideo: null as Video | null,
-    // BUGFIX: Added missing '/apis/' to the mediator base URL
     mediatorUrl: 'https://b.jw-cdn.org/apis/mediator/v1',
     tokenUrl: 'https://b.jw-cdn.org/tokens/jworg',
     searchUrl: 'https://b.jw-cdn.org/search/api/v1',
@@ -41,7 +39,6 @@ export const useAppStore = defineStore('app', {
     },
     setVideoDialog(val: boolean) { this.videoDialog = val; },
     setSearchDialog(val: boolean) { this.searchDialog = val; },
-    setGetNotifiedDialog(val: boolean) { this.getNotifiedDialog = val; },
     setSelectedVideo(video: Video | null) { this.selectedVideo = video; }
   },
 });

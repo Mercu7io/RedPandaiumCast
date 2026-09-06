@@ -6,10 +6,26 @@ import axios from 'axios';
 const store = useAppStore();
 const videoFiles = ref<any[]>([]);
 const subtitleFiles = ref<any[]>([]);
+const englishSubtitleUrl = ref('');
 const loading = ref(false);
 const videoPlayer = ref<HTMLVideoElement | null>(null);
 const selectedQuality = ref('720p');
 const showSubtitles = ref(true);
+
+// Theatre Mode State
+const isTheatreMode = ref(false);
+
+// Playback Speed State
+const playbackRate = ref(1.0);
+const playbackRates = [
+  { title: '0.5x', value: 0.5 },
+  { title: '0.75x', value: 0.75 },
+  { title: 'Normal', value: 1.0 },
+  { title: '1.25x', value: 1.25 },
+  { title: '1.5x', value: 1.5 },
+  { title: '1.75x', value: 1.75 },
+  { title: '2x', value: 2.0 }
+];
 
 // Share State
 const shareVideoCopied = ref(false);
@@ -140,6 +156,9 @@ const enforceSubtitles = () => {
 const onVideoLoaded = () => {
   restoreTime();
   enforceSubtitles();
+  if (videoPlayer.value) {
+    videoPlayer.value.playbackRate = playbackRate.value;
+  }
 };
 
 const fetchVideoData = async () => {
@@ -147,35 +166,58 @@ const fetchVideoData = async () => {
   loading.value = true;
   aiVttUrl.value = ''; // Reset AI subtitles on new video fetch
   aiStatus.value = '';
+  englishSubtitleUrl.value = ''; // Reset fallback
   
   try {
     const videoLangObj = store.getVideoLanguageObj || { code: 'E' };
     const subLangObj = store.getSubtitleLanguageObj || { code: 'F' };
-    const [vRes, sRes] = await Promise.all([
+    
+    const requests: Promise<any>[] = [
       axios.get(`${store.mediatorUrl}/media-items/${videoLangObj.code}/${selectedVideo.value.lank}?clientType=www`),
       axios.get(`${store.mediatorUrl}/media-items/${subLangObj.code}/${selectedVideo.value.lank}?clientType=www`)
-    ]);
+    ];
+
+    // Fetch English fallback if the selected subtitle language is not already English
+    if (subLangObj.code !== 'E') {
+      requests.push(
+        axios.get(`${store.mediatorUrl}/media-items/E/${selectedVideo.value.lank}?clientType=www`).catch(() => null)
+      );
+    }
+    
+    const responses = await Promise.all(requests);
+    const vRes = responses[0];
+    const sRes = responses[1];
+    const enRes = responses.length > 2 ? responses[2] : null;
     
     videoFiles.value = vRes.data.media[0]?.files || [];
     
-    let extractedVtt = '';
-    const mediaNode = sRes.data.media[0];
+    const extractVtt = (mediaNode: any) => {
+      if (!mediaNode) return '';
+      let extractedVtt = '';
+      if (mediaNode.subtitles && mediaNode.subtitles.length > 0) {
+        extractedVtt = mediaNode.subtitles.find((s: any) => s.file?.url?.endsWith('.vtt'))?.file?.url || '';
+      }
+      if (!extractedVtt && mediaNode.files) {
+        const fileWithSub = mediaNode.files.find((f: any) => f.subtitles?.url?.endsWith('.vtt'));
+        if (fileWithSub) extractedVtt = fileWithSub.subtitles.url;
+      }
+      if (!extractedVtt && mediaNode.files) {
+        const fileVtt = mediaNode.files.find((f: any) => f.progressiveDownloadURL?.endsWith('.vtt'));
+        if (fileVtt) extractedVtt = fileVtt.progressiveDownloadURL;
+      }
+      return extractedVtt;
+    };
     
-    if (mediaNode?.subtitles && mediaNode.subtitles.length > 0) {
-      extractedVtt = mediaNode.subtitles.find((s: any) => s.file?.url?.endsWith('.vtt'))?.file?.url || '';
+    // Extract target language subtitles
+    const targetVtt = extractVtt(sRes.data.media[0]);
+    subtitleFiles.value = targetVtt ? [{ file: { url: targetVtt } }] : [];
+
+    // Extract English fallback subtitles
+    if (enRes?.data?.media?.[0]) {
+      englishSubtitleUrl.value = extractVtt(enRes.data.media[0]);
+    } else if (subLangObj.code === 'E') {
+      englishSubtitleUrl.value = targetVtt;
     }
-    
-    if (!extractedVtt && mediaNode?.files) {
-      const fileWithSub = mediaNode.files.find((f: any) => f.subtitles?.url?.endsWith('.vtt'));
-      if (fileWithSub) extractedVtt = fileWithSub.subtitles.url;
-    }
-    
-    if (!extractedVtt && mediaNode?.files) {
-      const fileVtt = mediaNode.files.find((f: any) => f.progressiveDownloadURL?.endsWith('.vtt'));
-      if (fileVtt) extractedVtt = fileVtt.progressiveDownloadURL;
-    }
-    
-    subtitleFiles.value = extractedVtt ? [{ file: { url: extractedVtt } }] : [];
 
     if (availableQualities.value.length > 0 && !availableQualities.value.includes(selectedQuality.value)) {
       selectedQuality.value = availableQualities.value[0];
@@ -194,23 +236,34 @@ const generateAiSubtitles = async () => {
   if (!videoUrl.value) return;
   
   aiLoading.value = true;
-  aiStatus.value = 'Waking up AI engines... (This may take up to 2 minutes)';
+  aiStatus.value = englishSubtitleUrl.value 
+    ? 'Translating English subtitles...' 
+    : 'Preparing AI... (Media download & processing in progress)';
   
   try {
-    const targetLocalePrefix = store.getSubtitleLanguageObj?.locale?.split('-')[0].toLowerCase() || 'en';
+    const targetLocale = store.getSubtitleLanguageObj?.locale || 'en';
     
     const response = await axios.post('/api/subtitles/generate', {
       lank: selectedVideo.value?.lank,
-      targetLang: targetLocalePrefix,
+      targetLang: targetLocale,
       audioUrl: videoUrl.value,
+      subtitleUrl: englishSubtitleUrl.value || '' // Pass English VTT if available to directly translate
     });
 
-    if (response.data.status === 'success') {
-      const blob = new Blob([response.data.vttContent], { type: 'text/vtt' });
+    let vttData = response.data.vttContent || response.data.vtt || response.data.content;
+    if (!vttData && typeof response.data === 'string') {
+      vttData = response.data;
+    }
+
+    if (response.data.status === 'success' || vttData) {
+      const blob = new Blob([vttData], { type: 'text/vtt;charset=utf-8' });
       // Create object URL and bind it to activeSubtitleUrl overriding the native one
       aiVttUrl.value = URL.createObjectURL(blob);
+      showSubtitles.value = true; // Auto-enable viewing the new subtitles
       aiStatus.value = 'Success!';
       setTimeout(() => { aiStatus.value = ''; }, 3000);
+    } else {
+      throw new Error('Invalid AI response format');
     }
   } catch (err: any) {
     console.error('AI Generation Failed:', err);
@@ -342,6 +395,12 @@ const copyTranscript = () => {
   }
 };
 
+watch(playbackRate, (newRate) => {
+  if (videoPlayer.value) {
+    videoPlayer.value.playbackRate = newRate;
+  }
+});
+
 watch([selectedVideo, videoLang, subtitleLang], fetchVideoData);
 
 watch([showSubtitles, activeSubtitleUrl, videoUrl], () => {
@@ -354,6 +413,8 @@ const close = () => {
     videoPlayer.value.pause();
   }
   dialog.value = false;
+  playbackRate.value = 1.0; // Reset speed on close
+  isTheatreMode.value = false; // Reset theatre mode on close
 };
 </script>
 
@@ -368,11 +429,13 @@ const close = () => {
     }
   </component>
 
-  <v-dialog v-model="dialog" max-width="1000" persistent transition="dialog-bottom-transition">
-    <v-card v-if="selectedVideo" rounded="xl">
-      <v-toolbar color="primary">
+  <v-dialog v-model="dialog" max-width="1000" persistent transition="dialog-bottom-transition" :fullscreen="isTheatreMode">
+    <v-card v-if="selectedVideo" :rounded="isTheatreMode ? '0' : 'xl'" :color="isTheatreMode ? 'black' : undefined">
+      <v-toolbar color="primary" v-show="!isTheatreMode">
         <v-toolbar-title class="text-truncate">{{ selectedVideo.title }}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <!-- Theatre Mode Icon -->
+        <v-btn icon="mdi-fit-to-screen" variant="text" @click="isTheatreMode = true" title="Theatre Mode"></v-btn>
         <!-- Share Link Icon -->
         <v-btn 
           :icon="shareVideoCopied ? 'mdi-check' : 'mdi-share-variant'" 
@@ -386,7 +449,18 @@ const close = () => {
       </v-toolbar>
 
       <v-card-text class="pa-0">
-        <div class="bg-black text-center d-flex flex-column justify-center align-center" style="min-height: 400px;">
+        <div class="bg-black text-center d-flex flex-column justify-center align-center position-relative" :style="isTheatreMode ? 'height: 100vh;' : 'min-height: 400px;'">
+          <!-- Theatre Mode Exit Button -->
+          <v-btn 
+            v-if="isTheatreMode" 
+            icon="mdi-fullscreen-exit" 
+            variant="tonal" 
+            color="white" 
+            style="position: absolute; top: 16px; right: 16px; z-index: 10;" 
+            @click="isTheatreMode = false" 
+            title="Exit Theatre Mode"
+          ></v-btn>
+
           <!-- Bound @timeupdate and @loadeddata to enable video persistence -->
           <video 
             v-if="videoUrl" 
@@ -396,7 +470,7 @@ const close = () => {
             controls 
             crossorigin="anonymous" 
             class="w-100" 
-            style="max-height: 60vh;" 
+            :style="isTheatreMode ? 'max-height: 100vh; height: 100%; object-fit: contain;' : 'max-height: 60vh;'"
             :src="videoUrl" 
             :poster="selectedVideo.images?.lsr?.lg"
           >
@@ -409,15 +483,18 @@ const close = () => {
           </div>
         </div>
 
-        <v-container>
+        <v-container v-show="!isTheatreMode">
           <v-row align="center">
-            <v-col cols="12" sm="3">
+            <v-col cols="6" sm="3">
               <v-autocomplete v-model="videoLang" :items="store.languages" item-title="name" item-value="locale" label="Audio" prepend-inner-icon="mdi-volume-high" variant="outlined" density="compact" hide-details></v-autocomplete>
             </v-col>
-            <v-col cols="12" sm="3">
+            <v-col cols="6" sm="2">
               <v-select v-model="selectedQuality" :items="availableQualities" label="Quality" prepend-inner-icon="mdi-high-definition" variant="outlined" density="compact" hide-details></v-select>
             </v-col>
-            <v-col cols="12" sm="4">
+            <v-col cols="6" sm="2">
+              <v-select v-model="playbackRate" :items="playbackRates" item-title="title" item-value="value" label="Speed" prepend-inner-icon="mdi-play-speed" variant="outlined" density="compact" hide-details></v-select>
+            </v-col>
+            <v-col cols="6" sm="3">
               <v-autocomplete v-model="subtitleLang" :items="store.languages" item-title="name" item-value="locale" label="Subtitles" prepend-inner-icon="mdi-subtitles" variant="outlined" density="compact" hide-details></v-autocomplete>
             </v-col>
             <v-col cols="12" sm="2" class="d-flex justify-center">
@@ -425,13 +502,16 @@ const close = () => {
             </v-col>
           </v-row>
 
-          <v-alert v-if="!activeSubtitleUrl && !loading" border="start" color="deep-purple-accent-4" variant="tonal" class="mt-4 py-2 px-4">
+          <!-- AI Generation Alert conditionally displayed based on native subtitle absence -->
+          <v-alert v-if="!nativeSubtitleUrl && !aiVttUrl && !loading" border="start" color="deep-purple-accent-4" variant="tonal" class="mt-4 py-2 px-4">
             <div class="d-flex align-center justify-space-between">
               <div>
-                <strong class="text-subtitle-2">AI Subtitles</strong>
-                <div class="text-caption">{{ aiStatus || 'Generate subtitles locally via AI.' }}</div>
+                <strong class="text-subtitle-2">AI Subtitles & Translation</strong>
+                <div class="text-caption">{{ aiStatus || (englishSubtitleUrl ? 'Translate existing English subtitles via AI.' : 'Generate subtitles from audio & translate via AI.') }}</div>
               </div>
-              <v-btn color="deep-purple-accent-4" variant="flat" size="small" :loading="aiLoading" @click="generateAiSubtitles">Translate</v-btn>
+              <v-btn color="deep-purple-accent-4" variant="flat" size="small" :loading="aiLoading" @click="generateAiSubtitles">
+                {{ englishSubtitleUrl ? 'Translate' : 'Generate' }}
+              </v-btn>
             </div>
           </v-alert>
           
@@ -439,9 +519,9 @@ const close = () => {
         </v-container>
       </v-card-text>
 
-      <v-divider></v-divider>
+      <v-divider v-show="!isTheatreMode"></v-divider>
 
-      <v-card-actions class="pa-4 flex-wrap gap-2">
+      <v-card-actions class="pa-4 flex-wrap gap-2" v-show="!isTheatreMode">
         <v-btn color="primary" variant="flat" prepend-icon="mdi-cast" :href="smPlayerUrl" target="_blank" class="rounded-lg" :disabled="!videoUrl">Chromecast</v-btn>
         
         <v-menu v-if="videoFiles.length > 0">

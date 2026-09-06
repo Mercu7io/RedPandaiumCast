@@ -9,13 +9,12 @@ export const useAppStore = defineStore('app', {
     languages: [] as Language[],
     translations: {} as Translations,
     siteLanguage: 'en',
-    videoLanguage: localStorage.getItem(LS_VIDEO_LANG) || 'en',
-    subtitleLanguage: localStorage.getItem(LS_SUB_LANG) || 'fr',
+    videoLanguage: typeof localStorage !== 'undefined' ? localStorage.getItem(LS_VIDEO_LANG) || 'en' : 'en',
+    subtitleLanguage: typeof localStorage !== 'undefined' ? localStorage.getItem(LS_SUB_LANG) || 'fr' : 'fr',
     searchDialog: false,
     videoDialog: false,
-    getNotifiedDialog: false,
     selectedVideo: null as Video | null,
-    // BUGFIX: Added missing '/apis/' to the mediator base URL
+    aiEnabled: true,
     mediatorUrl: 'https://b.jw-cdn.org/apis/mediator/v1',
     tokenUrl: 'https://b.jw-cdn.org/tokens/jworg',
     searchUrl: 'https://b.jw-cdn.org/search/api/v1',
@@ -33,15 +32,15 @@ export const useAppStore = defineStore('app', {
     setSiteLanguage(lang: string) { this.siteLanguage = lang; },
     setVideoLanguage(lang: string) { 
       this.videoLanguage = lang;
-      localStorage.setItem(LS_VIDEO_LANG, lang);
+      if (typeof localStorage !== 'undefined') localStorage.setItem(LS_VIDEO_LANG, lang);
     },
     setSubtitleLanguage(lang: string) { 
       this.subtitleLanguage = lang;
-      localStorage.setItem(LS_SUB_LANG, lang);
+      if (typeof localStorage !== 'undefined') localStorage.setItem(LS_SUB_LANG, lang);
     },
     setVideoDialog(val: boolean) { this.videoDialog = val; },
     setSearchDialog(val: boolean) { this.searchDialog = val; },
-    setGetNotifiedDialog(val: boolean) { this.getNotifiedDialog = val; },
-    setSelectedVideo(video: Video | null) { this.selectedVideo = video; }
+    setSelectedVideo(video: Video | null) { this.selectedVideo = video; },
+    setAiEnabled(val: boolean) { this.aiEnabled = val; }
   },
 });

@@ -1,0 +1,99 @@
+{
+  "auth": {
+    "enterPin": "Enter PIN",
+    "incorrectPin": "Incorrect PIN"
+  },
+  "nav": {
+    "title": "RedPandaium Cast",
+    "search": "Search",
+    "guide": "Guide",
+    "selectLanguage": "Select Language",
+    "searchShortcut": "Ctrl+K"
+  },
+  "hero": {
+    "featuredTag": "FEATURED PROGRAM",
+    "castToTv": "Cast to TV",
+    "aiSubtitles": "Generate AI Subtitles",
+    "playNow": "Play Now"
+  },
+  "card": {
+    "quickCast": "Quick Cast",
+    "subtitles": "Subtitles",
+    "play": "Play"
+  },
+  "categories": {
+    "all": "All",
+    "LatestVideos": "Latest Videos",
+    "StudioMonthlyPrograms": "Monthly Programs",
+    "StudioTalks": "Studio Talks",
+    "StudioNewsReports": "News Reports",
+    "VODStudio": "JW Broadcasting",
+    "VODChildren": "Children",
+    "VODTeenagers": "Teenagers",
+    "VODFamily": "Family",
+    "VODBible": "The Bible",
+    "VODMovies": "Dramas",
+    "VODMusic": "Music"
+  },
+  "player": {
+    "audio": "Audio",
+    "quality": "Quality",
+    "speed": "Speed",
+    "subtitles": "Subtitles",
+    "cc": "CC",
+    "theatreMode": "Theatre Mode",
+    "exitTheatreMode": "Exit Theatre Mode",
+    "share": "Share Video",
+    "copied": "Copied!",
+    "chromecast": "Chromecast",
+    "downloadVideo": "Video",
+    "downloadSubtitles": "Subtitles",
+    "downloadVtt": "Download VTT",
+    "viewTranscript": "View Transcript (TXT)",
+    "close": "Close",
+    "unavailable": "Video unavailable"
+  },
+  "ai": {
+    "title": "AI Subtitles & Translation",
+    "translateExisting": "Translate existing English subtitles via AI.",
+    "generateFromAudio": "Generate subtitles from audio & translate via AI.",
+    "translate": "Translate",
+    "generate": "Generate",
+    "success": "Success!",
+    "failed": "Generation Failed. Please check logs.",
+    "serverUnreachable": "AI Backend server is unreachable (port 3000). Please ensure the backend is started.",
+    "translating": "Translating English subtitles...",
+    "preparing": "Preparing AI... (Media download & processing in progress)",
+    "disabledNotice": "AI subtitles and translation are disabled because GROQ_API_KEY is not configured."
+  },
+  "styles": {
+    "title": "Subtitle Styles",
+    "fontFamily": "Font Family",
+    "fontSize": "Font Size ({size}%)",
+    "bgOpacity": "Background Opacity ({opacity})",
+    "textColor": "Text Color",
+    "done": "Done"
+  },
+  "transcript": {
+    "title": "Transcript",
+    "downloadTxt": "Download TXT",
+    "copy": "Copy"
+  },
+  "search": {
+    "placeholder": "Search or paste jw.org link..."
+  },
+  "help": {
+    "title": "Help & Guide",
+    "attribution": "Based on and inspired by the original work of",
+    "featuresTitle": "Key Features",
+    "featureCastTitle": "Chromecast Streaming",
+    "featureCastDesc": "Cast videos with custom, synchronized subtitles directly to your TV or Chromecast-enabled devices.",
+    "featureSubtitlesTitle": "AI Subtitles & Translation",
+    "featureSubtitlesDesc": "Generate high-accuracy subtitles from audio via Groq Whisper or translate existing subtitles into your preferred language.",
+    "featureShortcutsTitle": "Keyboard Shortcuts",
+    "shortcutSearch": "Open instant video search",
+    "shortcutClose": "Close active modal or video",
+    "featureSecurityTitle": "PIN Security",
+    "featureSecurityDesc": "Protect application access with a secure 4-digit PIN code."
+  }
+}

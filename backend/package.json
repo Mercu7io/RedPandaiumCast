@@ -4,13 +4,15 @@
   "description": "AI Subtitle Orchestrator for JW Cast",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test"
   },
   "dependencies": {
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "express-rate-limit": "^7.1.5",
     "form-data": "^4.0.0",
-    "express-rate-limit": "^7.1.5"
+    "zod": "^4.5.4"
   }
 }

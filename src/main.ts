@@ -20,27 +20,43 @@ const vuetify = createVuetify({
     sets: { mdi },
   },
   theme: {
-    defaultTheme: 'light',
+    defaultTheme: 'dark',
     themes: {
       light: {
         colors: {
-          primary: '#4A148C',
-          secondary: '#03DAC6',
+          background: '#F8FAFC',
+          surface: '#FFFFFF',
+          primary: '#FF4757',
+          secondary: '#64748B',
+          accent: '#0EA5E9',
+          error: '#EF4444',
+          info: '#38BDF8',
+          success: '#10B981',
+          warning: '#F59E0B',
         },
       },
       dark: {
         colors: {
-          primary: '#bb86fc',
-          secondary: '#03DAC6',
-          surface: '#1E1E1E',
-        }
-      }
+          background: '#0B0E14',
+          surface: '#121620',
+          primary: '#FF4757', // Red Panda Coral
+          secondary: '#1E2433',
+          accent: '#38BDF8',
+          error: '#FF4757',
+          info: '#38BDF8',
+          success: '#2ED573',
+          warning: '#FFA502',
+        },
+      },
     },
   },
 });
+
+import { i18n } from './i18n';
 
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(vuetify);
+app.use(i18n);
 app.mount('#app');

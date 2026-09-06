@@ -36,28 +36,65 @@ RedPandaium Cast is a high-performance, lightweight media player designed to str
 ## 📦 Installation & Deployment
 
 ### Prerequisites
-- Docker and Docker Compose.
-- A **Groq API Key** (Free at [console.groq.com](https://console.groq.com)).
+- Docker & Docker Compose
+- A **Groq API Key** (Free at [console.groq.com](https://console.groq.com))
 
-### Setup
+---
 
-1. **Clone the repo:**
+### Option 1: Fast Deployment with Pre-built Image (Recommended)
+
+You don't need to clone the repository or build anything locally. Simply create a `docker-compose.yml` and `.env` file on your server:
+
+1. **Create `.env`:**
+   ```env
+   GROQ_API_KEY=gsk_your_api_key_here
+   ```
+
+2. **Create `docker-compose.yml`:**
+   ```yaml
+   services:
+     jw-cast:
+       image: ghcr.io/mercu7io/redpandaiumcast:latest
+       container_name: jw-cast
+       restart: unless-stopped
+       ports:
+         - "3000:3000"
+       environment:
+         - GROQ_API_KEY=${GROQ_API_KEY}
+       volumes:
+         - ./log:/app/log
+   ```
+
+3. **Start the application:**
    ```bash
-   ```git clone [https://github.com/your-username/redpandaium-cast.git](https://github.com/your-username/redpandaium-cast.git)
-   ```cd redpandaium-cast
-   
-Configure Environment:
+   docker compose pull && docker compose up -d
+   ```
 
-Create a .env file in the root directory:
+To update to the newest version anytime:
+```bash
+docker compose pull && docker compose up -d
+```
 
-Code snippet
-```GROQ_API_KEY=gsk_your_api_key_here
+---
 
+### Option 2: Development / Build from Source
 
-Deploy with Docker:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Mercu7io/RedPandaiumCast.git
+   cd RedPandaiumCast
+   ```
 
-Bash
-```docker compose up -d --build
+2. **Configure environment:**
+   ```bash
+   cp .env.example .env
+   # Edit .env and set your GROQ_API_KEY
+   ```
+
+3. **Build and run locally with Docker:**
+   ```bash
+   docker compose up -d --build
+   ```
 
 ### 🛡️ Security & Performance
 Zero-Footprint AI: No heavy local models. All AI processing is offloaded to Groq Cloud, reducing server RAM requirements by ~8GB compared to self-hosted Whisper.

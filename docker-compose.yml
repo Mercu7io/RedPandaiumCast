@@ -1,22 +1,7 @@
 services:
-  jw-cast-frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: jw-cast-ui
-    restart: unless-stopped
-    networks:
-      - traefik-proxy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.jwcast.rule=Host(`jwcast.redpandaium.com`)
-      - traefik.http.services.jwcast.loadbalancer.server.port=80
-
-  jw-cast-backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: jw-cast-api
+  jw-cast:
+    image: ghcr.io/mercu7io/redpandaiumcast:latest
+    container_name: jw-cast
     restart: unless-stopped
     environment:
       # Inject the Groq API key from your host environment or .env file
@@ -27,8 +12,8 @@ services:
       - traefik-proxy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.jwcast-api.rule=Host(`jwcast.redpandaium.com`) && PathPrefix(`/api`)
-      - traefik.http.services.jwcast-api.loadbalancer.server.port=3000
+      - traefik.http.routers.jwcast.rule=Host(`jwcast.redpandaium.com`)
+      - traefik.http.services.jwcast.loadbalancer.server.port=3000
 
 networks:
   traefik-proxy:

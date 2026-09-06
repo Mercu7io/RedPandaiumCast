@@ -23,14 +23,3 @@ services:
       timeout: 5s
       retries: 3
 
-    # --- Alternative: Traefik Reverse Proxy Configuration ---
-    # networks:
-    #   - traefik-proxy
-    # labels:
-    #   - traefik.enable=true
-    #   - traefik.http.routers.jwcast.rule=Host(`jwcast.yourdomain.com`)
-    #   - traefik.http.services.jwcast.loadbalancer.server.port=3000
-
-# networks:
-#   traefik-proxy:
-#     external: true

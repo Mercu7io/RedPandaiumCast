@@ -3,18 +3,10 @@ services:
     image: ghcr.io/mercu7io/redpandaiumcast:latest
     container_name: jw-cast
     restart: unless-stopped
+    ports:
+      - "3000:3000"
     environment:
       # Inject the Groq API key from your host environment or .env file
       - GROQ_API_KEY=${GROQ_API_KEY}
     volumes:
       - ./log:/app/log
-    networks:
-      - traefik-proxy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.jwcast.rule=Host(`jwcast.redpandaium.com`)
-      - traefik.http.services.jwcast.loadbalancer.server.port=3000
-
-networks:
-  traefik-proxy:
-    external: true

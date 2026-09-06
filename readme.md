@@ -31,7 +31,6 @@ RedPandaium Cast is a high-performance, lightweight media player designed to str
 
 ### Infrastructure
 - **Docker & Docker Compose**
-- **Traefik:** Configured for reverse proxy and SSL handling.
 
 ## 📦 Installation & Deployment
 

@@ -45,7 +45,7 @@ const iconMap: Record<string, string> = {
   VODOurActivities: 'mdi-earth',
   VODMinistry: 'mdi-book-open-page-variant-outline',
   VODOurOrganization: 'mdi-office-building-outline',
-  VODBible: 'mdi-book-cross',
+  VODBible: 'mdi-book',
   VODMovies: 'mdi-movie-open-play-outline',
   VODSeries: 'mdi-filmstrip',
   VODMusicVideos: 'mdi-music-note',
@@ -93,6 +93,11 @@ const fetchCategories = async () => {
         key: 'all',
         name: t('categories.all') || 'All',
         icon: iconMap.all,
+      },
+      {
+        key: 'favorites',
+        name: t('categories.favorites') || 'Favorites',
+        icon: 'mdi-heart',
       },
       {
         key: 'LatestVideos',
@@ -145,7 +150,7 @@ watch(
       class="scroll-btn scroll-btn--left"
       @click="scrollLeftAction"
       type="button"
-      aria-label="Scroll categories left"
+      :aria-label="$t('categories.scrollLeft')"
     >
       <v-icon size="20">mdi-chevron-left</v-icon>
     </button>
@@ -176,7 +181,7 @@ watch(
       class="scroll-btn scroll-btn--right"
       @click="scrollRightAction"
       type="button"
-      aria-label="Scroll categories right"
+      :aria-label="$t('categories.scrollRight')"
     >
       <v-icon size="20">mdi-chevron-right</v-icon>
     </button>
@@ -217,18 +222,18 @@ watch(
   font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
-  background: #141923;
-  color: #94A3B8;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--app-card, #141923);
+  color: var(--app-text-secondary, #94A3B8);
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   flex-shrink: 0;
 }
 
 .category-pill:hover {
-  background: #1C2331;
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--app-input-bg, #1C2331);
+  color: var(--app-text-primary, #FFFFFF);
+  border-color: rgba(255, 71, 87, 0.3);
   transform: translateY(-1px);
 }
 
@@ -256,16 +261,16 @@ watch(
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(18, 22, 32, 0.88);
+  background: var(--app-card, #141923);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #F8FAFC;
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.14));
+  color: var(--app-text-primary, #F8FAFC);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   transition: all 0.2s ease;
 }
 

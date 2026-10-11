@@ -17,6 +17,7 @@ import SearchDialog from '@/components/SearchDialog.vue';
 import HeroSpotlight from '@/components/HeroSpotlight.vue';
 import CategoryPills from '@/components/CategoryPills.vue';
 import HelpDialog from '@/components/HelpDialog.vue';
+import ContinueWatchingRow from '@/components/ContinueWatchingRow.vue';
 
 const helpDialog = ref(false);
 
@@ -140,6 +141,8 @@ watch(() => store.siteLanguage, async (newLang) => {
 });
 
 onMounted(async () => {
+  store.initTheme();
+  theme.global.name.value = store.effectiveTheme;
   window.addEventListener('keydown', handleKeyDown);
 
   await fetchLanguages();
@@ -157,6 +160,10 @@ onMounted(async () => {
       store.setAiEnabled(data.aiEnabled);
     }
   } catch (_) {}
+});
+
+watch(() => store.effectiveTheme, (newTheme) => {
+  theme.global.name.value = newTheme;
 });
 
 onBeforeUnmount(() => {
@@ -187,8 +194,8 @@ const onHeroCast = async (video: Video) => {
 </script>
 
 <template>
-  <v-app theme="dark">
-    <!-- LOGIN SCREEN (Obsidian Glass Aesthetic) -->
+  <v-app :theme="store.effectiveTheme">
+    <!-- LOGIN SCREEN (Adaptive Glass Aesthetic) -->
     <v-main v-if="!isAuthenticated" class="auth-wrapper d-flex align-center justify-center fill-height">
       <div class="auth-card pa-8 text-center">
         <!-- Logo Header -->
@@ -281,11 +288,52 @@ const onHeroCast = async (video: Video) => {
             ></v-autocomplete>
           </div>
 
+          <!-- Theme Switcher Menu -->
+          <v-menu location="bottom end">
+            <template v-slot:activator="{ props }">
+              <v-btn
+                v-bind="props"
+                variant="text"
+                class="mr-2 nav-theme-btn"
+                icon
+                :title="$t('nav.theme')"
+                :aria-label="$t('nav.theme')"
+              >
+                <v-icon size="20">
+                  {{ store.themeMode === 'system' ? 'mdi-laptop' : store.effectiveTheme === 'dark' ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-list density="compact" rounded="lg" class="theme-menu-list">
+              <v-list-item
+                prepend-icon="mdi-weather-night"
+                :active="store.themeMode === 'dark'"
+                @click="store.setThemeMode('dark')"
+              >
+                <v-list-item-title>{{ $t('nav.themeDark') }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item
+                prepend-icon="mdi-white-balance-sunny"
+                :active="store.themeMode === 'light'"
+                @click="store.setThemeMode('light')"
+              >
+                <v-list-item-title>{{ $t('nav.themeLight') }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item
+                prepend-icon="mdi-laptop"
+                :active="store.themeMode === 'system'"
+                @click="store.setThemeMode('system')"
+              >
+                <v-list-item-title>{{ $t('nav.themeSystem') }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
           <!-- Help & Guide Button -->
           <v-btn
             icon="mdi-help-circle-outline"
             variant="text"
-            class="hidden-xs text-grey-lighten-1"
+            class="hidden-xs nav-help-btn"
             :title="$t('help.title')"
             @click="helpDialog = true"
           ></v-btn>
@@ -302,6 +350,9 @@ const onHeroCast = async (video: Video) => {
                 @play="onHeroAction"
                 @cast="onHeroCast"
               />
+
+              <!-- Continue Watching Carousel (when playback history exists) -->
+              <ContinueWatchingRow @play="onHeroAction" />
 
               <!-- Category Pills Filter Bar -->
               <CategoryPills v-model="selectedCategory" />
@@ -339,27 +390,63 @@ const onHeroCast = async (video: Video) => {
 </template>
 
 <style>
-/* Global Font & Baseline Reset */
-:root {
+/* Global Font & Baseline Reset with Adaptive Design Tokens */
+:root,
+[data-theme="dark"] {
   --app-bg: #0B0E14;
   --app-surface: #121620;
   --app-card: #141923;
+  --app-card-border: rgba(255, 255, 255, 0.08);
+  --app-text-primary: #F8FAFC;
+  --app-text-secondary: #94A3B8;
+  --app-nav-bg: rgba(11, 14, 20, 0.85);
+  --app-nav-border: rgba(255, 255, 255, 0.07);
+  --app-input-bg: rgba(255, 255, 255, 0.05);
+  --app-input-border: rgba(255, 255, 255, 0.1);
+  --app-scrollbar: #242D3D;
   --app-primary: #FF4757;
   --app-accent: #38BDF8;
+  --app-auth-bg: radial-gradient(circle at center, #161D2B 0%, #0B0E14 70%);
+  --app-auth-card: rgba(18, 22, 32, 0.85);
+  --app-dialpad-btn: rgba(255, 255, 255, 0.05);
+  --app-dialpad-border: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] {
+  --app-bg: #F1F5F9;
+  --app-surface: #FFFFFF;
+  --app-card: #FFFFFF;
+  --app-card-border: rgba(15, 23, 42, 0.08);
+  --app-text-primary: #0F172A;
+  --app-text-secondary: #64748B;
+  --app-nav-bg: rgba(241, 245, 249, 0.88);
+  --app-nav-border: rgba(15, 23, 42, 0.08);
+  --app-input-bg: rgba(15, 23, 42, 0.04);
+  --app-input-border: rgba(15, 23, 42, 0.12);
+  --app-scrollbar: #CBD5E1;
+  --app-primary: #FF4757;
+  --app-accent: #0284C7;
+  --app-auth-bg: radial-gradient(circle at center, #E2E8F0 0%, #F1F5F9 70%);
+  --app-auth-card: rgba(255, 255, 255, 0.95);
+  --app-dialpad-btn: rgba(15, 23, 42, 0.04);
+  --app-dialpad-border: rgba(15, 23, 42, 0.08);
 }
 
 body, html {
   background-color: var(--app-bg) !important;
-  color: #F8FAFC !important;
+  color: var(--app-text-primary) !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
   overflow-y: auto !important;
   margin: 0;
   padding: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .v-application {
   background: var(--app-bg) !important;
+  color: var(--app-text-primary) !important;
   font-family: 'Inter', sans-serif !important;
+  transition: background 0.25s ease;
 }
 
 /* Custom Sleek Scrollbar */
@@ -369,16 +456,16 @@ body, html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0E14;
+  background: var(--app-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #242D3D;
+  background: var(--app-scrollbar);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333F54;
+  background: var(--app-primary);
 }
 
 /* Brand Styling */
@@ -393,10 +480,11 @@ body, html {
   top: 0;
   z-index: 100;
   width: 100%;
-  background: rgba(11, 14, 20, 0.85);
+  background: var(--app-nav-bg);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid var(--app-nav-border);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .streaming-nav__inner {
@@ -418,7 +506,7 @@ body, html {
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: #FFFFFF;
+  color: var(--app-text-primary);
 }
 
 .streaming-nav__spacer {
@@ -430,19 +518,18 @@ body, html {
   display: inline-flex;
   align-items: center;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
   border-radius: 20px;
-  color: #CBD5E1;
+  color: var(--app-text-secondary);
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .nav-search-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
+  border-color: rgba(255, 71, 87, 0.4);
+  color: var(--app-text-primary);
 }
 
 .nav-search-kbd {
@@ -450,17 +537,17 @@ body, html {
   font-size: 0.72rem;
   font-weight: 700;
   padding: 2px 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--app-input-bg);
   border-radius: 6px;
-  color: #94A3B8;
+  color: var(--app-text-secondary);
   letter-spacing: 0.04em;
 }
 
 /* Language selector */
 .nav-lang-wrap {
   width: 170px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
   border-radius: 20px;
   padding: 0 10px;
   height: 38px;
@@ -470,7 +557,7 @@ body, html {
 }
 
 .nav-lang-wrap:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 71, 87, 0.4);
 }
 
 .nav-lang-autocomplete .v-field {
@@ -478,40 +565,51 @@ body, html {
   font-size: 0.82rem;
 }
 
+.nav-theme-btn,
+.nav-help-btn {
+  color: var(--app-text-secondary) !important;
+}
+
+.nav-theme-btn:hover,
+.nav-help-btn:hover {
+  color: var(--app-text-primary) !important;
+}
+
 /* Main Background */
 .streaming-main {
   background: var(--app-bg);
   min-height: calc(100vh - 68px);
+  transition: background 0.25s ease;
 }
 
 /* AUTH LOGIN CARD */
 .auth-wrapper {
-  background: radial-gradient(circle at center, #161D2B 0%, #0B0E14 70%);
+  background: var(--app-auth-bg);
 }
 
 .auth-card {
   width: 100%;
   max-width: 360px;
-  background: rgba(18, 22, 32, 0.85);
+  background: var(--app-auth-card);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--app-card-border);
   border-radius: 28px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
 }
 
 .auth-brand {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--app-text-primary);
 }
 
 .pin-dot {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--app-input-bg);
+  border: 1px solid var(--app-input-border);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -531,9 +629,9 @@ body, html {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #F8FAFC;
+  background: var(--app-dialpad-btn);
+  border: 1px solid var(--app-dialpad-border);
+  color: var(--app-text-primary);
   font-size: 1.4rem;
   font-weight: 600;
   cursor: pointer;
@@ -547,13 +645,14 @@ body, html {
 .dialpad-btn:hover {
   background: rgba(255, 71, 87, 0.2);
   border-color: rgba(255, 71, 87, 0.4);
-  color: #FFFFFF;
+  color: #FF4757;
   transform: scale(1.05);
 }
 
 .dialpad-btn:active {
   transform: scale(0.95);
   background: #FF4757;
+  color: #FFFFFF;
 }
 
 .dialpad-btn--action {

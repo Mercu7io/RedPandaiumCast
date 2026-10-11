@@ -114,7 +114,7 @@ watch(() => store.siteLanguage, () => {
 
 <template>
   <v-dialog v-model="dialog" max-width="900" scrollable transition="dialog-bottom-transition">
-    <v-card rounded="xl">
+    <v-card rounded="xl" class="search-modal-card">
       <v-toolbar color="primary" class="flex-grow-0">
         <v-text-field
           v-model="query"
@@ -123,19 +123,19 @@ watch(() => store.siteLanguage, () => {
           hide-details
           variant="outlined"
           density="compact"
-          bg-color="white"
+          bg-color="var(--app-input-bg, white)"
           clearable
           autofocus
           class="mx-4 my-2"
         ></v-text-field>
-        <v-btn icon="mdi-close" variant="text" @click="dialog = false" aria-label="Close"></v-btn>
+        <v-btn icon="mdi-close" variant="text" @click="dialog = false" :aria-label="$t('player.close')"></v-btn>
       </v-toolbar>
       
-      <v-card-text class="pa-4 bg-grey-lighten-4">
+      <v-card-text class="pa-4 search-dialog-content">
         <v-container v-if="response">
           <v-row class="mb-4" align="center">
             <v-col cols="12" sm="8">
-              <span class="text-subtitle-1">{{ response.pagination?.label || response.messages?.[0]?.message }}</span>
+              <span class="text-subtitle-1 search-result-label">{{ response.pagination?.label || response.messages?.[0]?.message }}</span>
             </v-col>
             <v-col cols="12" sm="4" v-if="response.sorts && response.sorts.length > 0">
               <v-select
@@ -153,19 +153,19 @@ watch(() => store.siteLanguage, () => {
           
           <v-row>
             <v-col v-for="result in response.results" :key="result.lank" cols="12" sm="6" lg="4">
-              <v-card hover @click="fetchVideo(store.getSiteLanguageObj?.code || 'E', result.lank)" rounded="lg">
+              <v-card hover @click="fetchVideo(store.getSiteLanguageObj?.code || 'E', result.lank)" rounded="lg" class="search-result-item">
                 <v-img
                   :src="result.image?.url"
                   aspect-ratio="16/9"
                   cover
-                  class="align-end bg-grey-lighten-2"
+                  class="align-end bg-grey-darken-3"
                 >
                   <template v-slot:placeholder>
                     <div class="d-flex align-center justify-center fill-height">
-                      <v-progress-circular indeterminate color="grey-lighten-1"></v-progress-circular>
+                      <v-progress-circular indeterminate color="primary"></v-progress-circular>
                     </div>
                   </template>
-                  <div class="pa-2" style="background: rgba(0,0,0,0.6); color: white;">
+                  <div class="pa-2 search-result-caption">
                     <div class="text-body-2 font-weight-bold text-truncate" style="line-height: 1.2;">{{ result.title }}</div>
                   </div>
                 </v-img>
@@ -185,3 +185,39 @@ watch(() => store.siteLanguage, () => {
     </v-card>
   </v-dialog>
 </template>
+
+<style scoped>
+.search-modal-card {
+  background: var(--app-surface, #0f172a) !important;
+  color: var(--app-text-primary, #f8fafc) !important;
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
+}
+
+.search-dialog-content {
+  background: var(--app-surface, #0b1120) !important;
+  color: var(--app-text-primary, #f8fafc) !important;
+  min-height: 320px;
+}
+
+.search-result-label {
+  color: var(--app-text-primary, #f8fafc);
+  font-weight: 600;
+}
+
+.search-result-item {
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.search-result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+.search-result-caption {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+}
+</style>

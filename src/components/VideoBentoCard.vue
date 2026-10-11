@@ -71,6 +71,18 @@ const onQuickSubtitles = (event: MouseEvent) => {
         <span>{{ (store.siteLanguage || 'EN').toUpperCase() }}</span>
       </div>
 
+      <!-- Favorite Floating Button -->
+      <button
+        class="bento-card__fav-btn"
+        :class="{ 'bento-card__fav-btn--active': store.isFavorite(video.lank) }"
+        @click.stop="store.toggleFavorite(video)"
+        type="button"
+        :title="store.isFavorite(video.lank) ? $t('card.favoriteRemove') : $t('card.favoriteAdd')"
+        :aria-label="$t('card.favoriteAdd')"
+      >
+        <v-icon size="15">{{ store.isFavorite(video.lank) ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+      </button>
+
       <!-- Quick Action Floating Overlay -->
       <div class="bento-card__actions" :class="{ 'bento-card__actions--visible': isHovered }" @click="onCardClick">
         <button
@@ -127,8 +139,8 @@ const onQuickSubtitles = (event: MouseEvent) => {
 .bento-card {
   display: flex;
   flex-direction: column;
-  background: #141923;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--app-card, #141923);
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
@@ -143,8 +155,8 @@ const onQuickSubtitles = (event: MouseEvent) => {
 .bento-card--hovered {
   transform: translateY(-5px);
   border-color: rgba(255, 71, 87, 0.45);
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7),
-              0 0 20px 2px rgba(255, 71, 87, 0.18);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5),
+              0 0 20px 2px rgba(255, 71, 87, 0.15);
 }
 
 .bento-card:focus-visible {
@@ -225,6 +237,37 @@ const onQuickSubtitles = (event: MouseEvent) => {
   z-index: 2;
 }
 
+.bento-card__fav-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 14, 20, 0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #F8FAFC;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.bento-card__fav-btn:hover {
+  transform: scale(1.15);
+  background: rgba(255, 71, 87, 0.85);
+  color: #FFFFFF;
+}
+
+.bento-card__fav-btn--active {
+  background: #FF4757;
+  border-color: #FF4757;
+  color: #FFFFFF;
+}
+
 .bento-card__actions {
   position: absolute;
   inset: 0;
@@ -292,7 +335,7 @@ const onQuickSubtitles = (event: MouseEvent) => {
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.35;
-  color: #F1F5F9;
+  color: var(--app-text-primary, #F1F5F9);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -306,7 +349,7 @@ const onQuickSubtitles = (event: MouseEvent) => {
   align-items: center;
   gap: 6px;
   font-size: 0.75rem;
-  color: #94A3B8;
+  color: var(--app-text-secondary, #94A3B8);
 }
 
 .meta-tag {

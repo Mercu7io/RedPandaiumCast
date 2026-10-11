@@ -1,6 +1,6 @@
 {
   "auth": {
-    "enterPin": "Introduce el PIN",
+    "enterPin": "Ingrese el PIN",
     "incorrectPin": "PIN incorrecto"
   },
   "nav": {
@@ -8,32 +8,64 @@
     "search": "Buscar",
     "guide": "Guía",
     "selectLanguage": "Seleccionar idioma",
-    "searchShortcut": "Ctrl+K"
+    "searchShortcut": "Ctrl+K",
+    "theme": "Tema",
+    "themeDark": "Oscuro",
+    "themeLight": "Claro",
+    "themeSystem": "Sistema"
   },
   "hero": {
     "featuredTag": "PROGRAMA DESTACADO",
     "castToTv": "Transmitir a TV",
     "aiSubtitles": "Generar subtítulos IA",
-    "playNow": "Reproducir"
+    "playNow": "Ver ahora",
+    "resume": "Reanudar reproducción automática",
+    "pause": "Pausar reproducción automática",
+    "paused": "PAUSADO",
+    "prevSlide": "Lanzamiento anterior",
+    "nextSlide": "Siguiente lanzamiento"
   },
   "card": {
     "quickCast": "Transmitir",
     "subtitles": "Subtítulos",
-    "play": "Reproducir"
+    "play": "Reproducir",
+    "favoriteAdd": "Agregar a Favoritos",
+    "favoriteRemove": "Quitar de Favoritos"
+  },
+  "history": {
+    "title": "Continuar viendo",
+    "resume": "Continuar ({time})",
+    "clear": "Borrar historial",
+    "empty": "No hay videos en curso."
+  },
+  "favorites": {
+    "title": "Mis Favoritos",
+    "empty": "No hay videos favoritos guardados aún. Haga clic en el corazón de cualquier video para agregarlo aquí."
   },
   "categories": {
     "all": "Todo",
+    "favorites": "Favoritos",
+    "scrollLeft": "Desplazar a la izquierda",
+    "scrollRight": "Desplazar a la derecha",
     "LatestVideos": "Últimos videos",
     "StudioMonthlyPrograms": "Programas mensuales",
     "StudioTalks": "Discursos de estudio",
     "StudioNewsReports": "Informes de noticias",
     "VODStudio": "JW Broadcasting",
     "VODChildren": "Niños",
-    "VODTeenagers": "Jóvenes",
+    "VODTeenagers": "Adolescentes",
     "VODFamily": "Familia",
+    "VODProgramsEvents": "Programas y eventos",
+    "VODOurActivities": "Nuestras actividades",
+    "VODMinistry": "Nuestras reuniones y ministerio",
+    "VODOurOrganization": "Nuestra organización",
     "VODBible": "La Biblia",
     "VODMovies": "Dramas",
-    "VODMusic": "Música"
+    "VODSeries": "Series",
+    "VODMusic": "Música",
+    "VODMusicVideos": "Videos musicales",
+    "VODIntExp": "Entrevistas y experiencias",
+    "VODAudioDescriptions": "Audiodescripciones"
   },
   "player": {
     "audio": "Audio",
@@ -41,59 +73,73 @@
     "speed": "Velocidad",
     "subtitles": "Subtítulos",
     "cc": "CC",
-    "theatreMode": "Modo teatro",
-    "exitTheatreMode": "Salir del modo teatro",
+    "theatreMode": "Modo cine",
+    "exitTheatreMode": "Salir del modo cine",
     "share": "Compartir video",
     "copied": "¡Copiado!",
     "chromecast": "Chromecast",
     "downloadVideo": "Video",
     "downloadSubtitles": "Subtítulos",
     "downloadVtt": "Descargar VTT",
+    "downloadQuality": "Descargar {quality}",
     "viewTranscript": "Ver transcripción (TXT)",
     "close": "Cerrar",
     "unavailable": "Video no disponible"
   },
   "ai": {
-    "title": "Subtítulos y traducción por IA",
-    "translateExisting": "Traducir los subtítulos en inglés existentes mediante IA.",
-    "generateFromAudio": "Generar subtítulos a partir del audio y traducir mediante IA.",
+    "title": "Subtítulos IA y Traducción",
+    "translateExisting": "Traducir subtítulos en inglés existentes mediante IA.",
+    "generateFromAudio": "Generar subtítulos desde el audio y traducir mediante IA.",
     "translate": "Traducir",
     "generate": "Generar",
     "success": "¡Éxito!",
-    "failed": "Error de generación. Revise los registros.",
-    "serverUnreachable": "El servidor backend de IA no responde (puerto 3000). Asegúrese de que el backend esté iniciado.",
+    "failed": "Error al generar. Revise los registros.",
+    "serverUnreachable": "El servidor IA no responde (puerto 3000). Asegúrese de que esté iniciado.",
     "translating": "Traduciendo subtítulos en inglés...",
-    "preparing": "Preparando IA... (Descarga y procesamiento de medios en curso)",
-    "disabledNotice": "Los subtítulos y traducción por IA están desactivados porque GROQ_API_KEY no está configurado."
+    "preparing": "Preparando IA... (Descarga y procesamiento multimedia en curso)",
+    "disabledNotice": "Los subtítulos IA y la traducción están deshabilitados porque GROQ_API_KEY no está configurado."
   },
   "styles": {
-    "title": "Estilos de subtítulos",
+    "title": "Estilo de subtítulos",
     "fontFamily": "Fuente",
     "fontSize": "Tamaño de fuente ({size}%)",
-    "bgOpacity": "Opacidad del fondo ({opacity})",
-    "textColor": "Color del texto",
+    "bgOpacity": "Opacidad de fondo ({opacity})",
+    "textColor": "Color de texto",
+    "colorWhite": "Blanco",
+    "colorYellow": "Amarillo",
+    "colorCyan": "Cian",
+    "fontDefault": "Predeterminado (Sans-Serif)",
     "done": "Listo"
   },
   "transcript": {
     "title": "Transcripción",
     "downloadTxt": "Descargar TXT",
-    "copy": "Copiar"
+    "copy": "Copiar",
+    "failed": "Error al cargar la transcripción."
   },
   "search": {
     "placeholder": "Buscar o pegar enlace de jw.org..."
   },
   "help": {
     "title": "Ayuda y Guía",
+    "aboutTitle": "Acerca de RedPandaium Cast",
     "attribution": "Basado e inspirado en el trabajo original de",
-    "featuresTitle": "Características principales",
-    "featureCastTitle": "Transmisión a Chromecast",
-    "featureCastDesc": "Transmita videos con subtítulos sincronizados directamente a su televisor o dispositivos Chromecast.",
+    "attributionNote": "RedPandaium Cast amplía el proyecto original con compilaciones automatizadas de Docker, transcripción por voz de IA Groq, traducción multilingüe al vuelo, seguridad por PIN y la interfaz Streaming Bento.",
+    "featuresTitle": "Características Principales",
+    "featureCastTitle": "Transmisión Chromecast",
+    "featureCastDesc": "Transmita videos con subtítulos sincronizados y personalizados directamente a su TV o dispositivo compatible con Chromecast.",
     "featureSubtitlesTitle": "Subtítulos IA y Traducción",
-    "featureSubtitlesDesc": "Genere subtítulos de alta precisión a partir del audio mediante Groq Whisper o traduzca subtítulos existentes a su idioma.",
-    "featureShortcutsTitle": "Atajos de teclado",
-    "shortcutSearch": "Abrir búsqueda instantánea de videos",
-    "shortcutClose": "Cerrar ventana o video activo",
-    "featureSecurityTitle": "Seguridad con PIN",
+    "featureSubtitlesDesc": "Genere subtítulos de alta precisión a partir del audio mediante Groq Whisper o traduzca subtítulos existentes a su idioma preferido.",
+    "featureShortcutsTitle": "Atajos de Teclado",
+    "shortcutSearch": "Abrir búsqueda instantánea",
+    "shortcutClose": "Cerrar ventana o reproductor activo",
+    "shortcutPlayPause": "Reproducir / Pausar video",
+    "shortcutSeek": "Retroceder / Avanzar 5s",
+    "shortcutSeekTen": "Retroceder / Avanzar 10s (J/L)",
+    "shortcutMute": "Silenciar / Activar sonido",
+    "shortcutFullscreen": "Alternar pantalla completa de cine",
+    "shortcutSubtitles": "Alternar subtítulos (CC)",
+    "featureSecurityTitle": "Seguridad por PIN",
     "featureSecurityDesc": "Proteja el acceso a la aplicación con un código PIN seguro de 4 dígitos."
   }
 }

@@ -6,23 +6,47 @@
   "nav": {
     "title": "RedPandaium Cast",
     "search": "Zoeken",
-    "guide": "Handleiding",
+    "guide": "Gids",
     "selectLanguage": "Selecteer taal",
-    "searchShortcut": "Ctrl+K"
+    "searchShortcut": "Ctrl+K",
+    "theme": "Thema",
+    "themeDark": "Donker",
+    "themeLight": "Licht",
+    "themeSystem": "Systeem"
   },
   "hero": {
     "featuredTag": "UITGELICHT PROGRAMMA",
     "castToTv": "Cast naar TV",
     "aiSubtitles": "Genereer AI-ondertitels",
-    "playNow": "Afspelen"
+    "playNow": "Nu afspelen",
+    "resume": "Automatisch afspelen hervatten",
+    "pause": "Automatisch afspelen pauzeren",
+    "paused": "GEPAUZEERD",
+    "prevSlide": "Vorige release",
+    "nextSlide": "Volgende release"
   },
   "card": {
-    "quickCast": "Casten",
+    "quickCast": "Snel casten",
     "subtitles": "Ondertitels",
-    "play": "Afspelen"
+    "play": "Afspelen",
+    "favoriteAdd": "Toevoegen aan favorieten",
+    "favoriteRemove": "Verwijderen uit favorieten"
+  },
+  "history": {
+    "title": "Verder kijken",
+    "resume": "Hervatten ({time})",
+    "clear": "Geschiedenis wissen",
+    "empty": "Geen video's in voortgang."
+  },
+  "favorites": {
+    "title": "Mijn Favorieten",
+    "empty": "Nog geen favoriete video's opgeslagen. Klik op het hartje van een video om deze hier toe te voegen."
   },
   "categories": {
     "all": "Alles",
+    "favorites": "Favorieten",
+    "scrollLeft": "Scroll naar links",
+    "scrollRight": "Scroll naar rechts",
     "LatestVideos": "Nieuwste video's",
     "StudioMonthlyPrograms": "Maandelijkse programma's",
     "StudioTalks": "Studiolezingen",
@@ -30,10 +54,18 @@
     "VODStudio": "JW Broadcasting",
     "VODChildren": "Kinderen",
     "VODTeenagers": "Tieners",
-    "VODFamily": "Gezin",
+    "VODFamily": "Familie",
+    "VODProgramsEvents": "Programma's en evenementen",
+    "VODOurActivities": "Onze activiteiten",
+    "VODMinistry": "Onze bijeenkomsten en bediening",
+    "VODOurOrganization": "Onze organisatie",
     "VODBible": "De Bijbel",
-    "VODMovies": "Dramafilms",
-    "VODMusic": "Muziek"
+    "VODMovies": "Drama's",
+    "VODSeries": "Series",
+    "VODMusic": "Muziek",
+    "VODMusicVideos": "Muziekvideo's",
+    "VODIntExp": "Interviews en ervaringen",
+    "VODAudioDescriptions": "Audiodescripties"
   },
   "player": {
     "audio": "Audio",
@@ -41,58 +73,72 @@
     "speed": "Snelheid",
     "subtitles": "Ondertitels",
     "cc": "CC",
-    "theatreMode": "Theatermodus",
-    "exitTheatreMode": "Verlaat theatermodus",
+    "theatreMode": "Bioscoopmodus",
+    "exitTheatreMode": "Bioscoopmodus verlaten",
     "share": "Deel video",
     "copied": "Gekopieerd!",
     "chromecast": "Chromecast",
     "downloadVideo": "Video",
     "downloadSubtitles": "Ondertitels",
     "downloadVtt": "Download VTT",
-    "viewTranscript": "Bekijk transcript (TXT)",
+    "downloadQuality": "Download {quality}",
+    "viewTranscript": "Bekijk transcriptie (TXT)",
     "close": "Sluiten",
     "unavailable": "Video niet beschikbaar"
   },
   "ai": {
-    "title": "AI-ondertitels en vertaling",
+    "title": "AI-ondertitels & Vertaling",
     "translateExisting": "Vertaal bestaande Engelse ondertitels via AI.",
     "generateFromAudio": "Genereer ondertitels van audio en vertaal via AI.",
     "translate": "Vertalen",
     "generate": "Genereren",
-    "success": "Gelukt!",
-    "failed": "Generatie mislukt. Controleer logs.",
-    "serverUnreachable": "AI backendserver is onbereikbaar (poort 3000). Zorg ervoor dat de backend is gestart.",
+    "success": "Succes!",
+    "failed": "Generatie mislukt. Controleer logboeken.",
+    "serverUnreachable": "AI-server is niet bereikbaar (poort 3000). Controleer of de backend is gestart.",
     "translating": "Engelse ondertitels vertalen...",
     "preparing": "AI voorbereiden... (Media downloaden en verwerken)",
     "disabledNotice": "AI-ondertitels en vertaling zijn uitgeschakeld omdat GROQ_API_KEY niet is geconfigureerd."
   },
   "styles": {
-    "title": "Ondertitelstijlen",
+    "title": "Ondertitelstijl",
     "fontFamily": "Lettertype",
     "fontSize": "Lettergrootte ({size}%)",
     "bgOpacity": "Achtergronddekking ({opacity})",
     "textColor": "Tekstkleur",
+    "colorWhite": "Wit",
+    "colorYellow": "Geel",
+    "colorCyan": "Cyaan",
+    "fontDefault": "Standaard (Sans-Serif)",
     "done": "Klaar"
   },
   "transcript": {
-    "title": "Transcript",
+    "title": "Transcriptie",
     "downloadTxt": "Download TXT",
-    "copy": "Kopiëren"
+    "copy": "Kopiëren",
+    "failed": "Transcriptie laden mislukt."
   },
   "search": {
     "placeholder": "Zoek of plak jw.org link..."
   },
   "help": {
-    "title": "Help & Handleiding",
-    "attribution": "Gebaseerd op en geïnspireerd door het originele werk van",
-    "featuresTitle": "Belangrijkste functies",
+    "title": "Hulp & Gids",
+    "aboutTitle": "Over RedPandaium Cast",
+    "attribution": "Gebaseerd op en geïnspireerd door het oorspronkelijke werk van",
+    "attributionNote": "RedPandaium Cast breidt het oorspronkelijke project uit met geautomatiseerde Docker-builds, Groq AI spraak-naar-tekst transcriptie, directe meertalige vertaling, PIN-beveiliging en de Streaming Bento UI.",
+    "featuresTitle": "Belangrijkste Kenmerken",
     "featureCastTitle": "Chromecast Streaming",
-    "featureCastDesc": "Cast video's met gesynchroniseerde ondertitels rechtstreeks naar uw tv of Chromecast-apparaten.",
+    "featureCastDesc": "Cast video's met aangepaste, gesynchroniseerde ondertitels rechtstreeks naar uw tv of Chromecast-apparaat.",
     "featureSubtitlesTitle": "AI-ondertitels & Vertaling",
-    "featureSubtitlesDesc": "Genereer nauwkeurige ondertitels van audio via Groq Whisper of vertaal bestaande ondertitels naar uw gewenste taal.",
+    "featureSubtitlesDesc": "Genereer uiterst nauwkeurige ondertitels van audio via Groq Whisper of vertaal bestaande ondertitels naar uw voorkeurstaal.",
     "featureShortcutsTitle": "Sneltoetsen",
-    "shortcutSearch": "Open direct video zoeken",
-    "shortcutClose": "Sluit actieve dialoog of video",
+    "shortcutSearch": "Open direct zoeken",
+    "shortcutClose": "Sluit actief venster of videospeler",
+    "shortcutPlayPause": "Video afspelen / pauzeren",
+    "shortcutSeek": "5s terugspoelen / vooruitspoelen",
+    "shortcutSeekTen": "10s terugspoelen / vooruitspoelen (J/L)",
+    "shortcutMute": "Geluid dempen / inschakelen",
+    "shortcutFullscreen": "Bioscoopmodus volledig scherm",
+    "shortcutSubtitles": "Ondertitels in-/uitschakelen (CC)",
     "featureSecurityTitle": "PIN-beveiliging",
     "featureSecurityDesc": "Beveilig toegang tot de applicatie met een 4-cijferige pincode."
   }

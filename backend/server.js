@@ -404,6 +404,7 @@ app.post('/api/subtitles/generate', aiRateLimiter, async (req, res) => {
 
   const tempVideoPath = path.join(TEMP_AUDIO_DIR, `${sanitizedLank}_input.mp4`);
   const tempAudioPath = path.join(TEMP_AUDIO_DIR, `${sanitizedLank}.mp3`);
+  let currentTempVideoPath = null;
 
   try {
     let sourceVtt = null;
@@ -501,7 +502,7 @@ app.post('/api/subtitles/generate', aiRateLimiter, async (req, res) => {
 
       const mediaUrlParsed = new URL(mediaSourceUrl);
       const mediaExt = path.extname(mediaUrlParsed.pathname) || '.mp4';
-      const currentTempVideoPath = path.join(TEMP_AUDIO_DIR, `${sanitizedLank}_input${mediaExt}`);
+      currentTempVideoPath = path.join(TEMP_AUDIO_DIR, `${sanitizedLank}_input${mediaExt}`);
 
       const writer = fs.createWriteStream(currentTempVideoPath);
       const audioResponse = await axios({ 
@@ -641,6 +642,9 @@ app.post('/api/subtitles/generate', aiRateLimiter, async (req, res) => {
   } finally {
     // Guaranteed cleanup of temporary files
     try {
+      if (currentTempVideoPath && fs.existsSync(currentTempVideoPath)) fs.unlinkSync(currentTempVideoPath);
+    } catch (_) {}
+    try {
       if (fs.existsSync(tempVideoPath)) fs.unlinkSync(tempVideoPath);
     } catch (_) {}
     try {
@@ -698,27 +702,42 @@ async function translateVtt(vttString, sourceLang, targetLang) {
   const translatedMap = {};
   for (const cue of parsedCues) {
     if (!cue.text.trim()) continue;
-    const cleanText = cue.text.replace(/\n/g, ' ').trim();
-    try {
-      // 1. Try MyMemory API (free, reliable translation)
-      const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanText)}&langpair=${sl}|${tl}`;
-      const res = await axios.get(myMemoryUrl, { timeout: 8000 });
-      const translated = res.data?.responseData?.translatedText;
-      if (translated && !translated.includes('MYMEMORY WARNING')) {
-        translatedMap[cue.idx] = translated.trim();
-        await new Promise(r => setTimeout(r, 80));
+    // Split by newlines so each line is translated and multi-line formatting is preserved
+    const rawLines = cue.text.split(/\r?\n/);
+    const translatedLines = [];
+
+    for (const rawLine of rawLines) {
+      const cleanLine = rawLine.trim();
+      if (!cleanLine) {
+        translatedLines.push('');
         continue;
       }
-    } catch (_) {}
+      let lineTranslated = cleanLine;
 
-    try {
-      // 2. Try Google Translate fallback
-      const gtxUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(cleanText)}`;
-      const gtxRes = await axios.get(gtxUrl, { timeout: 8000, headers: { 'User-Agent': 'Mozilla/5.0' } });
-      if (gtxRes.data && gtxRes.data[0] && gtxRes.data[0][0] && gtxRes.data[0][0][0]) {
-        translatedMap[cue.idx] = gtxRes.data[0][0][0].trim();
+      try {
+        // 1. Try MyMemory API (free, reliable translation)
+        const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanLine)}&langpair=${sl}|${tl}`;
+        const res = await axios.get(myMemoryUrl, { timeout: 8000 });
+        const translated = res.data?.responseData?.translatedText;
+        if (translated && !translated.includes('MYMEMORY WARNING')) {
+          lineTranslated = translated.trim();
+          await new Promise(r => setTimeout(r, 60));
+        }
+      } catch (_) {
+        try {
+          // 2. Try Google Translate fallback
+          const gtxUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(cleanLine)}`;
+          const gtxRes = await axios.get(gtxUrl, { timeout: 8000, headers: { 'User-Agent': 'Mozilla/5.0' } });
+          if (gtxRes.data && gtxRes.data[0] && gtxRes.data[0][0] && gtxRes.data[0][0][0]) {
+            lineTranslated = gtxRes.data[0][0][0].trim();
+          }
+        } catch (_) {}
       }
-    } catch (_) {}
+
+      translatedLines.push(lineTranslated);
+    }
+
+    translatedMap[cue.idx] = translatedLines.join('\n');
   }
 
   let finalVtt = header + '\n\n';
@@ -787,7 +806,7 @@ async function translateVttWithGroq(vttString, sourceLang, targetLang, apiKey) {
 
   for (let i = 0; i < parsedCues.length; i += CHUNK_SIZE) {
     const chunk = parsedCues.slice(i, i + CHUNK_SIZE);
-    const promptText = chunk.map(c => `[${c.idx}] ${c.text.replace(/\n/g, ' ')}`).join('\n');
+    const promptText = chunk.map(c => `[${c.idx}] ${c.text.replace(/\r?\n/g, ' <br> ')}`).join('\n');
 
     const requestPayload = {
       model: modelToUse,
@@ -799,9 +818,10 @@ async function translateVttWithGroq(vttString, sourceLang, targetLang, apiKey) {
 STRICT INSTRUCTIONS (MANDATORY):
 1. Output EXACTLY one line per item in the format: [n] <translated text>
 2. Maintain the exact cue number [n] without skipping or renumbering.
-3. Do NOT interpret, summarize, embellish, explain, or alter the meaning of any text.
-4. Do NOT add any commentary, notes, conversational filler, markdown formatting (do NOT use \`\`\` code fences), or explanations.
-5. Output ONLY the raw numbered lines.`
+3. If an input line contains '<br>', preserve '<br>' at appropriate natural phrase boundaries so multi-line subtitle formatting is preserved.
+4. Do NOT interpret, summarize, embellish, explain, or alter the meaning of any text.
+5. Do NOT add any commentary, notes, conversational filler, markdown formatting (do NOT use \`\`\` code fences), or explanations.
+6. Output ONLY the raw numbered lines.`
         },
         {
           role: 'user',
@@ -833,7 +853,7 @@ STRICT INSTRUCTIONS (MANDATORY):
     for (const line of lines) {
       const match = line.match(/^\[(\d+)\]\s*(.+)$/);
       if (match) {
-        translatedMap[parseInt(match[1], 10)] = match[2].trim();
+        translatedMap[parseInt(match[1], 10)] = match[2].trim().replace(/\s*<br\s*\/?>\s*/gi, '\n');
       }
     }
 

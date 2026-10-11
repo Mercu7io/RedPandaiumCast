@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { parseVttToText, blobUrlManager, buildChromecastUrl, safeBase64Encode, fetchChromecastUrl } from '../subtitleService';
+import { parseVttToText, sanitizeVttMultiLine, blobUrlManager, buildChromecastUrl, safeBase64Encode, fetchChromecastUrl } from '../subtitleService';
 import { mediatorService } from '../mediatorService';
 
 describe('subtitleService unit tests', () => {
@@ -56,6 +56,18 @@ Enjoy the program.
     const noSubUrl = buildChromecastUrl(videoUrl, title);
     expect(noSubUrl).not.toContain('&subtitles=');
 
+    // With custom subtitle style (color, size, background)
+    const styledUrl = buildChromecastUrl(videoUrl, title, subUrl, {
+      textColor: '#ffff00',
+      size: '1.4',
+      bgColor: '#000000',
+      bgOpacity: 0.9,
+    });
+    expect(styledUrl).toContain('&sbgc=');
+    expect(styledUrl).toContain('&sbgo=');
+    expect(styledUrl).toContain(safeBase64Encode('#ffff00'));
+    expect(styledUrl).toContain(safeBase64Encode('1.4'));
+
     // Empty video URL
     expect(buildChromecastUrl('')).toBe('');
   });
@@ -103,5 +115,46 @@ Enjoy the program.
     const noFilesUrl = await fetchChromecastUrl({ lank: 'pub-empty', title: 'Empty', description: '', images: { lsr: { lg: '' } } });
     expect(noFilesUrl).toBe('');
   });
+
+  it('parseVttToText correctly handles multi-line cues across multiple lines', () => {
+    const multiLineVtt = `WEBVTT
+
+1
+00:00:01.000 --> 00:00:04.000
+First line of subtitle cue.
+Second line of subtitle cue.
+
+2
+00:00:05.000 --> 00:00:08.000
+Third line without period
+Fourth line finishing sentence.
+`;
+
+    const parsed = parseVttToText(multiLineVtt);
+    expect(parsed).toContain('First line of subtitle cue.');
+    expect(parsed).toContain('Second line of subtitle cue.');
+    expect(parsed).toContain('Third line without period');
+    expect(parsed).toContain('Fourth line finishing sentence.');
+  });
+
+  it('sanitizeVttMultiLine removes clipping line constraints while preserving cue text and alignment', () => {
+    const rawClippedVtt = `WEBVTT
+
+00:00:44.023 --> 00:00:47.526 line:90% position:50% align:center
+One was married to Ruth
+and the other to Orpah.
+`;
+
+    const sanitized = sanitizeVttMultiLine(rawClippedVtt);
+    expect(sanitized).not.toContain('line:90%');
+    expect(sanitized).toContain('00:00:44.023 --> 00:00:47.526');
+    expect(sanitized).toContain('position:50%');
+    expect(sanitized).toContain('align:center');
+    expect(sanitized).toContain('One was married to Ruth\nand the other to Orpah.');
+
+    // Edge case: empty string
+    expect(sanitizeVttMultiLine('')).toBe('');
+  });
 });
+
 

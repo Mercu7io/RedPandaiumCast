@@ -23,6 +23,15 @@ export interface Video {
   durationFormatted?: string;
 }
 
+export interface PlaybackHistoryItem {
+  video: Video;
+  time: number;
+  duration: number;
+  updatedAt: number;
+}
+
+export type ThemeMode = 'dark' | 'light' | 'system';
+
 export interface SearchResponse {
   messages: any[];
   pagination: { label: string };

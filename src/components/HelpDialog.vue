@@ -44,7 +44,7 @@ const closeDialog = () => {
         <div class="attribution-card mb-6">
           <div class="d-flex align-center mb-2">
             <v-icon size="20" color="info" class="mr-2">mdi-information-outline</v-icon>
-            <span class="text-subtitle-2 font-weight-bold text-white">About RedPandaium Cast</span>
+            <span class="text-subtitle-2 font-weight-bold text-white">{{ $t('help.aboutTitle') }}</span>
           </div>
           <p class="attribution-text mb-2">
             {{ $t('help.attribution') }}
@@ -59,7 +59,7 @@ const closeDialog = () => {
             </a>
           </p>
           <div class="attribution-note">
-            RedPandaium Cast extends the original project with automated Docker builds, Groq AI speech-to-text transcription, on-the-fly multilingual translation, PIN security, and the Streaming Bento UI.
+            {{ $t('help.attributionNote') }}
           </div>
         </div>
 
@@ -103,7 +103,7 @@ const closeDialog = () => {
 
         <!-- Keyboard Shortcuts Section -->
         <h3 class="section-heading mb-3">{{ $t('help.featureShortcutsTitle') }}</h3>
-        <div class="shortcuts-card mb-4">
+        <div class="shortcuts-card mb-6">
           <div class="shortcut-row">
             <span class="shortcut-action">{{ $t('help.shortcutSearch') }}</span>
             <div class="shortcut-keys">
@@ -116,6 +116,48 @@ const closeDialog = () => {
             <span class="shortcut-action">{{ $t('help.shortcutClose') }}</span>
             <div class="shortcut-keys">
               <kbd class="kbd-key">Esc</kbd>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span class="shortcut-action">{{ $t('help.shortcutPlayPause') }}</span>
+            <div class="shortcut-keys">
+              <kbd class="kbd-key">Space</kbd>
+              <span class="kbd-plus">/</span>
+              <kbd class="kbd-key">K</kbd>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span class="shortcut-action">{{ $t('help.shortcutSeek') }}</span>
+            <div class="shortcut-keys">
+              <kbd class="kbd-key">←</kbd>
+              <span class="kbd-plus">/</span>
+              <kbd class="kbd-key">→</kbd>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span class="shortcut-action">{{ $t('help.shortcutSeekTen') }}</span>
+            <div class="shortcut-keys">
+              <kbd class="kbd-key">J</kbd>
+              <span class="kbd-plus">/</span>
+              <kbd class="kbd-key">L</kbd>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span class="shortcut-action">{{ $t('help.shortcutMute') }}</span>
+            <div class="shortcut-keys">
+              <kbd class="kbd-key">M</kbd>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span class="shortcut-action">{{ $t('help.shortcutFullscreen') }}</span>
+            <div class="shortcut-keys">
+              <kbd class="kbd-key">F</kbd>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span class="shortcut-action">{{ $t('help.shortcutSubtitles') }}</span>
+            <div class="shortcut-keys">
+              <kbd class="kbd-key">C</kbd>
             </div>
           </div>
         </div>
@@ -133,14 +175,14 @@ const closeDialog = () => {
 
 <style scoped>
 .help-modal {
-  background: rgba(18, 22, 32, 0.96);
+  background: var(--app-surface, rgba(18, 22, 32, 0.96));
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.12));
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9);
-  color: #F8FAFC;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+  color: var(--app-text-primary, #F8FAFC);
   display: flex;
   flex-direction: column;
   max-height: 85vh;
@@ -151,13 +193,13 @@ const closeDialog = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
 }
 
 .help-title {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--app-text-primary, #FFFFFF);
   margin: 0;
   display: flex;
   align-items: center;
@@ -255,8 +297,8 @@ const closeDialog = () => {
   align-items: flex-start;
   gap: 14px;
   padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--app-card, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.06));
   border-radius: 14px;
 }
 
@@ -288,21 +330,21 @@ const closeDialog = () => {
 .feature-title {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #F8FAFC;
+  color: var(--app-text-primary, #F8FAFC);
   margin: 0 0 4px;
 }
 
 .feature-desc {
   font-size: 0.82rem;
-  color: #94A3B8;
+  color: var(--app-text-secondary, #94A3B8);
   margin: 0;
   line-height: 1.4;
 }
 
 /* Shortcuts Card */
 .shortcuts-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--app-card, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.06));
   border-radius: 14px;
   padding: 12px 16px;
   display: flex;
@@ -318,7 +360,7 @@ const closeDialog = () => {
 
 .shortcut-action {
   font-size: 0.84rem;
-  color: #CBD5E1;
+  color: var(--app-text-primary, #CBD5E1);
 }
 
 .shortcut-keys {
@@ -330,10 +372,10 @@ const closeDialog = () => {
 .kbd-key {
   display: inline-block;
   padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--app-input-bg, rgba(255, 255, 255, 0.1));
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.18));
   border-radius: 6px;
-  color: #F8FAFC;
+  color: var(--app-text-primary, #F8FAFC);
   font-size: 0.75rem;
   font-weight: 700;
   font-family: inherit;
@@ -349,7 +391,7 @@ const closeDialog = () => {
   padding: 16px 24px;
   display: flex;
   justify-content: flex-end;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
 }
 
 .help-done-btn {

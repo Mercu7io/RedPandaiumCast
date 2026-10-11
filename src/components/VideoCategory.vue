@@ -25,6 +25,14 @@ const remoteTitle = ref<string>('');
 const fetchVideos = async () => {
   loading.value = true;
   try {
+    if (props.categoryName === 'favorites') {
+      remoteTitle.value = t('favorites.title');
+      subcategories.value = [];
+      videos.value = store.favorites;
+      loading.value = false;
+      return;
+    }
+
     const langObj = store.getSiteLanguageObj || { code: 'E' };
     
     // Fetch details to get official localized category name and subcategories
@@ -175,8 +183,10 @@ const displayTitle = computed(() => {
 
     <!-- Empty State -->
     <div v-else-if="videos.length === 0" class="empty-category-box pa-8 text-center rounded-xl">
-      <v-icon size="48" color="grey-darken-1" class="mb-3">mdi-filmstrip-off</v-icon>
-      <div class="text-subtitle-1 font-weight-bold text-grey-lighten-1">No videos found in this category</div>
+      <v-icon size="48" color="grey" class="mb-3">mdi-filmstrip-off</v-icon>
+      <div class="text-subtitle-1 font-weight-bold" style="color: var(--app-text-secondary, #94A3B8);">
+        {{ categoryName === 'favorites' ? $t('favorites.empty') : $t('history.empty') }}
+      </div>
     </div>
 
     <!-- Bento Video Grid -->
@@ -214,7 +224,7 @@ const displayTitle = computed(() => {
 }
 
 .category-title {
-  color: #F8FAFC;
+  color: var(--app-text-primary, #F8FAFC);
   letter-spacing: -0.02em;
   display: inline-flex;
   align-items: center;
@@ -225,11 +235,11 @@ const displayTitle = computed(() => {
   align-items: center;
   justify-content: center;
   padding: 2px 8px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--app-input-bg, rgba(255, 255, 255, 0.08));
   border-radius: 12px;
   font-size: 0.72rem;
   font-weight: 700;
-  color: #94A3B8;
+  color: var(--app-text-secondary, #94A3B8);
 }
 
 /* Subcategories Bar */
@@ -254,16 +264,16 @@ const displayTitle = computed(() => {
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.05);
-  color: #94A3B8;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--app-card, #141923);
+  color: var(--app-text-secondary, #94A3B8);
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .subcat-chip:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #F8FAFC;
+  background: var(--app-input-bg, rgba(255, 255, 255, 0.1));
+  color: var(--app-text-primary, #F8FAFC);
 }
 
 .subcat-chip--active {
@@ -274,11 +284,11 @@ const displayTitle = computed(() => {
 }
 
 .empty-category-box {
-  background: rgba(18, 22, 32, 0.6);
-  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: var(--app-card, rgba(18, 22, 32, 0.6));
+  border: 1px dashed var(--app-card-border, rgba(255, 255, 255, 0.1));
 }
 
 .category-divider {
-  border-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: var(--app-card-border, rgba(255, 255, 255, 0.06)) !important;
 }
 </style>

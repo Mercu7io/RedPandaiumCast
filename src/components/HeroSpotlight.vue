@@ -199,19 +199,19 @@ const onCast = async (e: MouseEvent) => {
             class="hero-ctrl-btn"
             @click="togglePause"
             type="button"
-            :title="isPaused ? 'Resume auto-play' : 'Pause auto-play'"
-            :aria-label="isPaused ? 'Resume' : 'Pause'"
+            :title="isPaused ? $t('hero.resume') : $t('hero.pause')"
+            :aria-label="isPaused ? $t('hero.resume') : $t('hero.pause')"
           >
             <v-icon size="18">{{ isPaused ? 'mdi-play' : 'mdi-pause' }}</v-icon>
-            <span v-if="isPaused" class="hero-paused-tag">PAUSED</span>
+            <span v-if="isPaused" class="hero-paused-tag">{{ $t('hero.paused') }}</span>
           </button>
 
           <button
             class="hero-ctrl-btn"
             @click="prevSlide"
             type="button"
-            title="Previous release"
-            aria-label="Previous slide"
+            :title="$t('hero.prevSlide')"
+            :aria-label="$t('hero.prevSlide')"
           >
             <v-icon size="18">mdi-chevron-left</v-icon>
           </button>
@@ -220,8 +220,8 @@ const onCast = async (e: MouseEvent) => {
             class="hero-ctrl-btn"
             @click="nextSlide"
             type="button"
-            title="Next release"
-            aria-label="Next slide"
+            :title="$t('hero.nextSlide')"
+            :aria-label="$t('hero.nextSlide')"
           >
             <v-icon size="18">mdi-chevron-right</v-icon>
           </button>
@@ -280,6 +280,20 @@ const onCast = async (e: MouseEvent) => {
             >
               <v-icon size="20" class="mr-2">mdi-cast-connected</v-icon>
               <span>{{ $t('hero.castToTv') }}</span>
+            </button>
+
+            <!-- Favorite Button -->
+            <button
+              class="hero-btn hero-btn--glass"
+              :class="{ 'hero-btn--fav-active': store.isFavorite(currentVideo.lank) }"
+              @click.stop="store.toggleFavorite(currentVideo)"
+              type="button"
+              :title="store.isFavorite(currentVideo.lank) ? $t('card.favoriteRemove') : $t('card.favoriteAdd')"
+              :aria-label="$t('card.favoriteAdd')"
+            >
+              <v-icon size="20" :color="store.isFavorite(currentVideo.lank) ? '#FF4757' : undefined">
+                {{ store.isFavorite(currentVideo.lank) ? 'mdi-heart' : 'mdi-heart-outline' }}
+              </v-icon>
             </button>
           </div>
         </div>

@@ -56,6 +56,20 @@ export function parseVttToText(vttContent: string): string {
   return combined.trim();
 }
 
+/**
+ * Sanitizes WebVTT content to ensure multi-line cues are not clipped or truncated.
+ * Removes positioning constraints like 'line:90%' or 'line:\d+%' that force cue boxes
+ * to overflow outside video containers in Chromium/WebKit browsers.
+ */
+export function sanitizeVttMultiLine(vttContent: string): string {
+  if (!vttContent) return '';
+  return vttContent.replace(/(\d{2}:\d{2}:\d{2}\.\d{3}\s+-->\s+\d{2}:\d{2}:\d{2}\.\d{3})[^\r\n]*/g, (match, timing) => {
+    const remaining = match.slice(timing.length);
+    const cleaned = remaining.replace(/\s+line:[^\s]+/gi, '');
+    return timing + cleaned;
+  });
+}
+
 class BlobUrlManager {
   private activeUrls: Set<string> = new Set();
 
@@ -94,10 +108,31 @@ export function safeBase64Encode(str: string): string {
   return Buffer.from(str, 'utf-8').toString('base64');
 }
 
-export function buildChromecastUrl(videoUrl: string, title: string = '', subUrl?: string): string {
+export interface ChromecastSubtitleStyle {
+  textColor?: string;
+  size?: number | string;
+  bgColor?: string;
+  bgOpacity?: number | string;
+}
+
+export function buildChromecastUrl(
+  videoUrl: string,
+  title: string = '',
+  subUrl?: string,
+  style?: ChromecastSubtitleStyle
+): string {
   if (!videoUrl) return '';
-  const baseUrl = 'https://chromecast.smplayer.info/index.php?sfgc=I2ZmZmZmZg==&ss=MS4x';
-  let url = `${baseUrl}&url=${safeBase64Encode(videoUrl)}`;
+  const textColor = style?.textColor || '#ffffff';
+  const size = (style?.size ?? '1.1').toString();
+  const encodedColor = safeBase64Encode(textColor);
+  const encodedSize = safeBase64Encode(size);
+  let url = `https://chromecast.smplayer.info/index.php?sfgc=${encodedColor}&ss=${encodedSize}&url=${safeBase64Encode(videoUrl)}`;
+  if (style?.bgColor) {
+    url += `&sbgc=${safeBase64Encode(style.bgColor)}`;
+  }
+  if (style?.bgOpacity !== undefined) {
+    url += `&sbgo=${safeBase64Encode(style.bgOpacity.toString())}`;
+  }
   if (title) {
     url += `&title=${safeBase64Encode(title)}`;
   }
@@ -111,7 +146,8 @@ export async function fetchChromecastUrl(
   video: Video,
   videoLangCode: string = 'E',
   subLangCode?: string,
-  mediatorUrl: string = DEFAULT_MEDIATOR_URL
+  mediatorUrl: string = DEFAULT_MEDIATOR_URL,
+  style?: ChromecastSubtitleStyle
 ): Promise<string> {
   if (!video || !video.lank) return '';
   try {
@@ -139,7 +175,7 @@ export async function fetchChromecastUrl(
     if (!subUrl && vNode) {
       subUrl = extractSubtitleVtt(vNode);
     }
-    return buildChromecastUrl(videoUrl, video.title, subUrl || undefined);
+    return buildChromecastUrl(videoUrl, video.title, subUrl || undefined, style);
   } catch (error) {
     console.error('Failed to get chromecast URL for video:', error);
     return '';
@@ -151,7 +187,8 @@ export async function openChromecastForVideo(
   videoLangCode: string = 'E',
   subLangCode?: string,
   mediatorUrl: string = DEFAULT_MEDIATOR_URL,
-  preloadedUrl?: string
+  preloadedUrl?: string,
+  style?: ChromecastSubtitleStyle
 ): Promise<void> {
   if (preloadedUrl) {
     window.open(preloadedUrl, '_blank', 'noopener,noreferrer');
@@ -166,7 +203,7 @@ export async function openChromecastForVideo(
   }
 
   try {
-    const url = await fetchChromecastUrl(video, videoLangCode, subLangCode, mediatorUrl);
+    const url = await fetchChromecastUrl(video, videoLangCode, subLangCode, mediatorUrl, style);
     if (url && targetWindow) {
       targetWindow.location.href = url;
     } else if (targetWindow) {
@@ -199,6 +236,7 @@ export const subtitleService = {
   },
 
   parseVttToText,
+  sanitizeVttMultiLine,
   blobUrlManager,
   buildChromecastUrl,
   fetchChromecastUrl,

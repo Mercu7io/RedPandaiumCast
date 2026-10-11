@@ -8,21 +8,45 @@
     "search": "Search",
     "guide": "Guide",
     "selectLanguage": "Select Language",
-    "searchShortcut": "Ctrl+K"
+    "searchShortcut": "Ctrl+K",
+    "theme": "Theme",
+    "themeDark": "Dark",
+    "themeLight": "Light",
+    "themeSystem": "System"
   },
   "hero": {
     "featuredTag": "FEATURED PROGRAM",
     "castToTv": "Cast to TV",
     "aiSubtitles": "Generate AI Subtitles",
-    "playNow": "Play Now"
+    "playNow": "Play Now",
+    "resume": "Resume auto-play",
+    "pause": "Pause auto-play",
+    "paused": "PAUSED",
+    "prevSlide": "Previous release",
+    "nextSlide": "Next release"
   },
   "card": {
     "quickCast": "Quick Cast",
     "subtitles": "Subtitles",
-    "play": "Play"
+    "play": "Play",
+    "favoriteAdd": "Add to Favorites",
+    "favoriteRemove": "Remove from Favorites"
+  },
+  "history": {
+    "title": "Continue Watching",
+    "resume": "Resume ({time})",
+    "clear": "Clear History",
+    "empty": "No videos in progress."
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "empty": "No favorite videos saved yet. Click the heart icon on any video to add it here."
   },
   "categories": {
     "all": "All",
+    "favorites": "Favorites",
+    "scrollLeft": "Scroll categories left",
+    "scrollRight": "Scroll categories right",
     "LatestVideos": "Latest Videos",
     "StudioMonthlyPrograms": "Monthly Programs",
     "StudioTalks": "Studio Talks",
@@ -31,9 +55,17 @@
     "VODChildren": "Children",
     "VODTeenagers": "Teenagers",
     "VODFamily": "Family",
+    "VODProgramsEvents": "Programs and Events",
+    "VODOurActivities": "Our Activities",
+    "VODMinistry": "Our Meetings and Ministry",
+    "VODOurOrganization": "Our Organization",
     "VODBible": "The Bible",
     "VODMovies": "Dramas",
-    "VODMusic": "Music"
+    "VODSeries": "Series",
+    "VODMusic": "Music",
+    "VODMusicVideos": "Music Videos",
+    "VODIntExp": "Interviews and Experiences",
+    "VODAudioDescriptions": "Audio Descriptions"
   },
   "player": {
     "audio": "Audio",
@@ -49,6 +81,7 @@
     "downloadVideo": "Video",
     "downloadSubtitles": "Subtitles",
     "downloadVtt": "Download VTT",
+    "downloadQuality": "Download {quality}",
     "viewTranscript": "View Transcript (TXT)",
     "close": "Close",
     "unavailable": "Video unavailable"
@@ -72,19 +105,26 @@
     "fontSize": "Font Size ({size}%)",
     "bgOpacity": "Background Opacity ({opacity})",
     "textColor": "Text Color",
+    "colorWhite": "White",
+    "colorYellow": "Yellow",
+    "colorCyan": "Cyan",
+    "fontDefault": "Default (Sans-Serif)",
     "done": "Done"
   },
   "transcript": {
     "title": "Transcript",
     "downloadTxt": "Download TXT",
-    "copy": "Copy"
+    "copy": "Copy",
+    "failed": "Failed to load transcript."
   },
   "search": {
     "placeholder": "Search or paste jw.org link..."
   },
   "help": {
     "title": "Help & Guide",
+    "aboutTitle": "About RedPandaium Cast",
     "attribution": "Based on and inspired by the original work of",
+    "attributionNote": "RedPandaium Cast extends the original project with automated Docker builds, Groq AI speech-to-text transcription, on-the-fly multilingual translation, PIN security, and the Streaming Bento UI.",
     "featuresTitle": "Key Features",
     "featureCastTitle": "Chromecast Streaming",
     "featureCastDesc": "Cast videos with custom, synchronized subtitles directly to your TV or Chromecast-enabled devices.",
@@ -93,6 +133,12 @@
     "featureShortcutsTitle": "Keyboard Shortcuts",
     "shortcutSearch": "Open instant video search",
     "shortcutClose": "Close active modal or video",
+    "shortcutPlayPause": "Play / Pause video",
+    "shortcutSeek": "Seek backward / forward 5s",
+    "shortcutSeekTen": "Seek backward / forward 10s (J/L)",
+    "shortcutMute": "Mute / Unmute audio",
+    "shortcutFullscreen": "Toggle theatre fullscreen",
+    "shortcutSubtitles": "Toggle subtitles (CC)",
     "featureSecurityTitle": "PIN Security",
     "featureSecurityDesc": "Protect application access with a secure 4-digit PIN code."
   }

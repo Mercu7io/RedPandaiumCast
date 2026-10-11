@@ -12,7 +12,8 @@ const {
   getSmallestVideoUrl,
   getLanguageName,
   parseVtt,
-  pinVerifySchema
+  pinVerifySchema,
+  translateVtt
 } = require('../server');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -173,5 +174,21 @@ describe('Backend Server - Schema & Validation Unit Tests', () => {
 
     const tooLong = pinVerifySchema.safeParse({ pin: 'a'.repeat(33) });
     assert.equal(tooLong.success, false);
+  });
+
+  test('translateVtt preserves multi-line breaks when translating multi-line cues', async () => {
+    const multiLineInput = `WEBVTT\n\n1\n00:00:01.000 --> 00:00:03.000\nLine one\nLine two`;
+    const result = await translateVtt(multiLineInput, 'en', 'es');
+    assert.ok(result.startsWith('WEBVTT\n\n'));
+    assert.ok(result.includes('00:00:01.000 --> 00:00:03.000'));
+    // The translated cue should preserve at least one newline between lines
+    const lines = result.split('\n\n')[1].split('\n');
+    assert.ok(lines.length >= 3, 'Cue should contain ID/timestamp and at least two dialogue lines');
+  });
+
+  test('translateVtt returns original VTT if parsed cues array is empty', async () => {
+    const emptyVtt = 'WEBVTT\n\n';
+    const result = await translateVtt(emptyVtt, 'en', 'fr');
+    assert.equal(result, emptyVtt);
   });
 });

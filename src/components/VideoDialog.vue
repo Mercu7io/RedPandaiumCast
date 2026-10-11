@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { useAppStore } from '@/store/app';
 import axios from 'axios';
 import { mediatorService, extractSubtitleVtt } from '@/services/mediatorService';
-import { subtitleService, blobUrlManager, buildChromecastUrl } from '@/services/subtitleService';
+import { subtitleService, blobUrlManager, buildChromecastUrl, sanitizeVttMultiLine } from '@/services/subtitleService';
 
 const store = useAppStore();
 const { t } = useI18n();
@@ -12,6 +12,7 @@ const { t } = useI18n();
 const videoFiles = ref<any[]>([]);
 const subtitleFiles = ref<any[]>([]);
 const englishSubtitleUrl = ref('');
+const cleanedNativeVttUrl = ref('');
 const loading = ref(false);
 const videoPlayer = ref<HTMLVideoElement | null>(null);
 const selectedQuality = ref('720p');
@@ -53,19 +54,19 @@ watch(subBgAlpha, val => localStorage.setItem('jwcast_sub_bg_alpha', val.toStrin
 watch(subFontSize, val => localStorage.setItem('jwcast_sub_font_size', val.toString()));
 watch(subFontFamily, val => localStorage.setItem('jwcast_sub_font_family', val));
 
-const presetColors = [
-  { text: 'White', value: '#FFFFFF' },
-  { text: 'Yellow', value: '#FFFF00' },
-  { text: 'Cyan', value: '#00FFFF' }
-];
+const presetColors = computed(() => [
+  { text: t('styles.colorWhite'), value: '#FFFFFF' },
+  { text: t('styles.colorYellow'), value: '#FFFF00' },
+  { text: t('styles.colorCyan'), value: '#00FFFF' }
+]);
 
-const presetFonts = [
-  { text: 'Default (Sans-Serif)', value: 'sans-serif' },
+const presetFonts = computed(() => [
+  { text: t('styles.fontDefault'), value: 'sans-serif' },
   { text: 'Arial', value: 'Arial, sans-serif' },
   { text: 'Verdana', value: 'Verdana, sans-serif' },
   { text: 'Times New Roman', value: '"Times New Roman", serif' },
   { text: 'Courier New', value: '"Courier New", monospace' }
-];
+]);
 
 // Transcript Dialog Settings
 const transcriptDialog = ref(false);
@@ -96,7 +97,11 @@ const videoUrl = computed(() => {
 
 // Native Subtitle strictly from JW API
 const nativeSubtitleUrl = computed(() => {
-  const file = subtitleFiles.value.find(f => f.file?.url?.endsWith('.vtt'));
+  if (cleanedNativeVttUrl.value) return cleanedNativeVttUrl.value;
+  const file = subtitleFiles.value.find(f => {
+    const url = f.file?.url || '';
+    return url.includes('.vtt') || url.startsWith('blob:');
+  });
   return file?.file?.url || '';
 });
 
@@ -118,11 +123,21 @@ const smPlayerUrl = computed(() => {
 const saveTime = () => {
   if (!videoPlayer.value || !selectedVideo.value?.lank) return;
   const time = videoPlayer.value.currentTime;
+  const duration = videoPlayer.value.duration;
+  // If video is finished or near end, clear saved time so replaying starts from beginning
+  if (duration && (time >= duration - 3 || videoPlayer.value.ended)) {
+    localStorage.removeItem(`jwcast_time_${selectedVideo.value.lank}`);
+    return;
+  }
   if (time > 0) {
     localStorage.setItem(`jwcast_time_${selectedVideo.value.lank}`, JSON.stringify({
       time,
       expires: Date.now() + 3600000 // 1 hour expiration
     }));
+    // Record to Continue Watching history
+    if (selectedVideo.value) {
+      store.recordPlayback(selectedVideo.value, time, duration || 0);
+    }
   }
 };
 
@@ -141,12 +156,35 @@ const restoreTime = () => {
   }
 };
 
+const sanitizeLoadedTrackCues = () => {
+  if (!videoPlayer.value) return;
+  const tracks = videoPlayer.value.textTracks;
+  for (let i = 0; i < tracks.length; i++) {
+    const track = tracks[i];
+    if (track.cues) {
+      for (let j = 0; j < track.cues.length; j++) {
+        const cue = track.cues[j] as VTTCue;
+        if (cue) {
+          cue.snapToLines = true;
+          cue.line = 'auto';
+        }
+      }
+    }
+  }
+};
+
 const enforceSubtitles = () => {
   if (!videoPlayer.value) return;
   const tracks = videoPlayer.value.textTracks;
   for (let i = 0; i < tracks.length; i++) {
-    tracks[i].mode = showSubtitles.value ? 'showing' : 'hidden';
+    const track = tracks[i];
+    if (showSubtitles.value && i === tracks.length - 1) {
+      track.mode = 'showing';
+    } else {
+      track.mode = 'disabled';
+    }
   }
+  sanitizeLoadedTrackCues();
 };
 
 const onVideoLoaded = () => {
@@ -192,7 +230,25 @@ const fetchVideoData = async () => {
     
     // Extract target language subtitles
     const targetVtt = extractSubtitleVtt(sNode);
-    subtitleFiles.value = targetVtt ? [{ file: { url: targetVtt } }] : [];
+    if (targetVtt) {
+      try {
+        const resp = await axios.get(targetVtt, { timeout: 8000 });
+        if (resp.data && typeof resp.data === 'string' && resp.data.includes('WEBVTT')) {
+          const sanitized = sanitizeVttMultiLine(resp.data);
+          if (cleanedNativeVttUrl.value) {
+            blobUrlManager.revoke(cleanedNativeVttUrl.value);
+          }
+          cleanedNativeVttUrl.value = blobUrlManager.create(sanitized, 'text/vtt;charset=utf-8');
+          subtitleFiles.value = [{ file: { url: cleanedNativeVttUrl.value } }];
+        } else {
+          subtitleFiles.value = [{ file: { url: targetVtt } }];
+        }
+      } catch (err) {
+        subtitleFiles.value = [{ file: { url: targetVtt } }];
+      }
+    } else {
+      subtitleFiles.value = [];
+    }
 
     // Extract English fallback subtitles
     if (enNode) {
@@ -243,7 +299,8 @@ const generateAiSubtitles = async () => {
       if (aiVttUrl.value) {
         blobUrlManager.revoke(aiVttUrl.value);
       }
-      aiVttUrl.value = blobUrlManager.create(vttData, 'text/vtt;charset=utf-8');
+      const sanitized = sanitizeVttMultiLine(vttData);
+      aiVttUrl.value = blobUrlManager.create(sanitized, 'text/vtt;charset=utf-8');
       showSubtitles.value = true;
       aiStatus.value = t('ai.success');
       setTimeout(() => { aiStatus.value = ''; }, 3000);
@@ -340,7 +397,7 @@ const openTranscript = async () => {
     const { data } = await axios.get(activeSubtitleUrl.value);
     transcriptText.value = subtitleService.parseVttToText(data);
   } catch (err) {
-    transcriptText.value = 'Failed to load transcript.';
+    transcriptText.value = t('transcript.failed');
   } finally {
     loadingTranscript.value = false;
   }
@@ -370,6 +427,69 @@ watch([showSubtitles, activeSubtitleUrl, videoUrl], () => {
   nextTick(() => { setTimeout(enforceSubtitles, 150); });
 });
 
+// Keyboard Shortcuts Handler
+const handlePlayerKeydown = (e: KeyboardEvent) => {
+  if (!dialog.value || !videoPlayer.value) return;
+  const activeTag = (document.activeElement?.tagName || '').toLowerCase();
+  if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+
+  const key = e.key.toLowerCase();
+  if (e.code === 'Space' || key === 'k') {
+    e.preventDefault();
+    if (videoPlayer.value.paused) {
+      videoPlayer.value.play();
+    } else {
+      videoPlayer.value.pause();
+    }
+  } else if (e.code === 'ArrowLeft') {
+    e.preventDefault();
+    videoPlayer.value.currentTime = Math.max(0, videoPlayer.value.currentTime - 5);
+  } else if (e.code === 'ArrowRight') {
+    e.preventDefault();
+    videoPlayer.value.currentTime = Math.min(videoPlayer.value.duration || 0, videoPlayer.value.currentTime + 5);
+  } else if (key === 'j') {
+    e.preventDefault();
+    videoPlayer.value.currentTime = Math.max(0, videoPlayer.value.currentTime - 10);
+  } else if (key === 'l') {
+    e.preventDefault();
+    videoPlayer.value.currentTime = Math.min(videoPlayer.value.duration || 0, videoPlayer.value.currentTime + 10);
+  } else if (e.code === 'ArrowUp') {
+    e.preventDefault();
+    videoPlayer.value.volume = Math.min(1, videoPlayer.value.volume + 0.1);
+  } else if (e.code === 'ArrowDown') {
+    e.preventDefault();
+    videoPlayer.value.volume = Math.max(0, videoPlayer.value.volume - 0.1);
+  } else if (key === 'm') {
+    e.preventDefault();
+    videoPlayer.value.muted = !videoPlayer.value.muted;
+  } else if (key === 'f') {
+    e.preventDefault();
+    isTheatreMode.value = !isTheatreMode.value;
+  } else if (key === 'c') {
+    e.preventDefault();
+    showSubtitles.value = !showSubtitles.value;
+  } else if (e.code === 'Escape' || key === 'escape') {
+    e.preventDefault();
+    if (subtitleStyleDialog.value) {
+      subtitleStyleDialog.value = false;
+    } else if (transcriptDialog.value) {
+      transcriptDialog.value = false;
+    } else if (isTheatreMode.value) {
+      isTheatreMode.value = false;
+    } else {
+      close();
+    }
+  }
+};
+
+watch(dialog, (isOpen) => {
+  if (isOpen) {
+    window.addEventListener('keydown', handlePlayerKeydown);
+  } else {
+    window.removeEventListener('keydown', handlePlayerKeydown);
+  }
+});
+
 const close = () => {
   if (videoPlayer.value) {
     saveTime();
@@ -379,14 +499,22 @@ const close = () => {
     blobUrlManager.revoke(aiVttUrl.value);
     aiVttUrl.value = '';
   }
+  if (cleanedNativeVttUrl.value) {
+    blobUrlManager.revoke(cleanedNativeVttUrl.value);
+    cleanedNativeVttUrl.value = '';
+  }
   dialog.value = false;
   playbackRate.value = 1.0;
   isTheatreMode.value = false;
 };
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handlePlayerKeydown);
   if (aiVttUrl.value) {
     blobUrlManager.revoke(aiVttUrl.value);
+  }
+  if (cleanedNativeVttUrl.value) {
+    blobUrlManager.revoke(cleanedNativeVttUrl.value);
   }
 });
 </script>
@@ -399,6 +527,15 @@ onBeforeUnmount(() => {
         <v-spacer></v-spacer>
         <!-- Theatre Mode Icon -->
         <v-btn icon="mdi-fit-to-screen" variant="text" @click="isTheatreMode = true" :title="$t('player.theatreMode')" :aria-label="$t('player.theatreMode')"></v-btn>
+        <!-- Favorite Toggle Icon -->
+        <v-btn 
+          :icon="store.isFavorite(selectedVideo.lank) ? 'mdi-heart' : 'mdi-heart-outline'" 
+          :color="store.isFavorite(selectedVideo.lank) ? 'pink-accent-3' : undefined"
+          variant="text" 
+          @click="store.toggleFavorite(selectedVideo)" 
+          :title="store.isFavorite(selectedVideo.lank) ? $t('card.favoriteRemove') : $t('card.favoriteAdd')"
+          :aria-label="$t('card.favoriteAdd')"
+        ></v-btn>
         <!-- Share Link Icon -->
         <v-btn 
           :icon="shareVideoCopied ? 'mdi-check' : 'mdi-share-variant'" 
@@ -420,7 +557,7 @@ onBeforeUnmount(() => {
             minHeight: !isTheatreMode ? '400px' : undefined,
             '--sub-color': subColor,
             '--sub-bg-color': `rgba(0, 0, 0, ${subBgAlpha})`,
-            '--sub-font-size': `calc(${subFontSize}% * 1.5)`,
+            '--sub-font-size': subFontSize + '%',
             '--sub-font-family': subFontFamily
           }"
           @mouseenter="showTheatreControls = true"
@@ -448,21 +585,32 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <!-- Bound @timeupdate and @loadeddata to enable video persistence -->
-          <video 
-            v-if="videoUrl" 
-            ref="videoPlayer" 
-            @loadeddata="onVideoLoaded" 
-            @timeupdate="saveTime"
-            controls 
-            crossorigin="anonymous" 
-            class="w-100" 
-            :style="isTheatreMode ? 'max-height: 100vh; height: 100%; object-fit: contain;' : 'max-height: 60vh;'"
-            :src="videoUrl" 
-            :poster="selectedVideo.images?.lsr?.lg"
-          >
-            <track v-if="activeSubtitleUrl" :key="activeSubtitleUrl" kind="captions" :src="activeSubtitleUrl" :srclang="subtitleLang" :label="store.getSubtitleLanguageObj?.name" default />
-          </video>
+          <!-- Video Player & Subtitles -->
+          <template v-if="videoUrl">
+            <video 
+              ref="videoPlayer" 
+              @loadeddata="onVideoLoaded" 
+              @timeupdate="saveTime"
+              @play="enforceSubtitles"
+              controls 
+              crossorigin="anonymous" 
+              class="w-100" 
+              :style="isTheatreMode ? 'max-height: 100vh; height: 100%; object-fit: contain;' : 'max-height: 60vh;'"
+              :src="videoUrl" 
+              :poster="selectedVideo.images?.lsr?.lg"
+            >
+              <track 
+                v-if="activeSubtitleUrl" 
+                :key="activeSubtitleUrl" 
+                kind="captions" 
+                :src="activeSubtitleUrl" 
+                :srclang="subtitleLang" 
+                :label="store.getSubtitleLanguageObj?.name" 
+                default 
+                @load="enforceSubtitles"
+              />
+            </video>
+          </template>
           <div v-else-if="loading" class="pa-16"><v-progress-circular indeterminate color="primary"></v-progress-circular></div>
           <div v-else class="pa-16 text-white">
             <v-icon color="error" size="48" class="mb-4">mdi-alert-circle-outline</v-icon>
@@ -525,7 +673,7 @@ onBeforeUnmount(() => {
           </template>
           <v-list>
             <v-list-item v-for="file in videoFiles" :key="file.label" @click="downloadFile(file.progressiveDownloadURL, `${selectedVideo.title}_${file.label}.mp4`)">
-              <v-list-item-title>Download {{ file.label }}</v-list-item-title>
+              <v-list-item-title>{{ $t('player.downloadQuality', { quality: file.label }) }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -611,14 +759,27 @@ onBeforeUnmount(() => {
   </v-dialog>
 </template>
 
-<style scoped>
-.video-wrapper video::cue {
-  color: var(--sub-color) !important;
-  background-color: var(--sub-bg-color) !important;
-  font-size: var(--sub-font-size) !important;
-  font-family: var(--sub-font-family) !important;
+<style>
+/* Global video cue styles to ensure multi-line subtitles wrap, space, and render properly */
+.video-wrapper video::cue,
+video::cue {
+  color: var(--sub-color, #ffffff) !important;
+  background-color: var(--sub-bg-color, rgba(0, 0, 0, 0.8)) !important;
+  font-size: var(--sub-font-size, 100%) !important;
+  font-family: var(--sub-font-family, sans-serif) !important;
+  line-height: 1.4 !important;
+  white-space: pre-line !important;
+  overflow: visible !important;
 }
 
+video::-webkit-media-text-track-display {
+  line-height: 1.4 !important;
+  white-space: pre-line !important;
+  overflow: visible !important;
+}
+</style>
+
+<style scoped>
 .theatre-overlay {
   position: absolute;
   top: 0;

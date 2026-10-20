@@ -13,6 +13,7 @@ const videoFiles = ref<any[]>([]);
 const subtitleFiles = ref<any[]>([]);
 const englishSubtitleUrl = ref('');
 const cleanedNativeVttUrl = ref('');
+const rawSubtitleUrl = ref('');
 const loading = ref(false);
 const videoPlayer = ref<HTMLVideoElement | null>(null);
 const selectedQuality = ref('720p');
@@ -115,7 +116,7 @@ const smPlayerUrl = computed(() => {
   return buildChromecastUrl(
     videoUrl.value,
     selectedVideo.value?.title || '',
-    activeSubtitleUrl.value || undefined
+    rawSubtitleUrl.value || englishSubtitleUrl.value || undefined
   );
 });
 
@@ -204,6 +205,7 @@ const fetchVideoData = async () => {
   }
   aiStatus.value = '';
   englishSubtitleUrl.value = ''; // Reset fallback
+  rawSubtitleUrl.value = '';
   
   try {
     const videoLangObj = store.getVideoLanguageObj || { code: 'E' };
@@ -229,7 +231,8 @@ const fetchVideoData = async () => {
     videoFiles.value = vNode?.files || [];
     
     // Extract target language subtitles
-    const targetVtt = extractSubtitleVtt(sNode);
+    const targetVtt = extractSubtitleVtt(sNode) || (vNode ? extractSubtitleVtt(vNode) : '');
+    rawSubtitleUrl.value = targetVtt || '';
     if (targetVtt) {
       try {
         const resp = await axios.get(targetVtt, { timeout: 8000 });
@@ -503,6 +506,7 @@ const close = () => {
     blobUrlManager.revoke(cleanedNativeVttUrl.value);
     cleanedNativeVttUrl.value = '';
   }
+  rawSubtitleUrl.value = '';
   dialog.value = false;
   playbackRate.value = 1.0;
   isTheatreMode.value = false;

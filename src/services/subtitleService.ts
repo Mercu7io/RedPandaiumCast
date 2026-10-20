@@ -136,7 +136,7 @@ export function buildChromecastUrl(
   if (title) {
     url += `&title=${safeBase64Encode(title)}`;
   }
-  if (subUrl) {
+  if (subUrl && !subUrl.startsWith('blob:')) {
     url += `&subtitles=${safeBase64Encode(subUrl)}`;
   }
   return url;

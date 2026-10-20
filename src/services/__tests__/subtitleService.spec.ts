@@ -56,6 +56,10 @@ Enjoy the program.
     const noSubUrl = buildChromecastUrl(videoUrl, title);
     expect(noSubUrl).not.toContain('&subtitles=');
 
+    // Ignores local blob URLs for Chromecast
+    const blobSubUrl = buildChromecastUrl(videoUrl, title, 'blob:https://jwcast.redpandaium.vtt');
+    expect(blobSubUrl).not.toContain('&subtitles=');
+
     // With custom subtitle style (color, size, background)
     const styledUrl = buildChromecastUrl(videoUrl, title, subUrl, {
       textColor: '#ffff00',

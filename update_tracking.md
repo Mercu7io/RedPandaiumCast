@@ -8,3 +8,4 @@
 - Fixed native WebVTT subtitle track resolution to support blob URLs alongside `.vtt` endpoints and dynamically sanitize cue vertical bounds so multi-line captions display reliably in the player.
 - Updated player Escape key handler to reliably close child modals, exit theatre mode, or dismiss the video player dialog.
 - Updated the Bible category icon from `mdi-book-cross` to a simple book icon `mdi-book`.
+- Updated the player Chromecast URL generator to forward the original remote WebVTT subtitle link instead of local blob URLs, matching QuickCast behavior.

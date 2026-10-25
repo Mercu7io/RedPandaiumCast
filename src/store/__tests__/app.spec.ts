@@ -31,13 +31,24 @@ describe('App Store', () => {
       expect(store.aiEnabled).toBe(true);
     });
 
-    it('updates aiEnabled via setAiEnabled', () => {
+    it('updates aiEnabled via setAiEnabled in standard mode', () => {
       const store = useAppStore();
+      store.setIsPwa(false);
       store.setAiEnabled(false);
       expect(store.aiEnabled).toBe(false);
 
       store.setAiEnabled(true);
       expect(store.aiEnabled).toBe(true);
+    });
+
+    it('forces aiEnabled to false when isPwa is true', () => {
+      const store = useAppStore();
+      store.setIsPwa(true);
+      expect(store.aiEnabled).toBe(false);
+
+      // Attempting to re-enable AI in PWA mode must remain false
+      store.setAiEnabled(true);
+      expect(store.aiEnabled).toBe(false);
     });
   });
 

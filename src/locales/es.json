@@ -97,7 +97,8 @@
     "serverUnreachable": "El servidor IA no responde (puerto 3000). Asegúrese de que esté iniciado.",
     "translating": "Traduciendo subtítulos en inglés...",
     "preparing": "Preparando IA... (Descarga y procesamiento multimedia en curso)",
-    "disabledNotice": "Los subtítulos IA y la traducción están deshabilitados porque GROQ_API_KEY no está configurado."
+    "disabledNotice": "Los subtítulos IA y la traducción están deshabilitados porque GROQ_API_KEY no está configurado.",
+    "pwaDisabledNotice": "La generación de subtítulos con IA no está disponible en el modo Progressive Web App (PWA)."
   },
   "styles": {
     "title": "Estilo de subtítulos",

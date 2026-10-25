@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1E2738"/>
+      <stop offset="100%" stop-color="#0B0E14"/>
+    </radialGradient>
+    <linearGradient id="pawGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B7A"/>
+      <stop offset="100%" stop-color="#FF4757"/>
+    </linearGradient>
+    <linearGradient id="castGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background with subtle border -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)"/>
+  <rect width="504" height="504" x="4" y="4" rx="124" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="4"/>
+
+  <!-- Cast Waves (Top Right) -->
+  <g fill="none" stroke="url(#castGrad)" stroke-width="14" stroke-linecap="round" opacity="0.85">
+    <path d="M 340 140 A 110 110 0 0 1 420 220" />
+    <path d="M 370 140 A 70 70 0 0 1 420 190" />
+    <circle cx="410" cy="150" r="8" fill="#38BDF8" stroke="none"/>
+  </g>
+
+  <!-- Paw Icon (Centered) -->
+  <g transform="translate(64, 70) scale(16)" fill="url(#pawGrad)" filter="url(#glow)">
+    <path d="M12 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m-3.5 1c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m7 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m-8.5 4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m10 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5M12 13c-2.34 0-4 1.5-4 3.5 0 1.5 1.5 2.5 4 2.5s4-1 4-2.5c0-2-1.66-3.5-4-3.5Z"/>
+  </g>
+</svg>

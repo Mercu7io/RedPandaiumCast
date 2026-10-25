@@ -274,6 +274,7 @@ const fetchVideoData = async () => {
 
 // --- AI GENERATION LOGIC ---
 const generateAiSubtitles = async () => {
+  if (store.isPwa || !store.aiEnabled) return;
   if (!videoUrl.value) return;
   
   aiLoading.value = true;
@@ -641,8 +642,16 @@ onBeforeUnmount(() => {
             </v-col>
           </v-row>
 
+          <!-- Notice when running in PWA mode where AI subtitles are deactivated -->
+          <v-alert v-if="store.isPwa && !nativeSubtitleUrl && !loading" border="start" color="blue-grey" variant="tonal" class="mt-4 py-2 px-4">
+            <div class="d-flex align-center">
+              <v-icon size="18" color="blue-grey" class="mr-2">mdi-cellphone-link-off</v-icon>
+              <span class="text-caption text-grey-lighten-1">{{ $t('ai.pwaDisabledNotice') }}</span>
+            </div>
+          </v-alert>
+
           <!-- AI Generation Alert conditionally displayed based on native subtitle absence -->
-          <v-alert v-if="store.aiEnabled && !nativeSubtitleUrl && !aiVttUrl && !loading" border="start" color="deep-purple-accent-4" variant="tonal" class="mt-4 py-2 px-4">
+          <v-alert v-else-if="store.aiEnabled && !nativeSubtitleUrl && !aiVttUrl && !loading" border="start" color="deep-purple-accent-4" variant="tonal" class="mt-4 py-2 px-4">
             <div class="d-flex align-center justify-space-between">
               <div>
                 <strong class="text-subtitle-2">{{ $t('ai.title') }}</strong>

@@ -142,6 +142,7 @@ watch(() => store.siteLanguage, async (newLang) => {
 
 onMounted(async () => {
   store.initTheme();
+  store.initPwa();
   theme.global.name.value = store.effectiveTheme;
   window.addEventListener('keydown', handleKeyDown);
 
@@ -154,12 +155,16 @@ onMounted(async () => {
   }
   await fetchTranslations();
 
-  try {
-    const { data } = await axios.get('/api/health');
-    if (typeof data?.aiEnabled === 'boolean') {
-      store.setAiEnabled(data.aiEnabled);
-    }
-  } catch (_) {}
+  if (!store.isPwa) {
+    try {
+      const { data } = await axios.get('/api/health');
+      if (typeof data?.aiEnabled === 'boolean') {
+        store.setAiEnabled(data.aiEnabled);
+      }
+    } catch (_) {}
+  } else {
+    store.setAiEnabled(false);
+  }
 });
 
 watch(() => store.effectiveTheme, (newTheme) => {

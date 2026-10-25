@@ -97,7 +97,8 @@
     "serverUnreachable": "AI Backend server is unreachable (port 3000). Please ensure the backend is started.",
     "translating": "Translating English subtitles...",
     "preparing": "Preparing AI... (Media download & processing in progress)",
-    "disabledNotice": "AI subtitles and translation are disabled because GROQ_API_KEY is not configured."
+    "disabledNotice": "AI subtitles and translation are disabled because GROQ_API_KEY is not configured.",
+    "pwaDisabledNotice": "AI subtitles generation is unavailable in Progressive Web App (PWA) mode."
   },
   "styles": {
     "title": "Subtitle Styles",

@@ -3,7 +3,7 @@ import { onMounted, ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAppStore } from '@/store/app';
 import { Video } from '@/types';
-import { mediatorService } from '@/services/mediatorService';
+import { mediatorService, formatMediaNodeToVideo } from '@/services/mediatorService';
 import { openChromecastForVideo } from '@/services/subtitleService';
 import VideoBentoCard from '@/components/VideoBentoCard.vue';
 
@@ -52,6 +52,21 @@ const fetchVideos = async () => {
       subcategories.value = details.subcategories;
     } else {
       subcategories.value = [];
+    }
+
+    // Performance optimization: if details already has media and no subcategory is selected, avoid second round-trip
+    if (
+      selectedSubcategory.value === 'all' &&
+      details?.type !== 'container' &&
+      Array.isArray(details?.media) &&
+      details.media.length > 0
+    ) {
+      let formatted = details.media.map(formatMediaNodeToVideo);
+      if (props.limit > 0) {
+        formatted = formatted.slice(0, props.limit);
+      }
+      videos.value = formatted;
+      return;
     }
 
     // Determine target category to fetch media from

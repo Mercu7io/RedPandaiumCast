@@ -97,7 +97,8 @@
     "serverUnreachable": "Le serveur IA est inaccessible (port 3000). Veuillez vous assurer qu'il est démarré.",
     "translating": "Traduction des sous-titres anglais en cours...",
     "preparing": "Préparation de l'IA... (Téléchargement et traitement média en cours)",
-    "disabledNotice": "Les sous-titres et la traduction par IA sont désactivés car GROQ_API_KEY n'est pas configuré."
+    "disabledNotice": "Les sous-titres et la traduction par IA sont désactivés car GROQ_API_KEY n'est pas configuré.",
+    "pwaDisabledNotice": "La génération de sous-titres par IA est désactivée en mode Progressive Web App (PWA)."
   },
   "styles": {
     "title": "Style des sous-titres",

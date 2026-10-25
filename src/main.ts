@@ -2,6 +2,10 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import router from './router';
 import App from './App.vue';
+import { registerSW } from 'virtual:pwa-register';
+
+// Register PWA Service Worker for offline asset caching
+registerSW({ immediate: true });
 
 // Vuetify
 import 'vuetify/styles';

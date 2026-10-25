@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import axios from 'axios';
 import {
   extractBestImageUrl,
@@ -8,6 +8,10 @@ import {
 } from '../mediatorService';
 
 describe('mediatorService unit tests', () => {
+  beforeEach(() => {
+    mediatorService.clearCache();
+    vi.restoreAllMocks();
+  });
   it('extractBestImageUrl selects highest resolution available', () => {
     const imagesWithXl = {
       lsr: { xl: 'https://cdn/xl.jpg', lg: 'https://cdn/lg.jpg' }
@@ -106,5 +110,39 @@ describe('mediatorService unit tests', () => {
     const videos = await mediatorService.fetchCategoryMedia('VODChildren', 'E');
     expect(videos).toHaveLength(1);
     expect(videos[0].title).toBe('Child Video 1');
+  });
+
+  it('deduplicates concurrent calls to the same endpoint and reuses cached response', async () => {
+    mediatorService.clearCache();
+    const axiosSpy = vi.spyOn(axios, 'get').mockResolvedValue({
+      data: {
+        category: {
+          type: 'ondemand',
+          name: 'Talks',
+          media: [
+            {
+              naturalKey: 'talk_1',
+              title: 'Morning Talk',
+              images: { lsr: { lg: 'https://cdn/talk.jpg' } }
+            }
+          ]
+        }
+      }
+    });
+
+    // Fire 2 calls simultaneously (deduplication check)
+    const [res1, res2] = await Promise.all([
+      mediatorService.fetchCategoryMedia('StudioTalks', 'E'),
+      mediatorService.fetchCategoryMedia('StudioTalks', 'E')
+    ]);
+
+    expect(res1).toHaveLength(1);
+    expect(res2).toHaveLength(1);
+    expect(axiosSpy).toHaveBeenCalledTimes(1);
+
+    // Third call after resolution should be returned from in-memory cache without hitting axios
+    const res3 = await mediatorService.fetchCategoryMedia('StudioTalks', 'E');
+    expect(res3).toHaveLength(1);
+    expect(axiosSpy).toHaveBeenCalledTimes(1);
   });
 });

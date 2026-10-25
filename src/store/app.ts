@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { Language, Translations, Video, PlaybackHistoryItem, ThemeMode } from '@/types';
+import { isPwaMode } from '@/utils/pwa';
 
 const LS_VIDEO_LANG = 'jwcast_video_lang';
 const LS_SUB_LANG = 'jwcast_sub_lang';
@@ -27,6 +28,8 @@ const getInitialFavorites = (): Video[] => {
   }
 };
 
+const initialIsPwa = typeof window !== 'undefined' ? isPwaMode() : false;
+
 export const useAppStore = defineStore('app', {
   state: () => ({
     languages: [] as Language[],
@@ -39,7 +42,8 @@ export const useAppStore = defineStore('app', {
     searchDialog: false,
     videoDialog: false,
     selectedVideo: null as Video | null,
-    aiEnabled: true,
+    isPwa: initialIsPwa,
+    aiEnabled: initialIsPwa ? false : true,
     mediatorUrl: 'https://b.jw-cdn.org/apis/mediator/v1',
     tokenUrl: 'https://b.jw-cdn.org/tokens/jworg',
     searchUrl: 'https://b.jw-cdn.org/search/api/v1',
@@ -100,7 +104,25 @@ export const useAppStore = defineStore('app', {
     setVideoDialog(val: boolean) { this.videoDialog = val; },
     setSearchDialog(val: boolean) { this.searchDialog = val; },
     setSelectedVideo(video: Video | null) { this.selectedVideo = video; },
-    setAiEnabled(val: boolean) { this.aiEnabled = val; },
+    initPwa() {
+      this.isPwa = isPwaMode();
+      if (this.isPwa) {
+        this.aiEnabled = false;
+      }
+    },
+    setIsPwa(val: boolean) {
+      this.isPwa = val;
+      if (val) {
+        this.aiEnabled = false;
+      }
+    },
+    setAiEnabled(val: boolean) {
+      if (this.isPwa) {
+        this.aiEnabled = false;
+        return;
+      }
+      this.aiEnabled = val;
+    },
 
     // Playback History
     recordPlayback(video: Video, time: number, duration: number) {

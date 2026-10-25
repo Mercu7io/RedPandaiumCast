@@ -97,7 +97,8 @@
     "serverUnreachable": "AI-server is niet bereikbaar (poort 3000). Controleer of de backend is gestart.",
     "translating": "Engelse ondertitels vertalen...",
     "preparing": "AI voorbereiden... (Media downloaden en verwerken)",
-    "disabledNotice": "AI-ondertitels en vertaling zijn uitgeschakeld omdat GROQ_API_KEY niet is geconfigureerd."
+    "disabledNotice": "AI-ondertitels en vertaling zijn uitgeschakeld omdat GROQ_API_KEY niet is geconfigureerd.",
+    "pwaDisabledNotice": "Het genereren van AI-ondertitels is niet beschikbaar in Progressive Web App (PWA)-modus."
   },
   "styles": {
     "title": "Ondertitelstijl",

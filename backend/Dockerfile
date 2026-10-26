@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Install FFmpeg for audio extraction
 RUN apk add --no-cache ffmpeg

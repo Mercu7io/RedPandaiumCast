@@ -18,8 +18,11 @@ describe('Backend Server - Static & API Routing Tests', () => {
     });
   });
 
-  after((done) => {
-    server.close(done);
+  after(async () => {
+    if (server.closeAllConnections) {
+      server.closeAllConnections();
+    }
+    await new Promise((resolve) => server.close(resolve));
   });
 
   test('GET /api/health returns 200 with status healthy and aiEnabled flag', async () => {

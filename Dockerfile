@@ -1,7 +1,7 @@
 # ==========================================
 # Stage 1: Build Vue 3 Frontend
 # ==========================================
-FROM node:18-alpine AS frontend-builder
+FROM node:22-alpine AS frontend-builder
 WORKDIR /app
 
 # Install frontend dependencies
@@ -15,7 +15,7 @@ RUN npm run build
 # ==========================================
 # Stage 2: Production Runtime (Node.js + FFmpeg)
 # ==========================================
-FROM node:18-alpine
+FROM node:22-alpine
 LABEL org.opencontainers.image.source="https://github.com/Mercu7io/RedPandaiumCast"
 LABEL org.opencontainers.image.description="RedPandaium Cast - Media Player with AI Subtitles"
 

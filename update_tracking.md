@@ -10,3 +10,4 @@
 - Updated the Bible category icon from `mdi-book-cross` to a simple book icon `mdi-book`.
 - Updated the player Chromecast URL generator to forward the original remote WebVTT subtitle link instead of local blob URLs, matching QuickCast behavior.
 - Implemented full Progressive Web App (PWA) support with offline asset caching and manifest configuration, deactivated AI subtitle generation in PWA standalone mode with multilingual notices, and integrated in-flight request deduplication and in-memory TTL caching in the mediator service to eliminate redundant network bottlenecks and boost app responsiveness.
+- Upgraded Dockerfile and backend Dockerfile base images to Node 22 LTS (`node:22-alpine`) to provide native global Web Crypto API support and resolve the `ReferenceError: crypto is not defined` build failure in Vite PWA terser bundling.

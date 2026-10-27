@@ -15,7 +15,8 @@
     "theme": "Theme",
     "themeDark": "Dark",
     "themeLight": "Light",
-    "themeSystem": "System"
+    "themeSystem": "System",
+    "installApp": "Install App"
   },
   "hero": {
     "featuredTag": "FEATURED PROGRAM",

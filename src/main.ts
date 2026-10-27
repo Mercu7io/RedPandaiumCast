@@ -4,8 +4,35 @@ import router from './router';
 import App from './App.vue';
 import { registerSW } from 'virtual:pwa-register';
 
-// Register PWA Service Worker for offline asset caching
-registerSW({ immediate: true });
+// Auto-updating Service Worker for offline asset caching and seamless updates
+const updateSW = registerSW({
+  immediate: true,
+  onNeedRefresh() {
+    console.log('[PWA] New version detected, updating Service Worker immediately...');
+    updateSW(true);
+  },
+  onRegisteredSW(_swUrl, registration) {
+    if (registration) {
+      // Check for updates periodically (every 10 minutes) and upon tab focus
+      setInterval(() => {
+        registration.update();
+      }, 10 * 60 * 1000);
+      window.addEventListener('focus', () => {
+        registration.update();
+      });
+    }
+  },
+});
+
+// Auto-reload window when new service worker takes control
+let refreshing = false;
+navigator.serviceWorker?.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    console.log('[PWA] Service worker controller changed, reloading page...');
+    window.location.reload();
+  }
+});
 
 // Vuetify
 import 'vuetify/styles';

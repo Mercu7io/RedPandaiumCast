@@ -18,6 +18,7 @@ import HeroSpotlight from '@/components/HeroSpotlight.vue';
 import CategoryPills from '@/components/CategoryPills.vue';
 import HelpDialog from '@/components/HelpDialog.vue';
 import ContinueWatchingRow from '@/components/ContinueWatchingRow.vue';
+import { extractDigitFromKeyEvent } from '@/utils/keyboard';
 
 const helpDialog = ref(false);
 
@@ -93,19 +94,51 @@ const checkPin = async () => {
   isChecking.value = false;
 };
 
-// Physical keyboard listener for digits, backspace, and escape
+// Physical keyboard listener supporting AZERTY, QWERTY, and numeric keypads
+
 const handleAuthKeyDown = (e: KeyboardEvent) => {
   if (isAuthenticated.value) return;
-  if (/^[0-9]$/.test(e.key)) {
+  const digit = extractDigitFromKeyEvent(e);
+  if (digit !== null) {
     e.preventDefault();
-    appendPin(e.key);
+    appendPin(digit);
   } else if (e.key === 'Backspace') {
     e.preventDefault();
     backspacePin();
   } else if (e.key === 'Escape' || e.key === 'Delete') {
     e.preventDefault();
     clearPin();
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (pinInput.value.length === 4) {
+      checkPin();
+    }
   }
+};
+
+// --- PWA INSTALLATION LOGIC ---
+const deferredInstallPrompt = ref<any>(null);
+const canInstallPwa = ref(false);
+
+const handleBeforeInstallPrompt = (e: Event) => {
+  e.preventDefault();
+  deferredInstallPrompt.value = e;
+  canInstallPwa.value = true;
+};
+
+const installPwa = async () => {
+  if (!deferredInstallPrompt.value) return;
+  deferredInstallPrompt.value.prompt();
+  const choiceResult = await deferredInstallPrompt.value.userChoice;
+  if (choiceResult?.outcome === 'accepted') {
+    canInstallPwa.value = false;
+  }
+  deferredInstallPrompt.value = null;
+};
+
+const handleAppInstalled = () => {
+  canInstallPwa.value = false;
+  deferredInstallPrompt.value = null;
 };
 
 watch(pinInput, (val) => {
@@ -177,6 +210,8 @@ onMounted(async () => {
   theme.global.name.value = store.effectiveTheme;
   window.addEventListener('keydown', handleKeyDown);
   window.addEventListener('keydown', handleAuthKeyDown);
+  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  window.addEventListener('appinstalled', handleAppInstalled);
 
   const initialLang = (route.params.language as string) || store.siteLanguage || 'en';
   store.setSiteLanguage(initialLang);
@@ -205,6 +240,8 @@ watch(() => store.effectiveTheme, (newTheme) => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeyDown);
   window.removeEventListener('keydown', handleAuthKeyDown);
+  window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  window.removeEventListener('appinstalled', handleAppInstalled);
 });
 
 const translations = computed(() => store.translations);
@@ -388,6 +425,19 @@ const onHeroCast = async (video: Video) => {
               class="nav-lang-autocomplete"
             ></v-autocomplete>
           </div>
+
+          <!-- PWA Install Button (clean & modern) -->
+          <v-btn
+            v-if="canInstallPwa && !store.isPwa"
+            variant="text"
+            class="mr-2 nav-install-btn"
+            icon
+            :title="$t('nav.installApp')"
+            :aria-label="$t('nav.installApp')"
+            @click="installPwa"
+          >
+            <v-icon size="20" color="primary">mdi-download-box-outline</v-icon>
+          </v-btn>
 
           <!-- Theme Switcher Menu -->
           <v-menu location="bottom end">
@@ -667,13 +717,23 @@ body, html {
 }
 
 .nav-theme-btn,
-.nav-help-btn {
+.nav-help-btn,
+.nav-install-btn {
   color: var(--app-text-secondary) !important;
 }
 
 .nav-theme-btn:hover,
-.nav-help-btn:hover {
+.nav-help-btn:hover,
+.nav-install-btn:hover {
   color: var(--app-text-primary) !important;
+}
+
+.nav-install-btn {
+  transition: transform 0.2s ease;
+}
+
+.nav-install-btn:hover {
+  transform: scale(1.1);
 }
 
 /* Main Background */

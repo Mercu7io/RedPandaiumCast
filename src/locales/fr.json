@@ -15,7 +15,8 @@
     "theme": "Thème",
     "themeDark": "Sombre",
     "themeLight": "Clair",
-    "themeSystem": "Système"
+    "themeSystem": "Système",
+    "installApp": "Installer l'application"
   },
   "hero": {
     "featuredTag": "PROGRAMME EN VEDETTE",

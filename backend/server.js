@@ -327,6 +327,7 @@ function jsonToVtt(json) {
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
+    version: '3.0.0',
     aiEnabled: Boolean(GROQ_API_KEY && GROQ_API_KEY.trim()),
     timestamp: new Date().toISOString()
   });

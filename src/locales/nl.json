@@ -15,7 +15,8 @@
     "theme": "Thema",
     "themeDark": "Donker",
     "themeLight": "Licht",
-    "themeSystem": "Systeem"
+    "themeSystem": "Systeem",
+    "installApp": "App installeren"
   },
   "hero": {
     "featuredTag": "UITGELICHT PROGRAMMA",

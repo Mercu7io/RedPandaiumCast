@@ -30,6 +30,7 @@ describe('Backend Server - Static & API Routing Tests', () => {
     assert.equal(res.status, 200);
     const body = await res.json();
     assert.equal(body.status, 'healthy');
+    assert.equal(body.version, '3.0.0');
     assert.equal(typeof body.aiEnabled, 'boolean');
     assert.ok(body.timestamp);
   });

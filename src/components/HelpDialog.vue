@@ -10,6 +10,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const appVersion = '3.0.0';
 
 const closeDialog = () => {
   emit('update:modelValue', false);
@@ -165,6 +166,10 @@ const closeDialog = () => {
 
       <!-- Footer -->
       <div class="help-footer">
+        <div class="help-version-tag">
+          <v-icon size="14" class="mr-1 text-grey">mdi-tag-outline</v-icon>
+          <span class="text-caption text-grey">v{{ appVersion }}</span>
+        </div>
         <button class="help-done-btn" @click="closeDialog" type="button">
           {{ $t('player.close') || 'Close' }}
         </button>
@@ -390,8 +395,18 @@ const closeDialog = () => {
 .help-footer {
   padding: 16px 24px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   border-top: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.08));
+}
+
+.help-version-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: var(--app-input-bg, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--app-card-border, rgba(255, 255, 255, 0.12));
+  border-radius: 12px;
 }
 
 .help-done-btn {

@@ -1,7 +1,10 @@
 {
   "auth": {
     "enterPin": "Entrez le code PIN",
-    "incorrectPin": "Code PIN incorrect"
+    "incorrectPin": "Code PIN incorrect",
+    "clear": "Effacer",
+    "delete": "Supprimer",
+    "verifying": "Vérification..."
   },
   "nav": {
     "title": "RedPandaium Cast",

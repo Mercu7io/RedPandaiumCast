@@ -26,21 +26,33 @@ const validPin = (import.meta.env.VITE_APP_PIN || '1234').toString();
 const isAuthenticated = ref(localStorage.getItem('jwcast_auth') === 'true');
 const pinInput = ref('');
 const pinError = ref(false);
+const isChecking = ref(false);
 
 const appendPin = (digit: string) => {
-  if (pinInput.value.length < 4) {
+  if (pinInput.value.length < 4 && !isChecking.value) {
     pinInput.value += digit;
+    pinError.value = false;
   }
-  pinError.value = false;
+};
+
+const backspacePin = () => {
+  if (pinInput.value.length > 0 && !isChecking.value) {
+    pinInput.value = pinInput.value.slice(0, -1);
+    pinError.value = false;
+  }
 };
 
 const clearPin = () => {
-  pinInput.value = '';
-  pinError.value = false;
+  if (!isChecking.value) {
+    pinInput.value = '';
+    pinError.value = false;
+  }
 };
 
 const checkPin = async () => {
+  if (isChecking.value) return;
   const entered = pinInput.value;
+  isChecking.value = true;
   try {
     const res = await fetch('/api/auth/verify', {
       method: 'POST',
@@ -52,11 +64,13 @@ const checkPin = async () => {
       if (data.success) {
         isAuthenticated.value = true;
         localStorage.setItem('jwcast_auth', 'true');
+        isChecking.value = false;
         return;
       }
     } else if (res.status === 401 || res.status === 400) {
       pinError.value = true;
       pinInput.value = '';
+      isChecking.value = false;
       return;
     }
   } catch (_) {
@@ -64,6 +78,7 @@ const checkPin = async () => {
     if (entered === validPin) {
       isAuthenticated.value = true;
       localStorage.setItem('jwcast_auth', 'true');
+      isChecking.value = false;
       return;
     }
   }
@@ -75,11 +90,27 @@ const checkPin = async () => {
     pinError.value = true;
     pinInput.value = '';
   }
+  isChecking.value = false;
+};
+
+// Physical keyboard listener for digits, backspace, and escape
+const handleAuthKeyDown = (e: KeyboardEvent) => {
+  if (isAuthenticated.value) return;
+  if (/^[0-9]$/.test(e.key)) {
+    e.preventDefault();
+    appendPin(e.key);
+  } else if (e.key === 'Backspace') {
+    e.preventDefault();
+    backspacePin();
+  } else if (e.key === 'Escape' || e.key === 'Delete') {
+    e.preventDefault();
+    clearPin();
+  }
 };
 
 watch(pinInput, (val) => {
   if (val.length === 4) {
-    setTimeout(checkPin, 150);
+    setTimeout(checkPin, 100);
   }
 });
 
@@ -145,6 +176,7 @@ onMounted(async () => {
   store.initPwa();
   theme.global.name.value = store.effectiveTheme;
   window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keydown', handleAuthKeyDown);
 
   const initialLang = (route.params.language as string) || store.siteLanguage || 'en';
   store.setSiteLanguage(initialLang);
@@ -172,6 +204,7 @@ watch(() => store.effectiveTheme, (newTheme) => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('keydown', handleAuthKeyDown);
 });
 
 const translations = computed(() => store.translations);
@@ -201,50 +234,114 @@ const onHeroCast = async (video: Video) => {
   <v-app :theme="store.effectiveTheme">
     <!-- LOGIN SCREEN (Adaptive Glass Aesthetic) -->
     <v-main v-if="!isAuthenticated" class="auth-wrapper d-flex align-center justify-center fill-height">
-      <div class="auth-card pa-8 text-center">
+      <div class="auth-card pa-8 text-center" :class="{ 'auth-card--shake': pinError }">
         <!-- Logo Header -->
-        <div class="d-flex align-center justify-center mb-4">
-          <v-icon size="40" color="primary" class="mr-2">mdi-paw</v-icon>
+        <div class="d-flex align-center justify-center mb-3">
+          <v-icon size="36" color="primary" class="mr-2">mdi-paw</v-icon>
           <span class="auth-brand">RedPandaium <span class="brand-accent">CAST</span></span>
         </div>
 
-        <h2 class="text-h6 font-weight-bold mb-6 text-grey-lighten-1">{{ $t('auth.enterPin') }}</h2>
+        <h2 class="text-subtitle-1 font-weight-medium mb-6 text-grey-lighten-1">{{ $t('auth.enterPin') }}</h2>
 
         <!-- PIN Display Dots -->
-        <div class="d-flex justify-center mb-6">
+        <div class="pin-dots-container mb-4">
           <div
             v-for="i in 4"
             :key="i"
             class="pin-dot mx-2"
-            :class="{ 'pin-dot--filled': pinInput.length >= i }"
+            :class="{
+              'pin-dot--filled': pinInput.length >= i,
+              'pin-dot--checking': isChecking && pinInput.length >= i,
+              'pin-dot--error': pinError
+            }"
           ></div>
         </div>
 
-        <!-- Error Message Space -->
-        <div class="text-error text-caption font-weight-bold mb-4" style="height: 20px;">
-          <span v-if="pinError" class="text-uppercase tracking-wider">{{ $t('auth.incorrectPin') }}</span>
+        <!-- Status / Error Message Space -->
+        <div class="auth-status-space mb-5">
+          <span v-if="pinError" class="auth-status-msg text-error">
+            <v-icon size="14" class="mr-1">mdi-alert-circle</v-icon>
+            {{ $t('auth.incorrectPin') }}
+          </span>
+          <span v-else-if="isChecking" class="auth-status-msg text-grey">
+            <v-progress-circular indeterminate size="12" width="2" class="mr-1"></v-progress-circular>
+            {{ $t('auth.verifying') }}
+          </span>
         </div>
 
-        <!-- Interactive Dialpad -->
+        <!-- Balanced 3x4 Dialpad Grid -->
         <div class="dialpad-grid">
-          <v-row dense justify="center">
-            <v-col cols="4" v-for="n in 9" :key="n">
-              <button class="dialpad-btn" type="button" @click="appendPin(n.toString())">
-                {{ n }}
-              </button>
-            </v-col>
-            <v-col cols="4">
-              <button class="dialpad-btn dialpad-btn--action" type="button" @click="clearPin" aria-label="Clear PIN">
-                <v-icon size="22">mdi-backspace-outline</v-icon>
-              </button>
-            </v-col>
-            <v-col cols="4">
-              <button class="dialpad-btn" type="button" @click="appendPin('0')">
-                0
-              </button>
-            </v-col>
-            <v-col cols="4"></v-col>
-          </v-row>
+          <div class="dialpad-row">
+            <button
+              v-for="n in ['1', '2', '3']"
+              :key="n"
+              class="dialpad-btn"
+              type="button"
+              @click="appendPin(n)"
+              :disabled="isChecking"
+            >
+              {{ n }}
+            </button>
+          </div>
+          <div class="dialpad-row">
+            <button
+              v-for="n in ['4', '5', '6']"
+              :key="n"
+              class="dialpad-btn"
+              type="button"
+              @click="appendPin(n)"
+              :disabled="isChecking"
+            >
+              {{ n }}
+            </button>
+          </div>
+          <div class="dialpad-row">
+            <button
+              v-for="n in ['7', '8', '9']"
+              :key="n"
+              class="dialpad-btn"
+              type="button"
+              @click="appendPin(n)"
+              :disabled="isChecking"
+            >
+              {{ n }}
+            </button>
+          </div>
+          <div class="dialpad-row">
+            <!-- Clear Button -->
+            <button
+              class="dialpad-btn dialpad-btn--subtle"
+              type="button"
+              @click="clearPin"
+              :title="$t('auth.clear')"
+              :aria-label="$t('auth.clear')"
+              :disabled="isChecking || pinInput.length === 0"
+            >
+              <v-icon size="20">mdi-close</v-icon>
+            </button>
+
+            <!-- 0 Button -->
+            <button
+              class="dialpad-btn"
+              type="button"
+              @click="appendPin('0')"
+              :disabled="isChecking"
+            >
+              0
+            </button>
+
+            <!-- Backspace Button -->
+            <button
+              class="dialpad-btn dialpad-btn--action"
+              type="button"
+              @click="backspacePin"
+              :title="$t('auth.delete')"
+              :aria-label="$t('auth.delete')"
+              :disabled="isChecking || pinInput.length === 0"
+            >
+              <v-icon size="22">mdi-backspace-outline</v-icon>
+            </button>
+          </div>
         </div>
       </div>
     </v-main>
@@ -589,81 +686,153 @@ body, html {
 /* AUTH LOGIN CARD */
 .auth-wrapper {
   background: var(--app-auth-bg);
+  min-height: 100vh;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
   background: var(--app-auth-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border: 1px solid var(--app-card-border);
   border-radius: 28px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-card--shake {
+  animation: card-shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes card-shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
 }
 
 .auth-brand {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--app-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.pin-dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
 }
 
 .pin-dot {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--app-input-bg);
-  border: 1px solid var(--app-input-border);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pin-dot--filled {
   background: #FF4757;
   border-color: #FF4757;
-  box-shadow: 0 0 14px #FF4757;
-  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(255, 71, 87, 0.65);
+  transform: scale(1.2);
+}
+
+.pin-dot--checking {
+  animation: dot-pulse 0.8s infinite alternate;
+}
+
+@keyframes dot-pulse {
+  from { opacity: 0.6; transform: scale(1); }
+  to { opacity: 1; transform: scale(1.25); }
+}
+
+.pin-dot--error {
+  background: #EF4444 !important;
+  border-color: #EF4444 !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important;
+}
+
+.auth-status-space {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-status-msg {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
 }
 
 .dialpad-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   max-width: 250px;
   margin: 0 auto;
 }
 
+.dialpad-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .dialpad-btn {
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   background: var(--app-dialpad-btn);
   border: 1px solid var(--app-dialpad-border);
   color: var(--app-text-primary);
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.18s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  touch-action: manipulation;
 }
 
-.dialpad-btn:hover {
-  background: rgba(255, 71, 87, 0.2);
-  border-color: rgba(255, 71, 87, 0.4);
+.dialpad-btn:hover:not(:disabled) {
+  background: rgba(255, 71, 87, 0.18);
+  border-color: rgba(255, 71, 87, 0.45);
   color: #FF4757;
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(255, 71, 87, 0.2);
 }
 
-.dialpad-btn:active {
-  transform: scale(0.95);
+.dialpad-btn:active:not(:disabled) {
+  transform: scale(0.94);
   background: #FF4757;
   color: #FFFFFF;
+}
+
+.dialpad-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.dialpad-btn--subtle {
+  color: var(--app-text-secondary);
 }
 
 .dialpad-btn--action {
   color: #FF6B81;
 }
 
-.dialpad-btn--action:hover {
+.dialpad-btn--action:hover:not(:disabled) {
   background: rgba(255, 71, 87, 0.25);
 }
 </style>

@@ -86,6 +86,16 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vuetify: ['vuetify'],
+          vendor: ['vue', 'vue-router', 'pinia', 'vue-i18n', 'axios'],
+        },
+      },
+    },
+  },
   server: {
     proxy: {
       '/api': {

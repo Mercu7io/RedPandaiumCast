@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const compression = require('compression');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -66,6 +67,7 @@ console.error = function () {
 
 const app = express();
 app.set('trust proxy', 1);
+app.use(compression());
 app.use(cors());
 app.use(express.json());
 
@@ -135,7 +137,7 @@ function pruneExpiredSubtitleCache() {
 
 // Prune on startup and every 15 minutes
 pruneExpiredSubtitleCache();
-setInterval(pruneExpiredSubtitleCache, 15 * 60 * 1000);
+setInterval(pruneExpiredSubtitleCache, 15 * 60 * 1000).unref();
 
 const aiRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
@@ -889,11 +891,24 @@ if (fs.existsSync(publicDir)) {
 }
 
 if (staticPath) {
-  app.use(express.static(staticPath));
+  app.use(express.static(staticPath, {
+    maxAge: '1y',
+    immutable: true,
+    setHeaders: (res, filePath) => {
+      if (
+        filePath.endsWith('.html') ||
+        filePath.endsWith('sw.js') ||
+        filePath.endsWith('.webmanifest')
+      ) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      }
+    }
+  }));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api')) {
       return next();
     }
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.join(staticPath, 'index.html'));
   });
 }

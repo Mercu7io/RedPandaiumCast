@@ -65,12 +65,15 @@ export function extractBestImageUrl(images: any, preferThumbnail: boolean = fals
   if (!images) return '';
   if (preferThumbnail) {
     return (
-      images.lsr?.sm ||
       images.lsr?.md ||
+      images.lsr?.sm ||
+      images.sqr?.md ||
       images.sqr?.sm ||
+      images.pnr?.md ||
       images.pnr?.sm ||
       images.lsr?.lg ||
       images.wss?.lg ||
+      images.lsr?.xl ||
       ''
     );
   }
@@ -80,19 +83,20 @@ export function extractBestImageUrl(images: any, preferThumbnail: boolean = fals
     images.wss?.lg ||
     images.pnr?.lg ||
     images.sqr?.lg ||
+    images.lsr?.md ||
     images.lsr?.sm ||
     ''
   );
 }
 
-export function formatMediaNodeToVideo(m: any): Video {
+export function formatMediaNodeToVideo(m: any, preferThumbnail: boolean = true): Video {
   return {
     lank: m.languageAgnosticNaturalKey || m.naturalKey || m.lank || '',
     title: m.title || '',
     description: m.description || '',
     images: {
       lsr: {
-        lg: extractBestImageUrl(m.images),
+        lg: extractBestImageUrl(m.images, preferThumbnail),
       },
     },
     url: m.shareUrl || '',
@@ -236,6 +240,17 @@ export const mediatorService = {
     const cached = getCached<Video[]>(cacheKey);
     if (cached) return cached;
 
+    // If limit > 0, check if the full category (limit = 0) is already cached
+    if (limit > 0) {
+      const fullKey = `cat_media_${categoryName}_${langCode}_0_${mediatorUrl}`;
+      const fullCached = getCached<Video[]>(fullKey);
+      if (fullCached && fullCached.length >= limit) {
+        const sliced = fullCached.slice(0, limit);
+        setCached(cacheKey, sliced, TTL_CATEGORY_MS);
+        return sliced;
+      }
+    }
+
     return deduplicateRequest(cacheKey, async () => {
       try {
         // Reuse cached category details if already fetched
@@ -277,7 +292,7 @@ export const mediatorService = {
 
           const mediaArrays = await Promise.all(subPromises);
           const rawMedia = mediaArrays.flat();
-          let formatted = rawMedia.map(formatMediaNodeToVideo);
+          let formatted = rawMedia.map((m: any) => formatMediaNodeToVideo(m));
           if (limit > 0) {
             formatted = formatted.slice(0, limit);
           }
@@ -287,7 +302,12 @@ export const mediatorService = {
 
         // If category is ondemand with direct media
         const rawMedia = category?.media || [];
-        let formatted = rawMedia.map(formatMediaNodeToVideo);
+        const formattedFull = rawMedia.map((m: any) => formatMediaNodeToVideo(m));
+        // Cache full array under limit = 0 to serve subsequent sliced/limited queries immediately
+        const fullKey = `cat_media_${categoryName}_${langCode}_0_${mediatorUrl}`;
+        setCached(fullKey, formattedFull, TTL_CATEGORY_MS);
+
+        let formatted = formattedFull;
         if (limit > 0) {
           formatted = formatted.slice(0, limit);
         }

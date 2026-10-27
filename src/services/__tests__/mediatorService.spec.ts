@@ -145,4 +145,41 @@ describe('mediatorService unit tests', () => {
     expect(res3).toHaveLength(1);
     expect(axiosSpy).toHaveBeenCalledTimes(1);
   });
+
+  it('extractBestImageUrl selects thumbnail resolution when preferThumbnail is true and high-res when false', () => {
+    const multiResImages = {
+      lsr: { xl: 'https://cdn/xl.jpg', lg: 'https://cdn/lg.jpg', md: 'https://cdn/md.jpg', sm: 'https://cdn/sm.jpg' }
+    };
+    expect(extractBestImageUrl(multiResImages, true)).toBe('https://cdn/md.jpg');
+    expect(extractBestImageUrl(multiResImages, false)).toBe('https://cdn/xl.jpg');
+  });
+
+  it('cross-limit caching serves smaller limit from existing full cached category without extra HTTP request', async () => {
+    const axiosSpy = vi.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: {
+        category: {
+          type: 'ondemand',
+          name: 'Latest Videos',
+          media: [
+            { naturalKey: 'vid_1', title: 'Video 1', images: { lsr: { md: 'https://cdn/v1.jpg' } } },
+            { naturalKey: 'vid_2', title: 'Video 2', images: { lsr: { md: 'https://cdn/v2.jpg' } } },
+            { naturalKey: 'vid_3', title: 'Video 3', images: { lsr: { md: 'https://cdn/v3.jpg' } } },
+            { naturalKey: 'vid_4', title: 'Video 4', images: { lsr: { md: 'https://cdn/v4.jpg' } } }
+          ]
+        }
+      }
+    });
+
+    // 1. Fetch full category (limit = 0)
+    const allVideos = await mediatorService.fetchCategoryMedia('LatestVideos', 'E', 0);
+    expect(allVideos).toHaveLength(4);
+    expect(axiosSpy).toHaveBeenCalledTimes(1);
+
+    // 2. Fetch with limit = 2 (should be sliced from cached full category with 0 additional HTTP calls)
+    const limitedVideos = await mediatorService.fetchCategoryMedia('LatestVideos', 'E', 2);
+    expect(limitedVideos).toHaveLength(2);
+    expect(limitedVideos[0].lank).toBe('vid_1');
+    expect(limitedVideos[1].lank).toBe('vid_2');
+    expect(axiosSpy).toHaveBeenCalledTimes(1);
+  });
 });

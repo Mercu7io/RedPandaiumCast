@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from 'vue';
+import { onMounted, onBeforeUnmount, ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAppStore } from '@/store/app';
 import { Video } from '@/types';
@@ -21,6 +21,13 @@ const loading = ref(true);
 const subcategories = ref<{ key: string; name: string }[]>([]);
 const selectedSubcategory = ref<string>('all');
 const remoteTitle = ref<string>('');
+
+const sectionRef = ref<HTMLElement | null>(null);
+const isVisible = ref(
+  props.categoryName === 'LatestVideos' ||
+  props.categoryName === 'favorites'
+);
+let observer: IntersectionObserver | null = null;
 
 const fetchVideos = async () => {
   loading.value = true;
@@ -61,7 +68,7 @@ const fetchVideos = async () => {
       Array.isArray(details?.media) &&
       details.media.length > 0
     ) {
-      let formatted = details.media.map(formatMediaNodeToVideo);
+      let formatted = details.media.map((m: any) => formatMediaNodeToVideo(m));
       if (props.limit > 0) {
         formatted = formatted.slice(0, props.limit);
       }
@@ -109,16 +116,58 @@ const subtitlesVideo = (video: Video) => {
   store.setVideoDialog(true);
 };
 
-onMounted(fetchVideos);
+onMounted(() => {
+  if (isVisible.value || typeof IntersectionObserver === 'undefined') {
+    isVisible.value = true;
+    fetchVideos();
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      if (entry && (entry.isIntersecting || entry.intersectionRatio > 0)) {
+        isVisible.value = true;
+        fetchVideos();
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+      }
+    },
+    {
+      rootMargin: '300px 0px',
+      threshold: 0.01,
+    }
+  );
+
+  if (sectionRef.value) {
+    observer.observe(sectionRef.value);
+  } else {
+    isVisible.value = true;
+    fetchVideos();
+  }
+});
+
+onBeforeUnmount(() => {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+});
 
 // Ensure reactivity for both categoryName and siteLanguage
 watch(() => props.categoryName, () => {
   selectedSubcategory.value = 'all';
-  fetchVideos();
+  if (isVisible.value) {
+    fetchVideos();
+  }
 });
 
 watch(() => store.siteLanguage, () => {
-  fetchVideos();
+  if (isVisible.value) {
+    fetchVideos();
+  }
 });
 
 const displayTitle = computed(() => {
@@ -152,7 +201,7 @@ const displayTitle = computed(() => {
 </script>
 
 <template>
-  <section class="category-section mb-10" :id="`cat-${categoryName}`">
+  <section ref="sectionRef" class="category-section mb-10" :id="`cat-${categoryName}`">
     <!-- Header -->
     <div class="category-section__header mb-4">
       <div class="d-flex align-center flex-wrap">
@@ -189,8 +238,8 @@ const displayTitle = computed(() => {
       </button>
     </div>
 
-    <!-- Skeleton Loading -->
-    <v-row v-if="loading">
+    <!-- Skeleton Loading or Before Visible -->
+    <v-row v-if="loading || !isVisible">
       <v-col v-for="i in (limit > 0 ? limit : 3)" :key="i" cols="12" sm="6" md="4" lg="4">
         <v-skeleton-loader type="card" class="rounded-xl" height="280"></v-skeleton-loader>
       </v-col>

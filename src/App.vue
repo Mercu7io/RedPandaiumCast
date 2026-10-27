@@ -146,14 +146,13 @@ onMounted(async () => {
   theme.global.name.value = store.effectiveTheme;
   window.addEventListener('keydown', handleKeyDown);
 
-  await fetchLanguages();
-  if (route.params.language) {
-    store.setSiteLanguage(route.params.language as string);
-    setAppLocale(route.params.language as string);
-  } else {
-    setAppLocale(store.siteLanguage);
-  }
-  await fetchTranslations();
+  const initialLang = (route.params.language as string) || store.siteLanguage || 'en';
+  store.setSiteLanguage(initialLang);
+  setAppLocale(initialLang);
+
+  // Fetch translations and full language list in parallel without blocking initial paint
+  fetchTranslations();
+  fetchLanguages();
 
   if (!store.isPwa) {
     try {

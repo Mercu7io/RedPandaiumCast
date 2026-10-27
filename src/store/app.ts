@@ -28,11 +28,23 @@ const getInitialFavorites = (): Video[] => {
   }
 };
 
+export const DEFAULT_POPULAR_LANGUAGES: Language[] = [
+  { code: 'E', locale: 'en', name: 'English', vernacular: 'English' },
+  { code: 'O', locale: 'nl', name: 'Nederlands', vernacular: 'Nederlands' },
+  { code: 'F', locale: 'fr', name: 'Français', vernacular: 'Français' },
+  { code: 'S', locale: 'es', name: 'Español', vernacular: 'Español' },
+  { code: 'X', locale: 'de', name: 'Deutsch', vernacular: 'Deutsch' },
+  { code: 'I', locale: 'it', name: 'Italiano', vernacular: 'Italiano' },
+  { code: 'P', locale: 'pl', name: 'Polski', vernacular: 'Polski' },
+  { code: 'T', locale: 'pt', name: 'Português', vernacular: 'Português' },
+  { code: 'U', locale: 'ru', name: 'Русский', vernacular: 'Русский' },
+];
+
 const initialIsPwa = typeof window !== 'undefined' ? isPwaMode() : false;
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    languages: [] as Language[],
+    languages: [...DEFAULT_POPULAR_LANGUAGES] as Language[],
     translations: {} as Translations,
     siteLanguage: 'en',
     videoLanguage: typeof localStorage !== 'undefined' ? localStorage.getItem(LS_VIDEO_LANG) || 'en' : 'en',
